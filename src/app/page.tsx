@@ -1,12 +1,15 @@
-import Image from "next/image";
 import Link from "next/link";
+import ServicesSection from "../components/home/ServicesSection";
+import AboutSection from "../components/home/AboutSection";
+import FeaturedWork from "../components/home/FeaturedWork";
+import WhyMauli from "../components/home/WhyMauli";
+import FinalCTA from "../components/home/FinalCTA";
 
 export default function Home() {
   return (
     <main className="bg-[#fbf9f6] text-[#1b1c1a]">
       {/* Hero */}
       <section className="grid min-h-[calc(100vh-80px)] grid-cols-1 items-center gap-10 px-6 py-12 md:grid-cols-12 md:gap-8 md:px-16 md:py-20">
-        
         {/* Content */}
         <div className="order-2 flex flex-col gap-7 md:order-1 md:col-span-5">
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#805533]">
@@ -41,20 +44,33 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Hero Image */}
+        {/* Hero Placeholder */}
         <div className="order-1 md:order-2 md:col-span-7">
-          <div className="relative h-[55vh] min-h-[420px] w-full overflow-hidden md:h-[70vh]">
-            <Image
-              src="/images/home/hero.jpg"
-              alt="Beautifully furnished living room by Mauli Interior"
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, 58vw"
-              className="object-cover"
-            />
+          <div className="relative h-[55vh] min-h-[420px] w-full overflow-hidden md:h-[70vh] bg-[#e9e5df] flex items-center justify-center">
+            <div className="grid grid-cols-2 gap-2 w-3/4 h-3/4">
+              <div className="bg-[#d5cec4]" />
+              <div className="bg-[#c4bdb3]" />
+              <div className="bg-[#b0a89d]" />
+              <div className="bg-[#9e978c]" />
+            </div>
           </div>
         </div>
       </section>
+
+      {/* Services */}
+      <ServicesSection />
+
+      {/* About */}
+      <AboutSection />
+
+      {/* Featured Work */}
+      <FeaturedWork />
+
+      {/* Why Mauli */}
+      <WhyMauli />
+
+      {/* Final CTA */}
+      <FinalCTA />
     </main>
   );
-}
+}
