@@ -11,6 +11,7 @@ const navLinks = [
   { label: "3D Studio", href: "/3d-studio" },
   { label: "Projects", href: "/projects" },
   { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
@@ -36,7 +37,7 @@ export default function Navbar() {
           </Link>
 
           {/* Navigation */}
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-7">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -128,6 +129,7 @@ export default function Navbar() {
             </Link>
           ))}
 
+          {/* Mobile CTA */}
           <Link
             href="/contact"
             onClick={() => setIsOpen(false)}
