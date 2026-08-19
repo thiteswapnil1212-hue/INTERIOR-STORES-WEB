@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import ServicesSection from "../components/home/ServicesSection";
 import AboutSection from "../components/home/AboutSection";
 import FeaturedWork from "../components/home/FeaturedWork";
@@ -44,15 +45,17 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Hero Placeholder */}
+        {/* Hero Image */}
         <div className="order-1 md:order-2 md:col-span-7">
-          <div className="relative h-[55vh] min-h-[420px] w-full overflow-hidden md:h-[70vh] bg-[#e9e5df] flex items-center justify-center">
-            <div className="grid grid-cols-2 gap-2 w-3/4 h-3/4">
-              <div className="bg-[#d5cec4]" />
-              <div className="bg-[#c4bdb3]" />
-              <div className="bg-[#b0a89d]" />
-              <div className="bg-[#9e978c]" />
-            </div>
+          <div className="relative h-[55vh] min-h-[420px] w-full overflow-hidden md:h-[70vh]">
+            <Image
+              src="/images/home/hero.jpg"
+              alt="Beautifully furnished living room by Mauli Interior"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 58vw"
+              className="object-cover"
+            />
           </div>
         </div>
       </section>
