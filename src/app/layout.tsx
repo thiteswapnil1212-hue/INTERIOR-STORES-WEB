@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "../components/layout/Navbar";
 
+const siteUrl = "https://mauliinterior-stores-web.vercel.app";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mauliinterior.com"),
+  metadataBase: new URL(siteUrl),
 
   title: {
     default: "Mauli Interior | Custom Sofas & Home Furnishing in Pune",
@@ -16,20 +18,20 @@ export const metadata: Metadata = {
   keywords: [
     "Mauli Interior",
     "custom sofas in Pune",
-    "sofa manufacturer in Pune",
-    "custom sofa Bhosari",
+    "custom sofa Pune",
+    "sofa manufacturer Pune",
+    "sofa manufacturer Bhosari",
     "custom furniture Pune",
     "home furnishing Pune",
+    "home furnishing PCMC",
     "curtains Pune",
     "custom beds Pune",
     "mattresses Pune",
-    "cushions Pune",
+    "custom cushions Pune",
     "wall panels Pune",
     "bed panels Pune",
-    "interior furnishing Pune",
     "furniture Bhosari",
     "furniture Moshi",
-    "home furnishing PCMC",
   ],
 
   authors: [
@@ -41,9 +43,18 @@ export const metadata: Metadata = {
   creator: "Mauli Interior",
   publisher: "Mauli Interior",
 
+  applicationName: "Mauli Interior",
+
+  category: "Home Furnishing",
+
+  alternates: {
+    canonical: siteUrl,
+  },
+
   robots: {
     index: true,
     follow: true,
+
     googleBot: {
       index: true,
       follow: true,
@@ -55,22 +66,23 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
+    url: siteUrl,
     locale: "en_IN",
     siteName: "Mauli Interior",
+
     title: "Mauli Interior | Custom Sofas & Home Furnishing in Pune",
+
     description:
-      "Custom sofas, curtains, beds, mattresses, cushions and wall panels in Pune, PCMC, Bhosari and Moshi.",
+      "Custom sofas, curtains, beds, mattresses, cushions and wall panels for homes across Pune, PCMC, Bhosari and Moshi.",
   },
 
   twitter: {
     card: "summary_large_image",
+
     title: "Mauli Interior | Custom Sofas & Home Furnishing in Pune",
+
     description:
       "Custom sofas and home furnishing services across Pune, PCMC, Bhosari and Moshi.",
-  },
-
-  alternates: {
-    canonical: "/",
   },
 };
 
