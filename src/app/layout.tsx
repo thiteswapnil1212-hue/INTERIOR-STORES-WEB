@@ -47,6 +47,10 @@ export const metadata: Metadata = {
 
   category: "Home Furnishing",
 
+  verification: {
+    google: "LcyAJt9BmZijUliyiotG_GuaVDetCm_KdFAMkJ9P2hA",
+  },
+
   alternates: {
     canonical: siteUrl,
   },
