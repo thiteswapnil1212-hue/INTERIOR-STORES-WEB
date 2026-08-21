@@ -1,8 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import StudioViewer from "../../components/studio/StudioViewer";
+import dynamic from "next/dynamic";
 import StudioControls from "../../components/studio/StudioControls";
+
+const StudioViewer = dynamic(() => import("../../components/studio/StudioViewer"), {
+  ssr: false,
+});
 
 export type FurnitureType = "sofa" | "bed" | "wall_panel";
 export type ConfigType = "2_seater" | "3_seater" | "l_shape" | "custom";
@@ -47,7 +51,7 @@ export default function StudioPage() {
       <main className="flex-1 flex flex-col lg:flex-row min-h-0 overflow-hidden max-w-[1600px] mx-auto w-full">
         
         {/* 3D Viewer Area (Left, 70-75%) */}
-        <div className="flex-1 relative lg:w-[75%] min-h-[50vh] lg:min-h-0 bg-[#e9e4dc]">
+        <div className="flex-1 relative lg:w-[75%] min-h-[600px] bg-[#e9e4dc]">
           <StudioViewer furniture={furniture} fabricHex={fabric.hex} config={config} />
         </div>
 
