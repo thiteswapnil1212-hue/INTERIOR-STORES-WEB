@@ -1,122 +1,74 @@
-"use client";
+import React from "react";
+import { FurnitureSelector } from "./FurnitureSelector";
+import { MaterialSelector } from "./MaterialSelector";
+import { FurnitureType, ConfigType, FabricType, FABRICS } from "../../app/3d-studio/page";
 
-import { RotateCcw } from "lucide-react";
-import FurnitureSelector from "./FurnitureSelector";
-import MaterialSelector from "./MaterialSelector";
-
-type FurnitureType = "sofa" | "bed" | "panel";
-
-type Material = {
-  id: string;
-  name: string;
-  color: string;
-};
-
-type StudioControlsProps = {
+interface StudioControlsProps {
   furniture: FurnitureType;
-  material: string;
-  onFurnitureChange: (type: FurnitureType) => void;
-  onMaterialChange: (material: Material) => void;
-  onReset: () => void;
-};
+  config: ConfigType;
+  fabric: FabricType;
+  onFurnitureChange: (f: FurnitureType) => void;
+  onConfigChange: (c: ConfigType) => void;
+  onFabricChange: (f: FabricType) => void;
+}
 
 export default function StudioControls({
   furniture,
-  material,
+  config,
+  fabric,
   onFurnitureChange,
-  onMaterialChange,
-  onReset,
+  onConfigChange,
+  onFabricChange,
 }: StudioControlsProps) {
   return (
-    <aside className="flex w-full flex-col border-l border-[#747878]/15 bg-[#fbf9f6] lg:w-[360px]">
-      {/* Header */}
-      <div className="border-b border-[#747878]/15 px-6 py-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#805533]">
-              Customize
-            </p>
-
-            <h2 className="mt-2 font-serif text-2xl text-[#1b1c1a]">
-              Your space
-            </h2>
-          </div>
-
-          <button
-            type="button"
-            onClick={onReset}
-            aria-label="Reset customization"
-            title="Reset"
-            className="flex h-9 w-9 items-center justify-center border border-[#747878]/20 text-[#5c5e5c] transition-colors hover:border-[#1b1c1a] hover:text-[#1b1c1a]"
-          >
-            <RotateCcw size={15} strokeWidth={1.6} />
-          </button>
-        </div>
+    <div className="flex flex-col h-full divide-y divide-black/10">
+      <div className="p-6 lg:p-8 space-y-6 flex-none">
+        <FurnitureSelector selected={furniture} onSelect={onFurnitureChange} />
       </div>
 
-      {/* Controls */}
-      <div className="flex-1 space-y-10 px-6 py-7">
-        <FurnitureSelector
-          selected={furniture}
-          onChange={onFurnitureChange}
-        />
-
-        <MaterialSelector
-          selected={material}
-          onChange={onMaterialChange}
-        />
-
-        {/* Configuration */}
-        <div>
-          <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#747878]">
+      <div className="p-6 lg:p-8 space-y-6 flex-none">
+        <div className="space-y-4">
+          <h3 className="text-[11px] font-semibold tracking-[0.15em] text-[#1b1c1a]/60 uppercase">
             Configuration
-          </p>
-
+          </h3>
           <div className="grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              className="border border-[#1b1c1a] bg-[#f1ede7] px-4 py-3 text-xs text-[#1b1c1a]"
-            >
-              2 Seater
-            </button>
-
-            <button
-              type="button"
-              className="border border-[#747878]/15 px-4 py-3 text-xs text-[#5c5e5c] transition-colors hover:border-[#747878]/40"
-            >
-              3 Seater
-            </button>
-
-            <button
-              type="button"
-              className="border border-[#747878]/15 px-4 py-3 text-xs text-[#5c5e5c] transition-colors hover:border-[#747878]/40"
-            >
-              L-Shape
-            </button>
-
-            <button
-              type="button"
-              className="border border-[#747878]/15 px-4 py-3 text-xs text-[#5c5e5c] transition-colors hover:border-[#747878]/40"
-            >
-              Custom
-            </button>
+            {[
+              { id: "2_seater", label: "2 Seater" },
+              { id: "3_seater", label: "3 Seater" },
+              { id: "l_shape", label: "L-Shape" },
+              { id: "custom", label: "Custom" },
+            ].map((opt) => (
+              <button
+                key={opt.id}
+                onClick={() => onConfigChange(opt.id as ConfigType)}
+                className={`py-3 px-2 text-sm text-center border transition-all duration-300 ${
+                  config === opt.id
+                    ? "border-[#805533] bg-[#805533] text-white font-medium shadow-md"
+                    : "border-black/10 bg-white text-[#1b1c1a] hover:border-black/30 hover:bg-black/5"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Bottom CTA */}
-      <div className="border-t border-[#747878]/15 p-6">
-        <a
-          href="/contact"
-          className="group flex w-full items-center justify-between bg-[#1b1c1a] px-5 py-4 text-[10px] font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-[#805533]"
-        >
-          <span>Get this design</span>
-
-          <span className="text-base transition-transform duration-200 group-hover:translate-x-1">
-            →
-          </span>
-        </a>
+      <div className="p-6 lg:p-8 space-y-6 flex-1">
+        <MaterialSelector fabrics={FABRICS} selected={fabric} onSelect={onFabricChange} />
       </div>
-    </aside>
+
+      <div className="p-6 lg:p-8 bg-[#fbf9f6] sticky bottom-0 border-t border-black/10 flex-none">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <p className="text-xs text-[#1b1c1a]/60 uppercase tracking-widest">Total Estimate</p>
+            <p className="text-xl font-serif mt-1">From £2,450</p>
+          </div>
+        </div>
+        <button className="w-full py-4 bg-[#1b1c1a] text-white text-sm font-medium tracking-wide uppercase hover:bg-[#805533] transition-colors duration-300">
+          Enquire Now
+        </button>
+      </div>
+    </div>
   );
 }
