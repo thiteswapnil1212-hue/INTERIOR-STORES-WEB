@@ -1,80 +1,41 @@
-"use client";
+import React from "react";
+import { FabricType } from "../../app/3d-studio/page";
 
-type Material = {
-  id: string;
-  name: string;
-  color: string;
-};
+interface MaterialSelectorProps {
+  fabrics: FabricType[];
+  selected: FabricType;
+  onSelect: (fabric: FabricType) => void;
+}
 
-type MaterialSelectorProps = {
-  selected: string;
-  onChange: (material: Material) => void;
-};
-
-const materials: Material[] = [
-  {
-    id: "beige",
-    name: "Warm Beige",
-    color: "#c8b8a4",
-  },
-  {
-    id: "stone",
-    name: "Stone",
-    color: "#aaa39a",
-  },
-  {
-    id: "charcoal",
-    name: "Charcoal",
-    color: "#4b4a46",
-  },
-  {
-    id: "olive",
-    name: "Olive",
-    color: "#777661",
-  },
-  {
-    id: "terracotta",
-    name: "Terracotta",
-    color: "#9b6650",
-  },
-];
-
-export default function MaterialSelector({
-  selected,
-  onChange,
-}: MaterialSelectorProps) {
+export function MaterialSelector({ fabrics, selected, onSelect }: MaterialSelectorProps) {
   return (
-    <div>
-      <div className="mb-4 flex items-center justify-between">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#747878]">
-          Fabric
-        </p>
-
-        <span className="text-[10px] text-[#8b8d89]">
-          {materials.find((item) => item.id === selected)?.name}
-        </span>
+    <div className="space-y-4">
+      <div className="flex justify-between items-end">
+        <h3 className="text-[11px] font-semibold tracking-[0.15em] text-[#1b1c1a]/60 uppercase">
+          Fabric Color
+        </h3>
+        <span className="text-sm font-medium text-[#805533]">{selected.name}</span>
       </div>
-
+      
       <div className="flex flex-wrap gap-3">
-        {materials.map((material) => {
-          const isSelected = selected === material.id;
-
-          return (
-            <button
-              key={material.id}
-              type="button"
-              aria-label={material.name}
-              title={material.name}
-              onClick={() => onChange(material)}
-              className={`h-9 w-9 rounded-full border-2 transition-transform duration-200 hover:scale-110 ${
-                isSelected
-                  ? "border-[#1b1c1a] ring-2 ring-[#1b1c1a]/10"
-                  : "border-[#747878]/20"
-              }`}
-              style={{ backgroundColor: material.color }}
-            />
-          );
-        })}
+        {fabrics.map((fabric) => (
+          <button
+            key={fabric.id}
+            onClick={() => onSelect(fabric)}
+            className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm ${
+              selected.id === fabric.id
+                ? "ring-2 ring-offset-2 ring-[#805533] scale-110"
+                : "ring-1 ring-black/10 hover:scale-105 hover:ring-black/30"
+            }`}
+            style={{ backgroundColor: fabric.hex }}
+            title={fabric.name}
+            aria-label={`Select ${fabric.name} fabric`}
+          >
+            {selected.id === fabric.id && (
+              <span className="w-2 h-2 rounded-full bg-white/80 shadow-sm" />
+            )}
+          </button>
+        ))}
       </div>
     </div>
   );
