@@ -1,53 +1,37 @@
-"use client";
+import React from "react";
+import { FurnitureType } from "../../app/3d-studio/page";
 
-type FurnitureType = "sofa" | "bed" | "panel";
-
-type FurnitureSelectorProps = {
+interface FurnitureSelectorProps {
   selected: FurnitureType;
-  onChange: (type: FurnitureType) => void;
-};
+  onSelect: (type: FurnitureType) => void;
+}
 
-const furniture = [
+const furnitureOptions: { id: FurnitureType; label: string }[] = [
   { id: "sofa", label: "Sofa" },
   { id: "bed", label: "Bed" },
-  { id: "panel", label: "Wall Panel" },
-] as const;
+  { id: "wall_panel", label: "Wall Panel" },
+];
 
-export default function FurnitureSelector({
-  selected,
-  onChange,
-}: FurnitureSelectorProps) {
+export function FurnitureSelector({ selected, onSelect }: FurnitureSelectorProps) {
   return (
-    <div>
-      <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#747878]">
-        Furniture
-      </p>
-
-      <div className="space-y-2">
-        {furniture.map((item) => {
-          const isSelected = selected === item.id;
-
-          return (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => onChange(item.id)}
-              className={`flex w-full items-center justify-between border px-4 py-3 text-left text-sm transition-colors ${
-                isSelected
-                  ? "border-[#1b1c1a] bg-[#f1ede7] text-[#1b1c1a]"
-                  : "border-[#747878]/15 text-[#5c5e5c] hover:border-[#747878]/40"
-              }`}
-            >
-              <span>{item.label}</span>
-
-              {isSelected && (
-                <span className="text-[10px] uppercase tracking-wider text-[#805533]">
-                  Selected
-                </span>
-              )}
-            </button>
-          );
-        })}
+    <div className="space-y-4">
+      <h3 className="text-[11px] font-semibold tracking-[0.15em] text-[#1b1c1a]/60 uppercase">
+        Furniture Type
+      </h3>
+      <div className="flex flex-col gap-2">
+        {furnitureOptions.map((opt) => (
+          <button
+            key={opt.id}
+            onClick={() => onSelect(opt.id)}
+            className={`px-4 py-3 text-left text-sm transition-all duration-300 border-l-2 ${
+              selected === opt.id
+                ? "border-[#805533] bg-[#805533]/5 text-[#805533] font-medium"
+                : "border-transparent text-[#1b1c1a] bg-white hover:bg-black/5"
+            }`}
+          >
+            {opt.label}
+          </button>
+        ))}
       </div>
     </div>
   );
