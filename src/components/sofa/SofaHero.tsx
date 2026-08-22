@@ -57,7 +57,7 @@ export default function SofaHero() {
 
       {/* Hero Image */}
       <div className="order-1 md:order-2 md:col-span-7">
-        <div className="group relative h-[55vh] min-h-[420px] w-full overflow-hidden bg-[#e9e5df] md:h-[70vh]">
+        <div className="group relative aspect-[4/5] w-full overflow-hidden bg-[#e9e5df] md:aspect-auto md:h-[70vh]">
           <Image
             src="/images/sofas/sofa-hero.jpg"
             alt="Custom-made sofa in a modern living room by Mauli Interior, Pune"
