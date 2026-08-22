@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
@@ -26,16 +27,11 @@ export default function Navbar() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // At the very top → always show
       if (currentScrollY <= 20) {
         setShowNavbar(true);
-      }
-      // Scrolling down → hide
-      else if (currentScrollY > lastScrollY) {
+      } else if (currentScrollY > lastScrollY) {
         setShowNavbar(false);
-      }
-      // Scrolling up → show
-      else if (currentScrollY < lastScrollY) {
+      } else if (currentScrollY < lastScrollY) {
         setShowNavbar(true);
       }
 
@@ -71,13 +67,20 @@ export default function Navbar() {
         }}
       >
         <nav className="mx-auto flex h-full max-w-[1440px] items-center justify-between px-16">
-
           {/* Logo */}
           <Link
             href="/"
-            className="font-serif text-2xl tracking-tight text-[#1b1c1a] transition-opacity duration-300 hover:opacity-70"
+            aria-label="Mauli Interior home"
+            className="flex shrink-0 items-center transition-opacity duration-300 hover:opacity-75"
           >
-            Mauli Interior
+            <Image
+              src="/images/brand/mauli-logo-horizontal.png"
+              alt="Mauli Interior"
+              width={180}
+              height={52}
+              priority
+              className="h-auto max-h-11 w-auto object-contain"
+            />
           </Link>
 
           {/* Navigation */}
@@ -114,7 +117,7 @@ export default function Navbar() {
       {/* ================= MOBILE NAVBAR ================= */}
 
       <header
-        className="fixed left-0 right-0 top-0 z-50 flex h-16 items-center justify-between border-b border-[#747878]/15 bg-[#fbf9f6] px-6 md:hidden"
+        className="fixed left-0 right-0 top-0 z-50 flex h-16 items-center justify-between border-b border-[#747878]/15 bg-[#fbf9f6] px-5 sm:px-6 md:hidden"
         style={{
           transform: showNavbar
             ? "translateY(0)"
@@ -123,18 +126,29 @@ export default function Navbar() {
             "transform 450ms cubic-bezier(0.22, 1, 0.36, 1)",
         }}
       >
+        {/* Mobile Logo */}
         <Link
           href="/"
-          className="font-serif text-xl tracking-tight text-[#1b1c1a]"
+          aria-label="Mauli Interior home"
+          className="flex items-center"
         >
-          Mauli Interior
+          <Image
+            src="/images/brand/mauli-logo-horizontal.png"
+            alt="Mauli Interior"
+            width={150}
+            height={44}
+            priority
+            className="h-auto max-h-9 w-auto object-contain"
+          />
         </Link>
 
+        {/* Menu Button */}
         <button
           type="button"
           onClick={() => setIsOpen(true)}
           aria-label="Open navigation"
-          className="text-[#1b1c1a]"
+          aria-expanded={isOpen}
+          className="flex h-11 w-11 items-center justify-center text-[#1b1c1a]"
         >
           <Menu size={24} strokeWidth={1.7} />
         </button>
@@ -149,20 +163,27 @@ export default function Navbar() {
       >
         {/* Mobile Menu Header */}
 
-        <div className="flex h-16 items-center justify-between border-b border-[#747878]/15 px-6">
+        <div className="flex h-16 items-center justify-between border-b border-[#747878]/15 px-5 sm:px-6">
           <Link
             href="/"
             onClick={() => setIsOpen(false)}
-            className="font-serif text-xl text-[#1b1c1a]"
+            aria-label="Mauli Interior home"
+            className="flex items-center"
           >
-            Mauli Interior
+            <Image
+              src="/images/brand/mauli-logo-horizontal.png"
+              alt="Mauli Interior"
+              width={150}
+              height={44}
+              className="h-auto max-h-9 w-auto object-contain"
+            />
           </Link>
 
           <button
             type="button"
             onClick={() => setIsOpen(false)}
             aria-label="Close navigation"
-            className="text-[#1b1c1a]"
+            className="flex h-11 w-11 items-center justify-center text-[#1b1c1a]"
           >
             <X size={24} strokeWidth={1.7} />
           </button>
@@ -170,7 +191,7 @@ export default function Navbar() {
 
         {/* Mobile Links */}
 
-        <div className="flex flex-col px-6 py-8">
+        <div className="flex flex-col px-5 py-7 sm:px-6 sm:py-8">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -191,7 +212,7 @@ export default function Navbar() {
           <Link
             href="/contact"
             onClick={() => setIsOpen(false)}
-            className="mt-8 bg-black px-6 py-4 text-center text-xs font-semibold uppercase tracking-[0.1em] text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#30312f]"
+            className="mt-8 flex min-h-12 items-center justify-center bg-black px-6 py-4 text-xs font-semibold uppercase tracking-[0.1em] text-white transition-all duration-300 hover:bg-[#30312f]"
           >
             Get a Quote
           </Link>
