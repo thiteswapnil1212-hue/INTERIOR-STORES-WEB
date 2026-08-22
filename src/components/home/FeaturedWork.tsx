@@ -100,7 +100,7 @@ export default function FeaturedWork() {
               </div>
 
               {/* Image */}
-              <div className="relative aspect-[16/8] overflow-hidden md:col-span-7">
+              <div className="relative aspect-[4/3] w-full overflow-hidden md:col-span-7 md:aspect-[16/8]">
                 <Image
                   src={item.src}
                   alt={`Custom ${item.title} by Mauli Interior`}
