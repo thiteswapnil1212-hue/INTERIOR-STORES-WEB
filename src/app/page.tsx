@@ -45,9 +45,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Hero Image */}
         <div className="order-1 md:order-2 md:col-span-7">
-          <div className="relative h-[55vh] min-h-[420px] w-full overflow-hidden md:h-[70vh]">
+          <div className="relative aspect-[4/5] w-full overflow-hidden md:aspect-auto md:h-[70vh]">
             <Image
               src="/images/home/hero.jpg"
               alt="Beautifully furnished living room by Mauli Interior"
