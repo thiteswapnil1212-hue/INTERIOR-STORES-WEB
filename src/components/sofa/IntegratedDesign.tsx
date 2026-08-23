@@ -48,9 +48,7 @@ export default function IntegratedDesign() {
 
           {/* Description */}
           <p className="mt-6 max-w-lg text-base leading-7 text-[#444748]">
-            Your sofa is only one part of the room. We help bring the
-            surrounding details together so your furniture, fabrics and
-            finishes feel considered as one complete space.
+            Your sofa is just the beginning. Bring every detail together—from fabrics and finishes to the surrounding elements—so the entire room feels thoughtfully designed and beautifully cohesive.
           </p>
 
           {/* Services */}
