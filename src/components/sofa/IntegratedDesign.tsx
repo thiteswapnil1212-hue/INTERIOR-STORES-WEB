@@ -36,7 +36,7 @@ export default function IntegratedDesign() {
 
           {/* Eyebrow */}
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.14em] text-[#805533]">
-            Complete the Space
+            Complete your space.
           </p>
 
           {/* Heading */}
