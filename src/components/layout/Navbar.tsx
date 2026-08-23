@@ -74,7 +74,7 @@ export default function Navbar() {
             className="flex shrink-0 items-center transition-opacity duration-300 hover:opacity-75"
           >
             <Image
-              src="/images/brand/mauli logo.png"
+              src="/images/brand/mauli-logo.jpg"
               alt="Mauli Interior"
               width={180}
               height={52}
@@ -133,7 +133,7 @@ export default function Navbar() {
           className="flex items-center"
         >
           <Image
-            src="/images/brand/mauli logo.png"
+            src="/images/brand/mauli-logo.jpg"
             alt="Mauli Interior"
             width={150}
             height={44}
@@ -171,7 +171,7 @@ export default function Navbar() {
             className="flex items-center"
           >
             <Image
-              src="/images/brand/mauli logo.png"
+              src="/images/brand/mauli-logo.jpg"
               alt="Mauli Interior"
               width={150}
               height={44}
