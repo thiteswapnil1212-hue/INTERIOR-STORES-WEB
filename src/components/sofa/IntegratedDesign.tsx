@@ -26,7 +26,7 @@ export default function IntegratedDesign() {
           {/* Small image label */}
           <div className="absolute bottom-5 left-5 bg-[#fbf9f6]/90 px-4 py-2 backdrop-blur-sm">
             <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#444748]">
-              Made for your space
+              Designed around your space.
             </p>
           </div>
         </div>
