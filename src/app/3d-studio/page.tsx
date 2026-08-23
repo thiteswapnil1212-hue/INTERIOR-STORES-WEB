@@ -39,7 +39,7 @@ export default function StudioPage() {
             Mauli 3D Studio
           </p>
           <h1 className="font-serif text-3xl md:text-4xl tracking-tight mb-2">
-            Visualise your space.
+           Bring your vision to life..
           </h1>
           <p className="text-sm text-[#1b1c1a]/70 max-w-lg">
             Explore premium furniture, discover refined fabrics, and bring your vision to life in an immersive 3D experience.
