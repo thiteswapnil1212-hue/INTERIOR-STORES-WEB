@@ -42,7 +42,7 @@ export default function StudioPage() {
             Visualise your space.
           </h1>
           <p className="text-sm text-[#1b1c1a]/70 max-w-lg">
-            Configure premium furniture, explore rich fabrics, and perfect your layout in a real-time 3D environment.
+            Explore premium furniture, discover refined fabrics, and bring your vision to life in an immersive 3D experience.
           </p>
         </div>
       </header>
