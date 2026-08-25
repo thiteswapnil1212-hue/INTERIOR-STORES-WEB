@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -90,8 +89,8 @@ export default function Navbar() {
               width={180}
               height={60}
               priority
-              sizes="155px"
-              className="h-auto w-[135px] object-contain lg:w-[155px]"
+              sizes="115px"
+              className="h-auto w-[105px] object-contain lg:w-[115px]"
             />
           </Link>
 
@@ -163,8 +162,8 @@ export default function Navbar() {
             width={160}
             height={54}
             priority
-            sizes="120px"
-            className="h-auto w-[120px] object-contain"
+            sizes="95px"
+            className="h-auto w-[95px] object-contain"
           />
         </Link>
 
@@ -205,12 +204,12 @@ export default function Navbar() {
               alt="Mauli Interior"
               width={160}
               height={54}
-              sizes="120px"
-              className="h-auto w-[120px] object-contain"
+              sizes="95px"
+              className="h-auto w-[95px] object-contain"
             />
           </Link>
 
-          {/* Close */}
+          {/* Close Button */}
 
           <button
             type="button"
