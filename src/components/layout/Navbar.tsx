@@ -52,18 +52,13 @@ export default function Navbar() {
   }, [pathname]);
 
   const isActive = (href: string) => {
-    if (href === "/") {
-      return pathname === "/";
-    }
-
+    if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
   };
 
   return (
     <>
-      {/* =========================================================
-          DESKTOP NAVBAR
-      ========================================================= */}
+      {/* DESKTOP NAVBAR */}
 
       <header
         className="fixed left-0 right-0 top-0 z-50 hidden h-20 border-b border-[#747878]/15 bg-[#fbf9f6] md:block"
@@ -76,6 +71,7 @@ export default function Navbar() {
         }}
       >
         <nav className="mx-auto flex h-full max-w-[1440px] items-center justify-between px-8 lg:px-16">
+
           {/* Logo */}
 
           <Link
@@ -86,11 +82,11 @@ export default function Navbar() {
             <Image
               src="/images/home/brand/mauli-logo.jpg"
               alt="Mauli Interior"
-              width={180}
-              height={60}
+              width={140}
+              height={48}
               priority
-              sizes="115px"
-              className="h-auto w-[105px] object-contain lg:w-[115px]"
+              sizes="90px"
+              className="h-auto w-[82px] object-contain lg:w-[90px]"
             />
           </Link>
 
@@ -135,9 +131,7 @@ export default function Navbar() {
         </nav>
       </header>
 
-      {/* =========================================================
-          MOBILE NAVBAR
-      ========================================================= */}
+      {/* MOBILE NAVBAR */}
 
       <header
         className="fixed left-0 right-0 top-0 z-50 flex h-16 items-center justify-between border-b border-[#747878]/15 bg-[#fbf9f6] px-5 sm:px-6 md:hidden"
@@ -159,11 +153,11 @@ export default function Navbar() {
           <Image
             src="/images/home/brand/mauli-logo.jpg"
             alt="Mauli Interior"
-            width={160}
-            height={54}
+            width={130}
+            height={44}
             priority
-            sizes="95px"
-            className="h-auto w-[95px] object-contain"
+            sizes="75px"
+            className="h-auto w-[75px] object-contain"
           />
         </Link>
 
@@ -180,9 +174,7 @@ export default function Navbar() {
         </button>
       </header>
 
-      {/* =========================================================
-          MOBILE MENU
-      ========================================================= */}
+      {/* MOBILE MENU */}
 
       <div
         className={`fixed inset-0 z-[60] bg-[#fbf9f6] transition-transform duration-300 ease-out md:hidden ${
@@ -190,27 +182,24 @@ export default function Navbar() {
         }`}
         aria-hidden={!isOpen}
       >
-        {/* Mobile Menu Header */}
+        {/* Menu Header */}
 
         <div className="flex h-16 items-center justify-between border-b border-[#747878]/15 px-5 sm:px-6">
+
           <Link
-            href="/"
-            onClick={() => setIsOpen(false)}
-            aria-label="Mauli Interior home"
-            className="flex shrink-0 items-center"
-          >
-            <Image
-              src="/images/home/brand/mauli-logo.jpg"
-              alt="Mauli Interior"
-              width={160}
-              height={54}
-              sizes="95px"
-              className="h-auto w-[95px] object-contain"
-            />
-          </Link>
-
-          {/* Close Button */}
-
+  href="/"
+  aria-label="Mauli Interior home"
+  className="flex h-10 w-[60px] shrink-0 items-center overflow-hidden"
+>
+  <Image
+    src="/images/home/brand/mauli-logo.jpg"
+    alt="Mauli Interior"
+    width={120}
+    height={40}
+    priority
+    className="block !h-auto !w-[60px] object-contain"
+  />
+</Link>
           <button
             type="button"
             onClick={() => setIsOpen(false)}
@@ -221,7 +210,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Links */}
+        {/* Links */}
 
         <div className="flex flex-col px-5 py-7 sm:px-6 sm:py-8">
           {navLinks.map((link) => {
@@ -243,8 +232,6 @@ export default function Navbar() {
               </Link>
             );
           })}
-
-          {/* Mobile CTA */}
 
           <Link
             href="/contact"
