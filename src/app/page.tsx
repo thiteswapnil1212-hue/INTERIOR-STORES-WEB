@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         url: "/images/seo/mauli-interior-og.jpg",
         width: 1200,
         height: 630,
-        alt: "Mauli Interior custom home interiors in Pune",
+        alt: "Mauli Interior custom sofa and designers home interiors in Pune",
       },
     ],
   },
@@ -70,7 +70,7 @@ export default function Home() {
 
           <p className="max-w-lg text-base leading-7 text-[#444748] md:text-lg">
             Thoughtfully crafted sofas, curtains, beds and furnishing
-            solutions designed around your space, comfort and lifestyle.
+            solutions designed around your personal space, comfort and lifestyle.
           </p>
 
           <div className="flex flex-wrap gap-3">
