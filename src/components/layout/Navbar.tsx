@@ -20,6 +20,23 @@ export default function Navbar() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
+
+  /* =========================================================
+     ACTIVE LINK
+  ========================================================= */
+
+  const isActive = (href: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
+
+  /* =========================================================
+     SCROLL BEHAVIOR
+  ========================================================= */
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -27,11 +44,22 @@ export default function Navbar() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
+      setScrolled(currentScrollY > 20);
+
+      // Always show navbar near the top
       if (currentScrollY <= 20) {
         setShowNavbar(true);
-      } else if (currentScrollY > lastScrollY) {
+        lastScrollY = currentScrollY;
+        return;
+      }
+
+      // Hide while scrolling down
+      if (currentScrollY > lastScrollY + 4) {
         setShowNavbar(false);
-      } else if (currentScrollY < lastScrollY) {
+      }
+
+      // Show while scrolling up
+      if (currentScrollY < lastScrollY - 4) {
         setShowNavbar(true);
       }
 
@@ -47,37 +75,79 @@ export default function Navbar() {
     };
   }, []);
 
+  /* =========================================================
+     CLOSE MENU ON ROUTE CHANGE
+  ========================================================= */
+
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
 
-  const isActive = (href: string) => {
-    if (href === "/") return pathname === "/";
-    return pathname.startsWith(href);
-  };
+  /* =========================================================
+     LOCK BODY SCROLL WHEN MOBILE MENU IS OPEN
+  ========================================================= */
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  /* =========================================================
+     ESCAPE KEY
+  ========================================================= */
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
 
   return (
     <>
-      {/* DESKTOP NAVBAR */}
+      {/* =====================================================
+          DESKTOP NAVBAR
+      ====================================================== */}
 
       <header
-        className="fixed left-0 right-0 top-0 z-50 hidden h-20 border-b border-[#747878]/15 bg-[#fbf9f6] md:block"
-        style={{
-          transform: showNavbar
-            ? "translateY(0)"
-            : "translateY(-100%)",
-          transition:
-            "transform 450ms cubic-bezier(0.22, 1, 0.36, 1)",
-        }}
+        className={`fixed left-0 right-0 top-0 z-50 hidden h-20 border-b transition-all duration-500 md:block ${
+          showNavbar
+            ? "translate-y-0"
+            : "-translate-y-full"
+        } ${
+          scrolled
+            ? "border-black/10 bg-[#fbf9f6]/95 shadow-[0_4px_20px_rgba(0,0,0,0.03)] backdrop-blur-md"
+            : "border-black/5 bg-[#fbf9f6]"
+        }`}
       >
-        <nav className="mx-auto flex h-full max-w-[1440px] items-center justify-between px-8 lg:px-16">
-
-          {/* Logo */}
+        <nav
+          aria-label="Main navigation"
+          className="mx-auto flex h-full max-w-[1440px] items-center justify-between px-8 lg:px-16"
+        >
+          {/* =================================================
+              LOGO
+          ================================================== */}
 
           <Link
             href="/"
             aria-label="Mauli Interior home"
-            className="flex shrink-0 items-center transition-opacity duration-300 hover:opacity-75"
+            className="group flex shrink-0 items-center"
           >
             <Image
               src="/images/home/brand/mauli-logo.jpg"
@@ -86,16 +156,15 @@ export default function Navbar() {
               height={48}
               priority
               sizes="90px"
-              className="h-auto w-[82px] object-contain lg:w-[90px]"
+              className="h-auto w-[82px] object-contain transition-opacity duration-300 group-hover:opacity-75 lg:w-[90px]"
             />
           </Link>
 
-          {/* Navigation */}
+          {/* =================================================
+              NAVIGATION LINKS
+          ================================================== */}
 
-          <nav
-            aria-label="Main navigation"
-            className="flex items-center gap-5 lg:gap-7"
-          >
+          <div className="flex items-center gap-5 lg:gap-8">
             {navLinks.map((link) => {
               const active = isActive(link.href);
 
@@ -104,44 +173,54 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   aria-current={active ? "page" : undefined}
-                  className={`relative py-2 text-sm font-medium transition-colors duration-300 ${
+                  className={`group relative py-2 text-[13px] font-medium transition-colors duration-300 ${
                     active
-                      ? "text-black"
-                      : "text-[#444748] hover:text-black"
+                      ? "text-[#1b1c1a]"
+                      : "text-[#555856] hover:text-[#1b1c1a]"
                   }`}
                 >
                   {link.label}
 
-                  {active && (
-                    <span className="absolute bottom-0 left-0 h-px w-full bg-black" />
-                  )}
+                  <span
+                    aria-hidden="true"
+                    className={`absolute bottom-0 left-0 h-px bg-[#805533] transition-all duration-300 ${
+                      active
+                        ? "w-full"
+                        : "w-0 group-hover:w-full"
+                    }`}
+                  />
                 </Link>
               );
             })}
-          </nav>
+          </div>
 
-          {/* CTA */}
+          {/* =================================================
+              DESKTOP CTA
+          ================================================== */}
 
           <Link
             href="/contact"
-            className="shrink-0 bg-[#1b1c1a] px-6 py-3 text-xs font-semibold uppercase tracking-[0.1em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#805533]"
+            className="group inline-flex min-h-11 items-center justify-center bg-[#1b1c1a] px-6 text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
           >
-            Get a Quote
+            <span>Get a Quote</span>
           </Link>
         </nav>
       </header>
 
-      {/* MOBILE NAVBAR */}
+      {/* =====================================================
+          MOBILE NAVBAR
+      ====================================================== */}
 
       <header
-        className="fixed left-0 right-0 top-0 z-50 flex h-16 items-center justify-between border-b border-[#747878]/15 bg-[#fbf9f6] px-5 sm:px-6 md:hidden"
-        style={{
-          transform: showNavbar
-            ? "translateY(0)"
-            : "translateY(-100%)",
-          transition:
-            "transform 450ms cubic-bezier(0.22, 1, 0.36, 1)",
-        }}
+        className={`fixed left-0 right-0 top-0 z-50 flex h-16 items-center justify-between border-b px-5 transition-all duration-500 sm:px-6 md:hidden ${
+          showNavbar
+            ? "translate-y-0"
+            : "-translate-y-full"
+        } ${
+          scrolled
+            ? "border-black/10 bg-[#fbf9f6]/95 shadow-[0_4px_20px_rgba(0,0,0,0.03)] backdrop-blur-md"
+            : "border-black/5 bg-[#fbf9f6]"
+        }`}
       >
         {/* Mobile Logo */}
 
@@ -161,59 +240,82 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Menu Button */}
+        {/* Mobile Menu Button */}
 
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          aria-label="Open navigation"
+          aria-label="Open navigation menu"
           aria-expanded={isOpen}
-          className="flex h-11 w-11 items-center justify-center text-[#1b1c1a] transition-opacity hover:opacity-60"
+          aria-controls="mobile-navigation"
+          className="flex h-11 w-11 items-center justify-center text-[#1b1c1a] transition-all duration-200 hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
         >
-          <Menu size={24} strokeWidth={1.7} />
+          <Menu
+            size={23}
+            strokeWidth={1.6}
+            aria-hidden="true"
+          />
         </button>
       </header>
 
-      {/* MOBILE MENU */}
+      {/* =====================================================
+          MOBILE MENU
+      ====================================================== */}
 
       <div
-        className={`fixed inset-0 z-[60] bg-[#fbf9f6] transition-transform duration-300 ease-out md:hidden ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+        id="mobile-navigation"
+        className={`fixed inset-0 z-[60] flex flex-col bg-[#fbf9f6] transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${
+          isOpen
+            ? "visible translate-x-0 opacity-100"
+            : "invisible translate-x-full opacity-0"
         }`}
         aria-hidden={!isOpen}
       >
-        {/* Menu Header */}
+        {/* =================================================
+            MOBILE MENU HEADER
+        ================================================== */}
 
-        <div className="flex h-16 items-center justify-between border-b border-[#747878]/15 px-5 sm:px-6">
-
+        <div className="flex h-16 shrink-0 items-center justify-between border-b border-black/10 px-5 sm:px-6">
           <Link
-  href="/"
-  aria-label="Mauli Interior home"
-  className="flex h-10 w-[60px] shrink-0 items-center overflow-hidden"
->
-  <Image
-    src="/images/home/brand/mauli-logo.jpg"
-    alt="Mauli Interior"
-    width={120}
-    height={40}
-    priority
-    className="block !h-auto !w-[60px] object-contain"
-  />
-</Link>
+            href="/"
+            aria-label="Mauli Interior home"
+            onClick={() => setIsOpen(false)}
+            className="flex h-10 w-[60px] shrink-0 items-center overflow-hidden"
+          >
+            <Image
+              src="/images/home/brand/mauli-logo.jpg"
+              alt="Mauli Interior"
+              width={120}
+              height={40}
+              priority
+              sizes="60px"
+              className="block h-auto w-[60px] object-contain"
+            />
+          </Link>
+
           <button
             type="button"
             onClick={() => setIsOpen(false)}
-            aria-label="Close navigation"
-            className="flex h-11 w-11 items-center justify-center text-[#1b1c1a] transition-opacity hover:opacity-60"
+            aria-label="Close navigation menu"
+            className="flex h-11 w-11 items-center justify-center text-[#1b1c1a] transition-all duration-200 hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
           >
-            <X size={24} strokeWidth={1.7} />
+            <X
+              size={23}
+              strokeWidth={1.6}
+              aria-hidden="true"
+            />
           </button>
         </div>
 
-        {/* Links */}
+        {/* =================================================
+            MOBILE LINKS
+        ================================================== */}
 
-        <div className="flex flex-col px-5 py-7 sm:px-6 sm:py-8">
-          {navLinks.map((link) => {
+        <nav
+          aria-label="Mobile navigation"
+          className="flex flex-1 flex-col overflow-y-auto px-5 py-6 sm:px-6"
+        >
+          {navLinks.map((link, index) => {
             const active = isActive(link.href);
 
             return (
@@ -222,25 +324,55 @@ export default function Navbar() {
                 href={link.href}
                 onClick={() => setIsOpen(false)}
                 aria-current={active ? "page" : undefined}
-                className={`border-b border-[#747878]/15 py-5 text-base transition-all duration-300 ${
+                className={`group flex items-center justify-between border-b border-black/10 py-5 text-[17px] transition-all duration-300 ${
                   active
-                    ? "font-medium text-black"
-                    : "text-[#444748] hover:pl-2 hover:text-black"
+                    ? "font-medium text-[#1b1c1a]"
+                    : "text-[#555856] hover:pl-2 hover:text-[#1b1c1a]"
                 }`}
               >
-                {link.label}
+                <span>{link.label}</span>
+
+                <span
+                  aria-hidden="true"
+                  className={`text-lg transition-transform duration-300 ${
+                    active
+                      ? "translate-x-0 text-[#805533]"
+                      : "translate-x-[-4px] opacity-40 group-hover:translate-x-0"
+                  }`}
+                >
+                  →
+                </span>
               </Link>
             );
           })}
 
+          {/* =================================================
+              MOBILE CTA
+          ================================================== */}
+
           <Link
             href="/contact"
             onClick={() => setIsOpen(false)}
-            className="mt-8 flex min-h-12 items-center justify-center bg-[#1b1c1a] px-6 py-4 text-xs font-semibold uppercase tracking-[0.1em] text-white transition-all duration-300 hover:bg-[#805533]"
+            className="mt-8 flex min-h-12 items-center justify-center bg-[#1b1c1a] px-6 py-4 text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
           >
             Get a Quote
           </Link>
-        </div>
+
+          {/* =================================================
+              MOBILE FOOTER
+          ================================================== */}
+
+          <div className="mt-auto pt-10">
+            <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#805533]">
+              Mauli Interior
+            </p>
+
+            <p className="mt-2 max-w-xs text-xs leading-5 text-[#77736e]">
+              Custom sofas and home furnishing solutions for
+              homes across Pune and PCMC.
+            </p>
+          </div>
+        </nav>
       </div>
     </>
   );
