@@ -1,47 +1,351 @@
 @import "tailwindcss";
 
+/* =========================================================
+   ROOT
+========================================================= */
+
 :root {
-  background: #fbf9f6;
-  color: #1b1c1a;
+  --background: #fbf9f6;
+  --foreground: #1b1c1a;
+  --muted: #62625e;
+  --accent: #805533;
+  --border: rgba(27, 28, 26, 0.1);
+
+  background: var(--background);
+  color: var(--foreground);
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* =========================================================
+   HTML
+========================================================= */
+
 html {
+  background: var(--background);
   scroll-behavior: smooth;
-  background: #fbf9f6;
+  scroll-padding-top: 80px;
 }
+
+/* =========================================================
+   BODY
+========================================================= */
 
 body {
   margin: 0;
   min-height: 100vh;
-  background: #fbf9f6;
-  color: #1b1c1a;
+
+  background: var(--background);
+  color: var(--foreground);
+
+  overflow-x: hidden;
+
+  font-family: inherit;
+  line-height: 1.5;
 }
 
-* {
+/* =========================================================
+   BOX SIZING
+========================================================= */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
-::selection {
-  background: #805533;
-  color: #ffffff;
-}
+/* =========================================================
+   MEDIA
+========================================================= */
 
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
-}
-
-a {
-  text-decoration: none;
-}
-
-img {
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
   max-width: 100%;
 }
 
+img {
+  height: auto;
+}
+
+/*
+ * Prevent image dragging on desktop.
+ * Useful for a polished image-heavy interior website.
+ */
+
+img {
+  -webkit-user-drag: none;
+}
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/*
+ * Remove mobile tap highlight while keeping
+ * keyboard focus visible.
+ */
+
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+button {
+  font: inherit;
+}
+
+/*
+ * Disabled buttons should feel visually inactive.
+ */
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   FORM ELEMENTS
+========================================================= */
+
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* =========================================================
+   ACCESSIBILITY / FOCUS
+========================================================= */
+
 :focus-visible {
-  outline: 2px solid #805533;
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
+}
+
+/*
+ * Remove default focus outline only when the browser
+ * does not require it. Keyboard users still get the
+ * custom focus-visible outline above.
+ */
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* =========================================================
+   TEXT SELECTION
+========================================================= */
+
+::selection {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+/*
+ * Subtle scrollbar for the premium minimal UI.
+ */
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(128, 85, 51, 0.45) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(128, 85, 51, 0.35);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 85, 51, 0.6);
+}
+
+/* =========================================================
+   HR
+========================================================= */
+
+hr {
+  height: 1px;
+  margin: 0;
+  border: 0;
+  background: var(--border);
+}
+
+/* =========================================================
+   TABLES
+========================================================= */
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+/*
+ * Important for accessibility.
+ * Users who disable animations in their OS should not
+ * be forced to see smooth scrolling / transitions.
+ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+  html {
+    scroll-padding-top: 72px;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* =========================================================
+   SAFE AREA
+   Useful for mobile devices with notches / home indicators.
+========================================================= */
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* =========================================================
+   UTILITY: TEXT BALANCE
+========================================================= */
+
+/*
+ * Use className="text-balance" on important headings.
+ */
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* =========================================================
+   UTILITY: TEXT PRETTY
+========================================================= */
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* =========================================================
+   UTILITY: HIDE SCROLLBAR
+========================================================= */
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================================================
+   UTILITY: IMAGE HOVER
+========================================================= */
+
+.image-zoom {
+  overflow: hidden;
+}
+
+.image-zoom img {
+  transition: transform 700ms cubic-bezier(0.2, 0.65, 0.3, 1);
+}
+
+.image-zoom:hover img {
+  transform: scale(1.035);
+}
+
+/* =========================================================
+   UTILITY: CONTAINER
+========================================================= */
+
+.site-container {
+  width: min(100% - 3rem, 1600px);
+  margin-inline: auto;
+}
+
+@media (max-width: 768px) {
+  .site-container {
+    width: min(100% - 2rem, 1600px);
+  }
+}
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print {
+  body {
+    background: #ffffff;
+    color: #000000;
+  }
+
+  nav,
+  footer,
+  button {
+    display: none !important;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
 }
