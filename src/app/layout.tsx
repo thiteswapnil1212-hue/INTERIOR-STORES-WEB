@@ -1,8 +1,19 @@
 import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 import "./globals.css";
 import Navbar from "../components/layout/Navbar";
 
 const siteUrl = "https://mauliinterior-stores-web.vercel.app";
+
+const siteName = "Mauli Interior";
+
+const defaultTitle =
+  "Mauli Interior | Custom Sofas & Home Furnishing in Pune";
+
+const description =
+  "Mauli Interior creates custom sofas, curtains, beds, mattresses, cushions and wall panels for homes across Pune, PCMC, Bhosari and Moshi.";
+
+const ogImage = "/images/seo/mauli-interior-og.jpg";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -15,30 +26,18 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: "Mauli Interior | Custom Sofas & Home Furnishing in Pune",
+    default: defaultTitle,
     template: "%s | Mauli Interior",
   },
 
-  description:
-    "Mauli Interior creates custom sofas, curtains, beds, mattresses, cushions and wall panels for homes across Pune, PCMC, Bhosari and Moshi.",
+  description,
 
-  applicationName: "Mauli Interior",
-
-  authors: [
-    {
-      name: "Mauli Interior",
-    },
-  ],
-
-  creator: "Mauli Interior",
-  publisher: "Mauli Interior",
+  applicationName: siteName,
+  authors: [{ name: siteName }],
+  creator: siteName,
+  publisher: siteName,
 
   category: "Home Furnishing",
-
-  classification:
-    "Custom furniture and home furnishing services in Pune",
-
-  referrer: "origin-when-cross-origin",
 
   keywords: [
     "Mauli Interior",
@@ -59,13 +58,12 @@ export const metadata: Metadata = {
   },
 
   alternates: {
-    canonical: siteUrl,
+    canonical: "/",
   },
 
   robots: {
     index: true,
     follow: true,
-
     googleBot: {
       index: true,
       follow: true,
@@ -76,33 +74,20 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: [
-      {
-        url: "/favicon.ico",
-      },
-    ],
-    apple: [
-      {
-        url: "/apple-touch-icon.png",
-      },
-    ],
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
 
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: siteUrl,
-    siteName: "Mauli Interior",
-
-    title:
-      "Mauli Interior | Custom Sofas & Home Furnishing in Pune",
-
-    description:
-      "Explore custom sofas, curtains, beds, mattresses, cushions and wall panels by Mauli Interior. Serving Pune, PCMC, Bhosari and Moshi.",
-
+    siteName,
+    title: defaultTitle,
+    description,
     images: [
       {
-        url: "/images/seo/mauli-interior-og.jpg",
+        url: ogImage,
         width: 1200,
         height: 630,
         alt: "Mauli Interior - Custom Furniture and Home Furnishing in Pune",
@@ -112,14 +97,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-
-    title:
-      "Mauli Interior | Custom Sofas & Home Furnishing in Pune",
-
-    description:
-      "Custom sofas, furniture and home furnishing services across Pune, PCMC, Bhosari and Moshi.",
-
-    images: ["/images/seo/mauli-interior-og.jpg"],
+    title: defaultTitle,
+    description,
+    images: [ogImage],
   },
 
   formatDetection: {
@@ -131,68 +111,80 @@ export const metadata: Metadata = {
 
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-
-  name: "Mauli Interior",
-
-  url: siteUrl,
-
-  description:
-    "Custom sofas, furniture and home furnishing services in Pune, PCMC, Bhosari and Moshi.",
-
-  areaServed: [
+  "@graph": [
     {
-      "@type": "City",
-      name: "Pune",
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: siteName,
+      description,
+      inLanguage: "en-IN",
     },
     {
-      "@type": "Place",
-      name: "PCMC",
-    },
-    {
-      "@type": "Place",
-      name: "Bhosari",
-    },
-    {
-      "@type": "Place",
-      name: "Moshi",
-    },
-  ],
-
-  makesOffer: [
-    {
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: "Custom Sofas",
-      },
-    },
-    {
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: "Custom Furniture",
-      },
-    },
-    {
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: "Curtains",
-      },
-    },
-    {
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: "Wall Panels",
-      },
-    },
-    {
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: "Custom Beds",
+      "@type": "LocalBusiness",
+      "@id": `${siteUrl}/#business`,
+      name: siteName,
+      url: siteUrl,
+      description,
+      image: `${siteUrl}${ogImage}`,
+      areaServed: [
+        {
+          "@type": "City",
+          name: "Pune",
+        },
+        {
+          "@type": "Place",
+          name: "Pimpri-Chinchwad",
+        },
+        {
+          "@type": "Place",
+          name: "Bhosari",
+        },
+        {
+          "@type": "Place",
+          name: "Moshi",
+        },
+      ],
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Home Furnishing Services",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Custom Sofas",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Custom Furniture",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Curtains",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Wall Panels",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Custom Beds",
+            },
+          },
+        ],
       },
     },
   ],
@@ -201,21 +193,20 @@ const structuredData = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en-IN">
-      <head>
+      <body className="bg-[#fbf9f6] text-[#1b1c1a] antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData),
+            __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
           }}
         />
-      </head>
 
-      <body className="bg-[#fbf9f6] text-[#1b1c1a] antialiased">
         <Navbar />
+
         {children}
       </body>
     </html>
