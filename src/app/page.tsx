@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,10 +9,19 @@ import FeaturedWork from "../components/home/FeaturedWork";
 import WhyMauli from "../components/home/WhyMauli";
 import FinalCTA from "../components/home/FinalCTA";
 
+const siteUrl = "https://mauliinterior-stores-web.vercel.app";
+const ogImage = "/images/seo/mauli-interior-og.jpg";
+
+const pageTitle =
+  "Mauli Interior | Custom Sofas & Home Furnishing in Pune";
+
+const pageDescription =
+  "Custom sofas, curtains, beds, mattresses, wall panels and home furnishing solutions crafted by Mauli Interior for homes across Pune, PCMC, Bhosari and Moshi.";
+
 export const metadata: Metadata = {
-  title: "Mauli Interior | Custom Sofas & Home Furnishing in Pune",
-  description:
-    "Custom sofas, curtains, beds, mattresses, wall panels and home furnishing solutions crafted by Mauli Interior for homes across Pune, PCMC, Bhosari and Moshi.",
+  title: pageTitle,
+  description: pageDescription,
+
   keywords: [
     "custom sofas in Pune",
     "home furnishing Pune",
@@ -23,31 +33,33 @@ export const metadata: Metadata = {
     "interior furnishing PCMC",
     "Mauli Interior",
   ],
+
   alternates: {
     canonical: "/",
   },
+
   openGraph: {
-    title: "Mauli Interior | Custom Sofas & Home Furnishing in Pune",
-    description:
-      "Custom sofas, curtains, beds and furnishing solutions designed around your home, comfort and lifestyle.",
-    url: "/",
+    title: pageTitle,
+    description: pageDescription,
+    url: siteUrl,
     siteName: "Mauli Interior",
     type: "website",
+    locale: "en_IN",
     images: [
       {
-        url: "/images/seo/mauli-interior-og.jpg",
+        url: ogImage,
         width: 1200,
         height: 630,
         alt: "Custom sofa and home furnishing by Mauli Interior in Pune",
       },
     ],
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "Mauli Interior | Custom Sofas & Home Furnishing in Pune",
-    description:
-      "Custom sofas, curtains, beds and furnishing solutions for homes across Pune.",
-    images: ["/images/seo/mauli-interior-og.jpg"],
+    title: pageTitle,
+    description: pageDescription,
+    images: [ogImage],
   },
 };
 
@@ -64,6 +76,7 @@ const quickServices = [
       "Made-to-measure sofas designed around your room, comfort and style.",
     href: "/services/sofas",
     image: "/images/home/services/sofa.jpg",
+    imageAlt: "Custom sofa furnishing",
   },
   {
     title: "Curtains",
@@ -71,75 +84,82 @@ const quickServices = [
       "Curtains selected and fitted to complement your space.",
     href: "/services/curtains",
     image: "/images/home/services/curtains.jpg",
+    imageAlt: "Curtains for home interiors",
   },
   {
     title: "Beds & Panels",
     description:
-      "Beds and decorative panels built to bring warmth and character to bedrooms.",
+      "Beds and decorative panels to bring warmth and character to bedrooms.",
     href: "/services/beds",
     image: "/images/home/services/bed.jpg",
+    imageAlt: "Bedroom furnishing and decorative panels",
   },
 ];
 
 export default function Home() {
   return (
     <main className="overflow-hidden bg-[#fbf9f6] text-[#1b1c1a]">
-      {/* =====================================================
-          HERO
-      ====================================================== */}
+      {/* HERO */}
 
       <section
         aria-labelledby="hero-heading"
         className="relative border-b border-black/5"
       >
-        <div className="mx-auto grid min-h-[calc(100vh-80px)] max-w-[1600px] grid-cols-1 items-center gap-10 px-6 py-10 sm:px-8 md:grid-cols-12 md:gap-8 md:px-12 lg:px-16 lg:py-16"
-        >
-          {/* HERO CONTENT */}
+        <div className="mx-auto grid max-w-[1600px] grid-cols-1 items-center gap-8 px-5 py-8 sm:px-8 sm:py-12 md:min-h-[calc(100svh-80px)] md:grid-cols-12 md:gap-8 md:px-12 lg:px-16 lg:py-16">
+          {/* Hero content */}
 
-          <div className="order-2 flex flex-col md:order-1 md:col-span-5 lg:col-span-5">
-            <div className="mb-6 flex items-center gap-3">
-              <span className="h-px w-10 bg-[#805533]" />
+          <div className="order-2 flex flex-col md:order-1 md:col-span-5">
+            <div className="mb-5 flex items-center gap-3 sm:mb-6">
+              <span
+                aria-hidden="true"
+                className="h-px w-8 bg-[#805533] sm:w-10"
+              />
 
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#805533]">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#805533] sm:text-[11px] sm:tracking-[0.2em]">
                 Home Interiors & Furnishing
               </p>
             </div>
 
             <h1
               id="hero-heading"
-              className="max-w-xl font-serif text-[3.3rem] leading-[1.02] tracking-[-0.035em] sm:text-6xl lg:text-[5.2rem]"
+              className="max-w-xl font-serif text-[clamp(2.8rem,9vw,5.2rem)] leading-[0.98] tracking-[-0.04em]"
             >
               Interiors made
               <br />
-              <span className="text-[#805533]">for your home.</span>
+              <span className="text-[#805533]">
+                for your home.
+              </span>
             </h1>
 
-            <p className="mt-7 max-w-lg text-[15px] leading-7 text-[#555856] md:text-base">
-              Thoughtfully crafted sofas, curtains, beds and furnishing
-              solutions designed around your space, comfort and everyday life.
+            <p className="mt-5 max-w-lg text-sm leading-7 text-[#555856] sm:mt-7 sm:text-base">
+              Thoughtfully crafted sofas, curtains, beds and
+              furnishing solutions designed around your space,
+              comfort and everyday life.
             </p>
 
-            {/* CTA */}
+            {/* Main actions */}
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
               <Link
-                href="/services/sofas"
-                className="inline-flex min-h-12 items-center justify-center bg-[#1b1c1a] px-7 text-[11px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+                href="/project"
+                className="inline-flex min-h-12 items-center justify-center gap-3 bg-[#1b1c1a] px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 sm:px-7"
               >
                 Explore Our Work
+                <span aria-hidden="true">↗</span>
               </Link>
 
               <Link
                 href="/contact"
-                className="inline-flex min-h-12 items-center justify-center border border-[#1b1c1a]/20 px-7 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-all duration-300 hover:border-[#805533] hover:bg-[#805533] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+                className="inline-flex min-h-12 items-center justify-center gap-3 border border-[#1b1c1a]/20 px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-colors duration-300 hover:border-[#805533] hover:bg-[#805533] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 sm:px-7"
               >
                 Get a Quote
+                <span aria-hidden="true">↗</span>
               </Link>
             </div>
 
-            {/* TRUST POINTS */}
+            {/* Trust points */}
 
-            <div className="mt-10 grid max-w-xl grid-cols-1 gap-3 border-t border-black/10 pt-6 sm:grid-cols-3">
+            <div className="mt-8 grid grid-cols-1 gap-3 border-t border-black/10 pt-5 sm:mt-10 sm:grid-cols-3 sm:gap-2 sm:pt-6">
               {trustPoints.map((point) => (
                 <div
                   key={point}
@@ -149,42 +169,39 @@ export default function Home() {
                     aria-hidden="true"
                     className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#805533]"
                   />
-
                   <span>{point}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* HERO IMAGE */}
+          {/* Hero image */}
 
-          <div className="order-1 md:order-2 md:col-span-7 lg:col-span-7">
-            <div className="group relative aspect-[4/5] w-full overflow-hidden sm:aspect-[5/4] md:aspect-[4/5] lg:h-[76vh] lg:aspect-auto">
+          <div className="order-1 min-w-0 md:order-2 md:col-span-7">
+            <div className="group relative aspect-[4/3] w-full overflow-hidden bg-[#e8e3dd] sm:aspect-[5/4] md:aspect-[4/5] lg:h-[76vh] lg:aspect-auto">
               <Image
                 src="/images/home/hero.jpg"
-                alt="Elegant custom-furnished living room designed by Mauli Interior in Pune"
+                alt="Living room with home furnishing by Mauli Interior"
                 fill
                 priority
                 fetchPriority="high"
-                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 58vw, 900px"
-                className="object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.025]"
+                sizes="(max-width: 767px) 100vw, (max-width: 1279px) 58vw, 900px"
+                className="object-cover transition-transform duration-700 ease-out motion-reduce:transition-none md:group-hover:scale-[1.025]"
               />
-
-              {/* Image overlay */}
 
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"
+                className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent"
               />
 
-              {/* Location badge */}
+              {/* Service area badge */}
 
-              <div className="absolute bottom-5 left-5 bg-white/95 px-5 py-4 backdrop-blur-sm">
+              <div className="absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] bg-white/95 px-4 py-3 backdrop-blur-sm sm:bottom-5 sm:left-5 sm:px-5 sm:py-4">
                 <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#805533]">
                   Serving
                 </p>
 
-                <p className="mt-1 text-sm font-medium text-[#1b1c1a]">
+                <p className="mt-1 text-xs font-medium leading-5 text-[#1b1c1a] sm:text-sm">
                   Pune · PCMC · Bhosari · Moshi
                 </p>
               </div>
@@ -193,13 +210,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* =====================================================
-          INTRO / BRAND STATEMENT
-      ====================================================== */}
+      {/* BRAND STATEMENT */}
 
       <section className="border-b border-black/5 bg-[#f4f0eb]">
-        <div className="mx-auto max-w-[1200px] px-6 py-16 sm:px-8 md:px-12 md:py-20">
-          <div className="grid gap-8 md:grid-cols-12 md:items-end">
+        <div className="mx-auto max-w-[1200px] px-5 py-14 sm:px-8 sm:py-16 md:px-12 md:py-20">
+          <div className="grid gap-5 md:grid-cols-12 md:items-end md:gap-8">
             <div className="md:col-span-4">
               <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#805533]">
                 Made for living
@@ -208,7 +223,8 @@ export default function Home() {
 
             <div className="md:col-span-8">
               <h2 className="max-w-3xl font-serif text-3xl leading-tight tracking-tight sm:text-4xl md:text-5xl">
-                Good interiors are not just about how a room looks.
+                Good interiors are not just about how a room
+                looks.
                 <span className="text-[#805533]">
                   {" "}
                   They are about how it feels to live in it.
@@ -219,16 +235,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* =====================================================
-          SERVICES
-      ====================================================== */}
+      {/* SERVICES */}
 
       <section
         aria-labelledby="services-heading"
         className="border-b border-black/5"
       >
-        <div className="mx-auto max-w-[1600px] px-6 pt-16 sm:px-8 md:px-12 lg:px-16">
-          <div className="mb-2 flex items-end justify-between gap-6">
+        <div className="mx-auto max-w-[1600px] px-5 pt-14 sm:px-8 sm:pt-16 md:px-12 lg:px-16">
+          <div className="mb-2 flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-end">
             <div>
               <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#805533]">
                 What we make
@@ -236,7 +250,7 @@ export default function Home() {
 
               <h2
                 id="services-heading"
-                className="font-serif text-4xl tracking-tight sm:text-5xl"
+                className="font-serif text-3xl tracking-tight sm:text-5xl"
               >
                 Furnishing for every room.
               </h2>
@@ -244,9 +258,10 @@ export default function Home() {
 
             <Link
               href="/services"
-              className="hidden text-[10px] font-semibold uppercase tracking-[0.16em] text-[#805533] transition-colors hover:text-[#1b1c1a] sm:block"
+              className="inline-flex min-h-10 items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#805533] transition-colors hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
             >
-              View all services →
+              View all services
+              <span aria-hidden="true">→</span>
             </Link>
           </div>
         </div>
@@ -254,26 +269,43 @@ export default function Home() {
         <ServicesSection />
       </section>
 
-      {/* =====================================================
-          QUICK SERVICE DISCOVERY
-      ====================================================== */}
+      {/* QUICK SERVICE DISCOVERY */}
 
-      <section className="mx-auto max-w-[1600px] px-6 py-16 sm:px-8 md:px-12 lg:px-16 lg:py-24">
-        <div className="grid gap-5 md:grid-cols-3">
+      <section
+        aria-label="Explore popular furnishing services"
+        className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8 sm:py-16 md:px-12 lg:px-16 lg:py-24"
+      >
+        <div className="mb-8 max-w-2xl">
+          <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#805533]">
+            Find your fit
+          </p>
+
+          <h2 className="font-serif text-3xl tracking-tight sm:text-4xl">
+            A little inspiration for your space.
+          </h2>
+
+          <p className="mt-4 text-sm leading-7 text-[#656765]">
+            Explore a few of our furnishing categories and find
+            the right starting point for your home.
+          </p>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
           {quickServices.map((service) => (
             <Link
               key={service.title}
               href={service.href}
-              className="group"
+              aria-label={`Explore ${service.title}`}
+              className="group block min-w-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-4"
             >
               <article>
                 <div className="relative aspect-[4/3] overflow-hidden bg-[#e8e3dd]">
                   <Image
                     src={service.image}
-                    alt={`${service.title} by Mauli Interior`}
+                    alt={service.imageAlt}
                     fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                    sizes="(max-width: 639px) 100vw, (max-width: 767px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 ease-out motion-reduce:transition-none md:group-hover:scale-[1.04]"
                   />
                 </div>
 
@@ -301,65 +333,57 @@ export default function Home() {
         </div>
       </section>
 
-      {/* =====================================================
-          ABOUT
-      ====================================================== */}
+      {/* ABOUT */}
 
       <section aria-label="About Mauli Interior">
         <AboutSection />
       </section>
 
-      {/* =====================================================
-          FEATURED WORK
-      ====================================================== */}
+      {/* FEATURED WORK */}
 
       <section aria-label="Featured interior projects">
         <FeaturedWork />
       </section>
 
-      {/* =====================================================
-          3D STUDIO CTA
-      ====================================================== */}
+      {/* 3D STUDIO */}
 
       <section className="bg-[#1b1c1a] text-white">
-        <div className="mx-auto grid max-w-[1400px] items-center gap-10 px-6 py-16 sm:px-8 md:grid-cols-12 md:px-12 md:py-20 lg:px-16">
+        <div className="mx-auto grid max-w-[1400px] items-center gap-8 px-5 py-14 sm:px-8 sm:py-16 md:grid-cols-12 md:gap-10 md:px-12 md:py-20 lg:px-16">
           <div className="md:col-span-8">
             <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#c5a47e]">
               Design before you decide
             </p>
 
-            <h2 className="max-w-3xl font-serif text-4xl leading-tight tracking-tight sm:text-5xl">
-              See your furniture ideas come together in our 3D Studio.
+            <h2 className="max-w-3xl font-serif text-3xl leading-tight tracking-tight sm:text-5xl">
+              See your furniture ideas come together in our
+              3D Studio.
             </h2>
 
             <p className="mt-5 max-w-2xl text-sm leading-7 text-white/65">
-              Explore different furniture configurations, materials and
-              finishes before finalising the design for your home.
+              Explore furniture configurations, materials and
+              finishes as you plan a design for your home.
             </p>
           </div>
 
           <div className="md:col-span-4 md:flex md:justify-end">
             <Link
               href="/3d-studio"
-              className="inline-flex min-h-12 items-center justify-center border border-white/25 px-7 text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:border-white hover:bg-white hover:text-[#1b1c1a]"
+              className="inline-flex min-h-12 w-full items-center justify-center gap-3 border border-white/25 px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:border-white hover:bg-white hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1b1c1a] sm:w-auto sm:px-7"
             >
               Explore 3D Studio
+              <span aria-hidden="true">↗</span>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* =====================================================
-          WHY MAULI
-      ====================================================== */}
+      {/* WHY MAULI */}
 
       <section aria-label="Why choose Mauli Interior">
         <WhyMauli />
       </section>
 
-      {/* =====================================================
-          FINAL CTA
-      ====================================================== */}
+      {/* FINAL CTA */}
 
       <section aria-label="Contact Mauli Interior">
         <FinalCTA />
