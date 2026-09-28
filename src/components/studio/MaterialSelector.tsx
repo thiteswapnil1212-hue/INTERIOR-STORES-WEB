@@ -1,5 +1,5 @@
 import React from "react";
-import { FabricType } from "../../app/3d-studio/page";
+import { FabricType } from "./types";
 
 interface MaterialSelectorProps {
   fabrics: FabricType[];
@@ -12,7 +12,7 @@ export function MaterialSelector({ fabrics, selected, onSelect }: MaterialSelect
     <div className="space-y-4">
       <div className="flex justify-between items-end">
         <h3 className="text-[11px] font-semibold tracking-[0.15em] text-[#1b1c1a]/60 uppercase">
-          Fabric Color
+          Fabric Colour
         </h3>
         <span className="text-sm font-medium text-[#805533]">{selected.name}</span>
       </div>
@@ -21,7 +21,10 @@ export function MaterialSelector({ fabrics, selected, onSelect }: MaterialSelect
         {fabrics.map((fabric) => (
           <button
             key={fabric.id}
+            type="button"
             onClick={() => onSelect(fabric)}
+            aria-label={`Select ${fabric.name} fabric`}
+            aria-pressed={selected.id === fabric.id}
             className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm ${
               selected.id === fabric.id
                 ? "ring-2 ring-offset-2 ring-[#805533] scale-110"
@@ -29,10 +32,9 @@ export function MaterialSelector({ fabrics, selected, onSelect }: MaterialSelect
             }`}
             style={{ backgroundColor: fabric.hex }}
             title={fabric.name}
-            aria-label={`Select ${fabric.name} fabric`}
           >
             {selected.id === fabric.id && (
-              <span className="w-2 h-2 rounded-full bg-white/80 shadow-sm" />
+              <span className="w-2 h-2 rounded-full bg-white/80 shadow-sm" aria-hidden="true" />
             )}
           </button>
         ))}
