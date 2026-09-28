@@ -4,13 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 import ServicesSection from "../components/home/ServicesSection";
-import AboutSection from "../components/home/AboutSection";
 import FeaturedWork from "../components/home/FeaturedWork";
 import WhyMauli from "../components/home/WhyMauli";
 import FinalCTA from "../components/home/FinalCTA";
 
 const siteUrl = "https://mauliinterior-stores-web.vercel.app";
-const ogImage = "/images/seo/mauli-interior-og.jpg";
 
 const pageTitle =
   "Mauli Interior | Custom Sofas & Home Furnishing in Pune";
@@ -45,21 +43,12 @@ export const metadata: Metadata = {
     siteName: "Mauli Interior",
     type: "website",
     locale: "en_IN",
-    images: [
-      {
-        url: ogImage,
-        width: 1200,
-        height: 630,
-        alt: "Custom sofa and home furnishing by Mauli Interior in Pune",
-      },
-    ],
   },
 
   twitter: {
     card: "summary_large_image",
     title: pageTitle,
     description: pageDescription,
-    images: [ogImage],
   },
 };
 
@@ -69,45 +58,49 @@ const trustPoints = [
   "Pune & PCMC service",
 ];
 
+/**
+ * Quick service cards — only link to pages that actually exist.
+ * Curtains and Beds pages do not exist; they link to /contact instead,
+ * which provides a genuine path for customer enquiries.
+ */
 const quickServices = [
   {
     title: "Custom Sofas",
     description:
       "Made-to-measure sofas designed around your room, comfort and style.",
     href: "/services/sofas",
-    image: "/images/home/services/sofa.jpg",
-    imageAlt: "Custom sofa furnishing",
+    image: "/images/sofas/sofa-hero.jpg",
+    imageAlt: "Custom sofa furnishing by Mauli Interior",
   },
   {
     title: "Curtains",
     description:
       "Curtains selected and fitted to complement your space.",
-    href: "/services/curtains",
-    image: "/images/home/services/curtains.jpg",
+    href: "/contact",
+    image: "/images/home/featured-curtains.jpg",
     imageAlt: "Curtains for home interiors",
   },
   {
     title: "Beds & Panels",
     description:
       "Beds and decorative panels to bring warmth and character to bedrooms.",
-    href: "/services/beds",
-    image: "/images/home/services/bed.jpg",
+    href: "/contact",
+    image: "/images/home/featured-beds.jpg",
     imageAlt: "Bedroom furnishing and decorative panels",
   },
 ];
 
 export default function Home() {
   return (
-    <main className="overflow-hidden bg-[#fbf9f6] text-[#1b1c1a]">
-      {/* HERO */}
+    <main id="home-main" className="overflow-hidden bg-[#fbf9f6] text-[#1b1c1a]">
 
+      {/* HERO */}
       <section
         aria-labelledby="hero-heading"
         className="relative border-b border-black/5"
       >
         <div className="mx-auto grid max-w-[1600px] grid-cols-1 items-center gap-8 px-5 py-8 sm:px-8 sm:py-12 md:min-h-[calc(100svh-80px)] md:grid-cols-12 md:gap-8 md:px-12 lg:px-16 lg:py-16">
           {/* Hero content */}
-
           <div className="order-2 flex flex-col md:order-1 md:col-span-5">
             <div className="mb-5 flex items-center gap-3 sm:mb-6">
               <span
@@ -122,7 +115,7 @@ export default function Home() {
 
             <h1
               id="hero-heading"
-              className="max-w-xl font-serif text-[clamp(2.8rem,9vw,5.2rem)] leading-[0.98] tracking-[-0.04em]"
+              className="max-w-xl font-serif text-[clamp(2.4rem,8vw,5rem)] leading-[0.98] tracking-[-0.04em]"
             >
               Interiors made
               <br />
@@ -138,10 +131,9 @@ export default function Home() {
             </p>
 
             {/* Main actions */}
-
             <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
               <Link
-                href="/project"
+                href="/projects"
                 className="inline-flex min-h-12 items-center justify-center gap-3 bg-[#1b1c1a] px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 sm:px-7"
               >
                 Explore Our Work
@@ -158,7 +150,6 @@ export default function Home() {
             </div>
 
             {/* Trust points */}
-
             <div className="mt-8 grid grid-cols-1 gap-3 border-t border-black/10 pt-5 sm:mt-10 sm:grid-cols-3 sm:gap-2 sm:pt-6">
               {trustPoints.map((point) => (
                 <div
@@ -176,7 +167,6 @@ export default function Home() {
           </div>
 
           {/* Hero image */}
-
           <div className="order-1 min-w-0 md:order-2 md:col-span-7">
             <div className="group relative aspect-[4/3] w-full overflow-hidden bg-[#e8e3dd] sm:aspect-[5/4] md:aspect-[4/5] lg:h-[76vh] lg:aspect-auto">
               <Image
@@ -195,7 +185,6 @@ export default function Home() {
               />
 
               {/* Service area badge */}
-
               <div className="absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] bg-white/95 px-4 py-3 backdrop-blur-sm sm:bottom-5 sm:left-5 sm:px-5 sm:py-4">
                 <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#805533]">
                   Serving
@@ -211,7 +200,6 @@ export default function Home() {
       </section>
 
       {/* BRAND STATEMENT */}
-
       <section className="border-b border-black/5 bg-[#f4f0eb]">
         <div className="mx-auto max-w-[1200px] px-5 py-14 sm:px-8 sm:py-16 md:px-12 md:py-20">
           <div className="grid gap-5 md:grid-cols-12 md:items-end md:gap-8">
@@ -236,9 +224,8 @@ export default function Home() {
       </section>
 
       {/* SERVICES */}
-
       <section
-        aria-labelledby="services-heading"
+        aria-labelledby="home-services-heading"
         className="border-b border-black/5"
       >
         <div className="mx-auto max-w-[1600px] px-5 pt-14 sm:px-8 sm:pt-16 md:px-12 lg:px-16">
@@ -249,7 +236,7 @@ export default function Home() {
               </p>
 
               <h2
-                id="services-heading"
+                id="home-services-heading"
                 className="font-serif text-3xl tracking-tight sm:text-5xl"
               >
                 Furnishing for every room.
@@ -270,9 +257,8 @@ export default function Home() {
       </section>
 
       {/* QUICK SERVICE DISCOVERY */}
-
       <section
-        aria-label="Explore popular furnishing services"
+        aria-labelledby="service-discovery-heading"
         className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8 sm:py-16 md:px-12 lg:px-16 lg:py-24"
       >
         <div className="mb-8 max-w-2xl">
@@ -280,7 +266,10 @@ export default function Home() {
             Find your fit
           </p>
 
-          <h2 className="font-serif text-3xl tracking-tight sm:text-4xl">
+          <h2
+            id="service-discovery-heading"
+            className="font-serif text-3xl tracking-tight sm:text-4xl"
+          >
             A little inspiration for your space.
           </h2>
 
@@ -333,21 +322,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ABOUT */}
-
-      <section aria-label="About Mauli Interior">
-        <AboutSection />
-      </section>
-
       {/* FEATURED WORK */}
-
       <section aria-label="Featured interior projects">
         <FeaturedWork />
       </section>
 
       {/* 3D STUDIO */}
-
-      <section className="bg-[#1b1c1a] text-white">
+      <section
+        aria-label="Explore Mauli 3D Studio"
+        className="bg-[#1b1c1a] text-white"
+      >
         <div className="mx-auto grid max-w-[1400px] items-center gap-8 px-5 py-14 sm:px-8 sm:py-16 md:grid-cols-12 md:gap-10 md:px-12 md:py-20 lg:px-16">
           <div className="md:col-span-8">
             <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#c5a47e]">
@@ -378,13 +362,11 @@ export default function Home() {
       </section>
 
       {/* WHY MAULI */}
-
       <section aria-label="Why choose Mauli Interior">
         <WhyMauli />
       </section>
 
       {/* FINAL CTA */}
-
       <section aria-label="Contact Mauli Interior">
         <FinalCTA />
       </section>
