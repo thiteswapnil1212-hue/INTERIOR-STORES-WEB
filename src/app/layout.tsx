@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
 import Navbar from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
 
 const siteUrl = "https://mauliinterior-stores-web.vercel.app";
 
@@ -12,8 +13,6 @@ const defaultTitle =
 
 const description =
   "Mauli Interior creates custom sofas, curtains, beds, mattresses, cushions and wall panels for homes across Pune, PCMC, Bhosari and Moshi.";
-
-const ogImage = "/images/seo/mauli-interior-og.jpg";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -57,9 +56,8 @@ export const metadata: Metadata = {
     google: "LcyAJt9BmZijUliyiotG_GuaVDetCm_KdFAMkJ9P2hA",
   },
 
-  alternates: {
-    canonical: "/",
-  },
+  // NOTE: No canonical here — each page must define its own canonical
+  // to avoid every page inheriting the homepage canonical ("/").
 
   robots: {
     index: true,
@@ -74,8 +72,8 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: "/images/home/brand/mauli-logo.jpg",
+    apple: "/images/home/brand/mauli-logo.jpg",
   },
 
   openGraph: {
@@ -85,21 +83,12 @@ export const metadata: Metadata = {
     siteName,
     title: defaultTitle,
     description,
-    images: [
-      {
-        url: ogImage,
-        width: 1200,
-        height: 630,
-        alt: "Mauli Interior - Custom Furniture and Home Furnishing in Pune",
-      },
-    ],
   },
 
   twitter: {
     card: "summary_large_image",
     title: defaultTitle,
     description,
-    images: [ogImage],
   },
 
   formatDetection: {
@@ -126,7 +115,15 @@ const structuredData = {
       name: siteName,
       url: siteUrl,
       description,
-      image: `${siteUrl}${ogImage}`,
+      telephone: "+919921260926",
+      email: "thiteswapnil1212@gmail.com",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Godown Chowk, Alankapuram Road",
+        addressLocality: "Bhosari",
+        addressRegion: "Pune",
+        addressCountry: "IN",
+      },
       areaServed: [
         {
           "@type": "City",
@@ -205,9 +202,21 @@ export default function RootLayout({
           }}
         />
 
+        {/* Skip to main content — accessibility */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:block focus:bg-[#1b1c1a] focus:px-4 focus:py-3 focus:text-xs focus:font-semibold focus:uppercase focus:tracking-widest focus:text-white focus:outline-none focus:ring-2 focus:ring-[#805533] focus:ring-offset-2"
+        >
+          Skip to main content
+        </a>
+
         <Navbar />
 
-        {children}
+        <div id="main-content">
+          {children}
+        </div>
+
+        <Footer />
       </body>
     </html>
   );
