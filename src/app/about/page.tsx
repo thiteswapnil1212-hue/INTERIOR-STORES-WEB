@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "About | Mauli Interior",
+  description:
+    "Learn about Mauli Interior — custom furnishing solutions for homes across Pune and Pimpri-Chinchwad since 2009. Quality sofas, curtains, beds, panels and more.",
+  alternates: {
+    canonical: "/about",
+  },
+};
 
 const services = [
   "Custom Sofas",
@@ -47,16 +57,16 @@ const strengths = [
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-[#fbf9f6] text-[#1b1c1a]">
-      
+    <main className="min-h-screen bg-[#fbf9f6] pt-16 text-[#1b1c1a] md:pt-20">
+
       {/* HERO */}
-      <section className="flex min-h-[calc(100vh-80px)] items-center px-6 pt-20 md:px-16">
+      <section className="flex min-h-[50vh] items-center px-6 pt-10 md:min-h-[calc(100vh-80px)] md:px-16 md:pt-0">
         <div className="mx-auto w-full max-w-[1440px]">
           <p className="mb-6 text-xs font-semibold uppercase tracking-[0.18em] text-[#805533]">
             About Mauli Interior · Since 2009
           </p>
 
-          <h1 className="max-w-5xl font-serif text-6xl leading-[0.98] tracking-tight md:text-8xl lg:text-[100px]">
+          <h1 className="max-w-5xl font-serif text-[clamp(2.8rem,8vw,7rem)] leading-[0.98] tracking-tight">
             Made around
             <br />
             <span className="text-[#805533]">your space.</span>
@@ -174,21 +184,20 @@ export default function AboutPage() {
               {services.map((service, index) => (
                 <div
                   key={service}
-                  className="group flex items-center justify-between border-b border-[#747878]/15 py-6 last:border-b-0"
+                  className="flex items-center justify-between border-b border-[#747878]/15 py-6 last:border-b-0"
                 >
                   <div className="flex items-center gap-6">
                     <span className="text-xs text-[#805533]">
                       0{index + 1}
                     </span>
 
-                    <h3 className="font-serif text-2xl transition-transform duration-300 group-hover:translate-x-2">
+                    <h3 className="font-serif text-2xl">
                       {service}
                     </h3>
                   </div>
 
-                  <span className="text-[#8b8d89] transition-transform duration-300 group-hover:translate-x-1">
-                    →
-                  </span>
+                  {/* Decorative — these services are not separate pages */}
+                  <span className="text-[#c9cbc7]" aria-hidden="true">—</span>
                 </div>
               ))}
             </div>
