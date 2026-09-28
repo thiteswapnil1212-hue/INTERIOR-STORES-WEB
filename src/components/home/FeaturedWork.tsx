@@ -1,6 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
+/**
+ * Only /services/sofas has a dedicated page.
+ * Curtains, Beds, and Furnishing redirect to /contact for enquiries
+ * rather than pointing to pages that do not exist.
+ */
 const items = [
   {
     number: "01",
@@ -16,7 +21,7 @@ const items = [
     description:
       "Carefully selected fabrics and textures that bring softness and character to a room.",
     src: "/images/home/featured-curtains.jpg",
-    href: "/services/curtains",
+    href: "/contact",
   },
   {
     number: "03",
@@ -24,7 +29,7 @@ const items = [
     description:
       "Made-to-measure beds and panels designed for comfort and proportion.",
     src: "/images/home/featured-beds.jpg",
-    href: "/services/beds",
+    href: "/contact",
   },
   {
     number: "04",
@@ -32,7 +37,7 @@ const items = [
     description:
       "Thoughtful finishing details that bring the different elements of a room together.",
     src: "/images/home/featured-furnishing.jpg",
-    href: "/services/furnishing",
+    href: "/contact",
   },
 ];
 
@@ -57,10 +62,10 @@ export default function FeaturedWork() {
 
           <Link
             href="/projects"
-            className="group inline-flex items-center gap-3 self-start border-b border-[#1b1c1a] pb-2 text-[10px] font-semibold uppercase tracking-[0.14em] md:self-auto"
+            className="group inline-flex items-center gap-3 self-start border-b border-[#1b1c1a] pb-2 text-[10px] font-semibold uppercase tracking-[0.14em] transition-colors hover:border-[#805533] hover:text-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] md:self-auto"
           >
             View Projects
-            <span className="transition-transform duration-300 group-hover:translate-x-1">
+            <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
               →
             </span>
           </Link>
@@ -72,7 +77,7 @@ export default function FeaturedWork() {
             <Link
               key={item.number}
               href={item.href}
-              className="group grid gap-7 border-b border-[#747878]/20 py-8 md:grid-cols-12 md:items-center md:gap-10 md:py-10"
+              className="group grid gap-7 border-b border-[#747878]/20 py-8 md:grid-cols-12 md:items-center md:gap-10 md:py-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
             >
               {/* Number */}
               <div className="md:col-span-1">
@@ -93,7 +98,10 @@ export default function FeaturedWork() {
 
                 <span className="mt-5 inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.14em]">
                   Explore
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">
+                  <span
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                    aria-hidden="true"
+                  >
                     →
                   </span>
                 </span>
@@ -106,7 +114,7 @@ export default function FeaturedWork() {
                   alt={`Custom ${item.title} by Mauli Interior`}
                   fill
                   sizes="(max-width: 768px) 100vw, 58vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                  className="object-cover transition-transform duration-700 ease-out motion-reduce:transition-none group-hover:scale-[1.025]"
                 />
               </div>
             </Link>
