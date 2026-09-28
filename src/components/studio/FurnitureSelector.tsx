@@ -1,5 +1,5 @@
 import React from "react";
-import { FurnitureType } from "../../app/3d-studio/page";
+import { FurnitureType } from "./types";
 
 interface FurnitureSelectorProps {
   selected: FurnitureType;
@@ -22,7 +22,9 @@ export function FurnitureSelector({ selected, onSelect }: FurnitureSelectorProps
         {furnitureOptions.map((opt) => (
           <button
             key={opt.id}
+            type="button"
             onClick={() => onSelect(opt.id)}
+            aria-pressed={selected === opt.id}
             className={`px-4 py-3 text-left text-sm transition-all duration-300 border-l-2 ${
               selected === opt.id
                 ? "border-[#805533] bg-[#805533]/5 text-[#805533] font-medium"
