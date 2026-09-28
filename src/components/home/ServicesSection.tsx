@@ -34,10 +34,7 @@ const services = [
 
 export default function ServicesSection() {
   return (
-    <section
-      aria-labelledby="services-heading"
-      className="border-t border-[#747878]/15 bg-[#fbf9f6] px-6 py-20 text-[#1b1c1a] md:px-16 md:py-28"
-    >
+    <div className="border-t border-[#747878]/15 bg-[#fbf9f6] px-6 py-20 text-[#1b1c1a] md:px-16 md:py-28">
       <div className="mx-auto max-w-[1440px]">
         {/* Header */}
         <div className="mb-12 grid gap-6 md:grid-cols-12 md:items-end">
@@ -47,7 +44,6 @@ export default function ServicesSection() {
             </p>
 
             <h2
-              id="services-heading"
               className="font-serif text-4xl leading-tight tracking-tight md:text-5xl"
             >
               Everything your
@@ -131,6 +127,6 @@ export default function ServicesSection() {
           <span>Pune · PCMC · Bhosari · Moshi</span>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
