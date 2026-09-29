@@ -11,7 +11,7 @@ const items = [
     number: "01",
     title: "Sofas",
     description:
-      "Custom seating designed around your room, comfort and everyday life.",
+      "Seating built to your room and comfort.",
     src: "/images/home/featured-sofa.jpg",
     href: "/services/sofas",
   },
@@ -19,7 +19,7 @@ const items = [
     number: "02",
     title: "Curtains",
     description:
-      "Carefully selected fabrics and textures that bring softness and character to a room.",
+      "Fabrics picked to soften your rooms.",
     src: "/images/home/featured-curtains.jpg",
     href: "/contact",
   },
@@ -27,7 +27,7 @@ const items = [
     number: "03",
     title: "Beds",
     description:
-      "Made-to-measure beds and panels designed for comfort and proportion.",
+      "Beds and panels made for comfort and proportion.",
     src: "/images/home/featured-beds.jpg",
     href: "/contact",
   },
@@ -35,7 +35,7 @@ const items = [
     number: "04",
     title: "Furnishing",
     description:
-      "Thoughtful finishing details that bring the different elements of a room together.",
+      "Finishing details that tie a room together.",
     src: "/images/home/featured-furnishing.jpg",
     href: "/contact",
   },
