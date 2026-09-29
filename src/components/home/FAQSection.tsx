@@ -101,12 +101,17 @@ export default function FAQSection() {
 
                 <div
                   id={`faq-answer-${index}`}
-                  hidden={!isOpen}
-                  className="pb-6 pr-10"
+                  className={`grid transition-all duration-300 ease-out motion-reduce:transition-none ${
+                    isOpen
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
                 >
-                  <p className="max-w-2xl text-sm leading-7 text-[#5c5e5c]">
-                    {faq.answer}
-                  </p>
+                  <div className="overflow-hidden">
+                    <p className="max-w-2xl pb-6 pr-10 text-sm leading-7 text-[#5c5e5c]">
+                      {faq.answer}
+                    </p>
+                  </div>
                 </div>
               </div>
             );
