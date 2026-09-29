@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { FurnitureSelector } from "./FurnitureSelector";
 import { MaterialSelector } from "./MaterialSelector";
-import { FurnitureType, ConfigType, FabricType, FABRICS } from "./types";
+import { FurnitureType, ConfigType, FabricType, FABRICS, FURNITURE_LABELS, CONFIG_OPTIONS, CONFIG_LABELS } from "./types";
 
 interface StudioControlsProps {
   furniture: FurnitureType;
@@ -23,23 +23,12 @@ export default function StudioControls({
   onConfigChange,
   onFabricChange,
 }: StudioControlsProps) {
-  const furnitureLabel =
-    furniture === "wall_panel"
-      ? "Wall Panel"
-      : furniture === "bed"
-        ? "Bed"
-        : "Sofa";
-
-  const configLabel: Record<ConfigType, string> = {
-    "2_seater": "2 Seater",
-    "3_seater": "3 Seater",
-    l_shape: "L-Shape",
-    custom: "Custom",
-  };
+  const furnitureLabel = FURNITURE_LABELS[furniture];
+  const configLabel = CONFIG_LABELS[config];
 
   const enquiryParams = new URLSearchParams({
     service: "Custom Sofas",
-    note: `3D Studio selection: ${furnitureLabel}, ${configLabel[config]}, ${fabric.name} fabric`,
+    note: `3D Studio selection: ${furnitureLabel}, ${configLabel}, ${fabric.name} fabric`,
   });
 
   return (
@@ -48,39 +37,30 @@ export default function StudioControls({
         <FurnitureSelector selected={furniture} onSelect={onFurnitureChange} />
       </div>
 
-      {furniture === "sofa" && (
-        <div className="p-6 lg:p-8 space-y-6 flex-none">
-          <div className="space-y-4">
-            <h3 className="text-[11px] font-semibold tracking-[0.15em] text-[#1b1c1a]/60 uppercase">
-              Configuration
-            </h3>
-            <div className="grid grid-cols-2 gap-2">
-              {(
-                [
-                  { id: "2_seater", label: "2 Seater" },
-                  { id: "3_seater", label: "3 Seater" },
-                  { id: "l_shape", label: "L-Shape" },
-                  { id: "custom", label: "Custom" },
-                ] as const
-              ).map((opt) => (
-                <button
-                  key={opt.id}
-                  type="button"
-                  onClick={() => onConfigChange(opt.id)}
-                  aria-pressed={config === opt.id}
-                  className={`py-3 px-2 text-sm text-center border transition-all duration-300 ${
-                    config === opt.id
-                      ? "border-[#805533] bg-[#805533] text-white font-medium"
-                      : "border-black/10 bg-white text-[#1b1c1a] hover:border-black/30 hover:bg-black/5"
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
+      <div className="p-6 lg:p-8 space-y-6 flex-none">
+        <div className="space-y-4">
+          <h3 className="text-[11px] font-semibold tracking-[0.15em] text-[#1b1c1a]/60 uppercase">
+            Configuration
+          </h3>
+          <div className="grid grid-cols-2 gap-2">
+            {CONFIG_OPTIONS[furniture].map((opt) => (
+              <button
+                key={opt.id}
+                type="button"
+                onClick={() => onConfigChange(opt.id)}
+                aria-pressed={config === opt.id}
+                className={`py-3 px-2 text-sm text-center border transition-all duration-300 ${
+                  config === opt.id
+                    ? "border-[#805533] bg-[#805533] text-white font-medium"
+                    : "border-black/10 bg-white text-[#1b1c1a] hover:border-black/30 hover:bg-black/5"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
           </div>
         </div>
-      )}
+      </div>
 
       <div className="p-6 lg:p-8 space-y-6 flex-1">
         <MaterialSelector fabrics={FABRICS} selected={fabric} onSelect={onFabricChange} />
