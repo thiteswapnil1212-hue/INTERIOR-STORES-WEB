@@ -110,7 +110,7 @@ export default function ServicesSection() {
                         Explore service
                       </span>
                     ) : (
-                      <span className="text-[#8b8d89]">Coming soon</span>
+                      <span className="text-[#6b6d69]">Coming soon</span>
                     )}
                   </div>
                 </div>
@@ -138,7 +138,7 @@ export default function ServicesSection() {
         </div>
 
         {/* Local service note */}
-        <div className="mt-8 flex flex-col gap-2 border-t border-[#747878]/15 pt-6 text-[11px] uppercase tracking-[0.12em] text-[#8b8d89] sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col gap-2 border-t border-[#747878]/15 pt-6 text-[11px] uppercase tracking-[0.12em] text-[#6b6d69] sm:flex-row sm:items-center sm:justify-between">
           <span>Custom furnishing for homes</span>
           <span>Pune · PCMC · Bhosari · Moshi</span>
         </div>
