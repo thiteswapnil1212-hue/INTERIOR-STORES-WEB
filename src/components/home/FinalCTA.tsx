@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function FinalCTA() {
   return (
-    <section className="border-t border-[#747878]/15 bg-[#1b1c1a] px-6 py-24 text-[#fbf9f6] md:px-16 md:py-32">
+    <section aria-label="Contact Mauli Interior" className="border-t border-[#747878]/15 bg-[#1b1c1a] px-6 py-24 text-[#fbf9f6] md:px-16 md:py-32">
       <div className="mx-auto max-w-[1000px] text-center">
 
         {/* Eyebrow */}

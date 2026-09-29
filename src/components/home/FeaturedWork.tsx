@@ -43,7 +43,7 @@ const items = [
 
 export default function FeaturedWork() {
   return (
-    <section className="bg-[#fbf9f6] px-6 py-20 text-[#1b1c1a] md:px-16 md:py-28">
+    <section aria-label="Featured interior projects" className="bg-[#fbf9f6] px-6 py-20 text-[#1b1c1a] md:px-16 md:py-28">
       <div className="mx-auto max-w-[1280px]">
 
         {/* Header */}

@@ -27,7 +27,7 @@ export default function WhyMauli() {
   ];
 
   return (
-    <section className="bg-[#fbf9f6] px-6 py-16 text-[#1b1c1a] md:px-16 md:py-24">
+    <section aria-label="Why choose Mauli Interior" className="bg-[#fbf9f6] px-6 py-16 text-[#1b1c1a] md:px-16 md:py-24">
       <div className="mx-auto max-w-[1200px]">
 
         {/* Section Intro */}

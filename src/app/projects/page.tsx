@@ -1,9 +1,10 @@
 
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Our Projects | Mauli Interior",
+  title: "Our Projects",
   description:
     "Explore custom sofas, curtains, wall panels and furnishing work by Mauli Interior across Pune and PCMC.",
   alternates: {
@@ -34,7 +35,8 @@ const projects = [
     location: "Pune",
     description:
       "Made-to-order seating designed around your space, comfort, and fabric preferences.",
-    imageLabel: "Sofa",
+    image: "/images/sofas/sofa-hero.jpg",
+    imageAlt: "Custom-made sofa by Mauli Interior in a Pune home",
   },
   {
     number: "02",
@@ -43,7 +45,8 @@ const projects = [
     location: "Pune",
     description:
       "Curtain styles and fabrics selected to complement the character of your home.",
-    imageLabel: "Curtains",
+    image: "/images/home/featured-curtains.jpg",
+    imageAlt: "Custom curtains fitted by Mauli Interior",
   },
   {
     number: "03",
@@ -52,7 +55,8 @@ const projects = [
     location: "PCMC",
     description:
       "Decorative panels made to bring a considered finish to bedrooms and living spaces.",
-    imageLabel: "Panels",
+    image: "/images/home/featured-beds.jpg",
+    imageAlt: "Bedroom with decorative wall and bed panels by Mauli Interior",
   },
   {
     number: "04",
@@ -61,15 +65,18 @@ const projects = [
     location: "Pune",
     description:
       "A tailored approach to furnishing, with details chosen to suit your requirements.",
-    imageLabel: "Furnishing",
+    image: "/images/home/featured-furnishing.jpg",
+    imageAlt: "Custom home furnishing by Mauli Interior",
   },
 ];
 
-function ProjectPlaceholder({
-  imageLabel,
+function ProjectImage({
+  src,
+  alt,
   featured = false,
 }: {
-  imageLabel: string;
+  src: string;
+  alt: string;
   featured?: boolean;
 }) {
   return (
@@ -78,22 +85,17 @@ function ProjectPlaceholder({
         featured ? "aspect-[16/10]" : "aspect-[4/3]"
       }`}
     >
-      {/* Decorative placeholder until real project photos are added */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#f6f1e9] via-[#e9e4dc] to-[#d8cfc2]" />
-
-        <div className="relative flex flex-col items-center gap-3 text-center">
-          <span
-            className="font-serif text-4xl text-[#805533]/50 sm:text-5xl"
-            aria-hidden="true"
-          >
-            M.
-          </span>
-          <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-[#805533]/75">
-            {imageLabel}
-          </span>
-        </div>
-      </div>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={
+          featured
+            ? "(max-width: 768px) 100vw, 66vw"
+            : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
+        }
+        className="object-cover transition-transform duration-700 ease-out motion-reduce:transition-none md:group-hover:scale-[1.03]"
+      />
 
       <div className="absolute inset-0 border border-black/[0.03]" />
 
@@ -165,8 +167,9 @@ export default function ProjectsPage() {
 
           <div className="grid gap-7 md:grid-cols-12 md:items-end md:gap-10">
             <div className="md:col-span-8">
-              <ProjectPlaceholder
-                imageLabel={projects[0].imageLabel}
+              <ProjectImage
+                src={projects[0].image}
+                alt={projects[0].imageAlt}
                 featured
               />
             </div>
@@ -228,7 +231,7 @@ export default function ProjectsPage() {
           <div className="grid gap-x-6 gap-y-12 sm:grid-cols-2 sm:gap-y-14 lg:gap-x-8">
             {projects.slice(1).map((project) => (
               <article key={project.number} className="group">
-                <ProjectPlaceholder imageLabel={project.imageLabel} />
+                <ProjectImage src={project.image} alt={project.imageAlt} />
 
                 <div className="mt-5 flex items-start justify-between gap-4">
                   <div className="min-w-0">

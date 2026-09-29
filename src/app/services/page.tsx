@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Services | Mauli Interior",
+  title: "Services",
   description:
     "Explore Mauli Interior's furnishing services — custom sofas, curtains, beds, mattresses, cushions and wall panels for homes across Pune and PCMC.",
   alternates: {

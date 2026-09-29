@@ -17,7 +17,11 @@ const pageDescription =
   "Custom sofas, curtains, beds, mattresses, wall panels and home furnishing solutions crafted by Mauli Interior for homes across Pune, PCMC, Bhosari and Moshi.";
 
 export const metadata: Metadata = {
-  title: pageTitle,
+  // `absolute` opts out of the layout's title template so the
+  // homepage title renders exactly once, without duplication.
+  title: {
+    absolute: pageTitle,
+  },
   description: pageDescription,
 
   keywords: [
@@ -43,12 +47,21 @@ export const metadata: Metadata = {
     siteName: "Mauli Interior",
     type: "website",
     locale: "en_IN",
+    images: [
+      {
+        url: "/images/seo/mauli-interior-og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Custom sofas and home furnishing by Mauli Interior in Pune",
+      },
+    ],
   },
 
   twitter: {
     card: "summary_large_image",
     title: pageTitle,
     description: pageDescription,
+    images: ["/images/seo/mauli-interior-og.jpg"],
   },
 };
 
@@ -323,9 +336,7 @@ export default function Home() {
       </section>
 
       {/* FEATURED WORK */}
-      <section aria-label="Featured interior projects">
-        <FeaturedWork />
-      </section>
+      <FeaturedWork />
 
       {/* 3D STUDIO */}
       <section
@@ -362,14 +373,10 @@ export default function Home() {
       </section>
 
       {/* WHY MAULI */}
-      <section aria-label="Why choose Mauli Interior">
-        <WhyMauli />
-      </section>
+      <WhyMauli />
 
       {/* FINAL CTA */}
-      <section aria-label="Contact Mauli Interior">
-        <FinalCTA />
-      </section>
+      <FinalCTA />
     </main>
   );
 }

@@ -8,7 +8,7 @@ import SeatingFeatures from "../../../components/sofa/SeatingFeatures";
 import IntegratedDesign from "../../../components/sofa/IntegratedDesign";
 
 export const metadata: Metadata = {
-  title: "Custom Sofas in Pune | Mauli Interior",
+  title: "Custom Sofas in Pune",
   description:
     "Discover custom sofas by Mauli Interior. Explore sofa styles, seating configurations and fabric finishes for your home. Serving Pune, PCMC, Bhosari and Moshi.",
 

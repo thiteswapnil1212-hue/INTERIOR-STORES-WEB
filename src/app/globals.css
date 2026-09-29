@@ -37,6 +37,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/*
+ * All element-level base styles live in `@layer base` so that
+ * Tailwind's utilities (which live in `@layer utilities`) can
+ * reliably override them. Unlayered author CSS would otherwise
+ * beat layered utilities in the cascade — e.g. `a { color: inherit }`
+ * would silently override `text-white` on links and buttons.
+ */
+
+@layer base {
+
 /* =========================================================
    RESET & BOX SIZING
 ========================================================= */
@@ -235,6 +245,8 @@ fieldset {
 summary {
   cursor: pointer;
 }
+
+} /* end @layer base */
 
 /* =========================================================
    REUSABLE TYPOGRAPHY UTILITIES
