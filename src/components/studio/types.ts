@@ -52,7 +52,7 @@ export const CONFIG_OPTIONS: Record<
     { id: "2_seater", label: "2 Seater" },
     { id: "3_seater", label: "3 Seater" },
     { id: "l_shape", label: "L-Shape" },
-    { id: "custom", label: "Custom" },
+    { id: "custom", label: "Custom Size" },
   ],
   bed: [
     { id: "single", label: "Single" },
@@ -76,7 +76,7 @@ export const CONFIG_LABELS: Record<ConfigType, string> = {
   "2_seater": "2 Seater",
   "3_seater": "3 Seater",
   l_shape: "L-Shape",
-  custom: "Custom",
+  custom: "Custom Size",
   single: "Single",
   double: "Double",
   queen: "Queen",
