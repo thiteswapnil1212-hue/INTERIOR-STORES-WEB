@@ -83,7 +83,7 @@ const quickServices = [
   {
     title: "Custom Sofas",
     description:
-      "Made-to-measure sofas designed around your room, comfort and style.",
+      "Sofas built around your room and comfort.",
     href: "/services/sofas",
     image: "/images/sofas/sofa-hero.jpg",
     imageAlt: "Custom sofa furnishing by Mauli Interior",
@@ -91,7 +91,7 @@ const quickServices = [
   {
     title: "Curtains",
     description:
-      "Curtains selected and fitted to complement your space.",
+      "Curtains chosen and fitted for your space.",
     href: "/contact",
     image: "/images/home/featured-curtains.jpg",
     imageAlt: "Curtains for home interiors",
@@ -99,7 +99,7 @@ const quickServices = [
   {
     title: "Beds & Panels",
     description:
-      "Beds and decorative panels to bring warmth and character to bedrooms.",
+      "Beds and panels that warm up bedrooms.",
     href: "/contact",
     image: "/images/home/featured-beds.jpg",
     imageAlt: "Bedroom furnishing and decorative panels",
@@ -145,9 +145,8 @@ export default function Home() {
               style={{ animationDelay: "240ms" }}
               className="animate-fade-up mt-5 max-w-lg text-sm leading-7 text-[#555856] sm:mt-7 sm:text-base"
             >
-              Thoughtfully crafted sofas, curtains, beds and
-              furnishing solutions designed around your space,
-              comfort and everyday life.
+              Custom sofas, curtains, beds and furnishing — made to measure
+              for homes across Pune and PCMC.
             </p>
 
             {/* Main actions */}
@@ -197,7 +196,7 @@ export default function Home() {
             style={{ animationDelay: "200ms" }}
             className="animate-fade-up order-1 min-w-0 md:order-2 md:col-span-7"
           >
-            <div className="group relative aspect-[4/3] w-full overflow-hidden bg-[#e8e3dd] sm:aspect-[5/4] md:aspect-[4/5] lg:h-[76vh] lg:aspect-auto">
+            <div className="animate-hero-zoom group relative aspect-[4/3] w-full overflow-hidden bg-[#e8e3dd] sm:aspect-[5/4] md:aspect-[4/5] lg:h-[76vh] lg:aspect-auto">
               <Image
                 src="/images/home/hero.jpg"
                 alt="Living room with home furnishing by Mauli Interior"
@@ -244,11 +243,11 @@ export default function Home() {
 
             <div className="md:col-span-8">
               <h2 className="max-w-3xl font-serif text-3xl leading-tight tracking-tight sm:text-4xl md:text-5xl">
-                Good interiors are not just about how a room
+                Good interiors aren&apos;t about how a room
                 looks.
                 <span className="text-[#805533]">
                   {" "}
-                  They are about how it feels to live in it.
+                  They&apos;re about how it feels to live in.
                 </span>
               </h2>
             </div>
@@ -307,12 +306,11 @@ export default function Home() {
             id="service-discovery-heading"
             className="font-serif text-3xl tracking-tight sm:text-4xl"
           >
-            A little inspiration for your space.
+            Where to start.
           </h2>
 
           <p className="mt-4 text-sm leading-7 text-[#656765]">
-            Explore a few of our furnishing categories and find
-            the right starting point for your home.
+            Browse our main categories and see what fits your space.
           </p>
         </div>
 
@@ -322,7 +320,7 @@ export default function Home() {
               key={service.title}
               href={service.href}
               aria-label={`Explore ${service.title}`}
-              className="group block min-w-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-4"
+              className="group block min-w-0 transition-transform duration-500 ease-out hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-4 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
             >
               <article>
                 <div className="relative aspect-[4/3] overflow-hidden bg-[#e8e3dd]">
@@ -383,8 +381,8 @@ export default function Home() {
             </h2>
 
             <p className="mt-5 max-w-2xl text-sm leading-7 text-white/65">
-              Explore furniture configurations, materials and
-              finishes as you plan a design for your home.
+              Try furniture layouts, materials and finishes while planning
+              your home.
             </p>
           </div>
 
