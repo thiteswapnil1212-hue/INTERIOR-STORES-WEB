@@ -9,6 +9,7 @@ interface FurnitureSelectorProps {
 const furnitureOptions: { id: FurnitureType; label: string }[] = [
   { id: "sofa", label: "Sofa" },
   { id: "bed", label: "Bed" },
+  { id: "curtains", label: "Curtains" },
   { id: "wall_panel", label: "Wall Panel" },
 ];
 
