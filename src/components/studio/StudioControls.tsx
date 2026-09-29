@@ -40,7 +40,7 @@ export default function StudioControls({
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`;
 
   return (
-    <div className="flex flex-col h-full divide-y divide-black/10">
+    <div className="flex flex-col divide-y divide-black/10">
       <div className="p-6 lg:p-8 space-y-6 flex-none">
         <FurnitureSelector selected={furniture} onSelect={onFurnitureChange} />
       </div>
