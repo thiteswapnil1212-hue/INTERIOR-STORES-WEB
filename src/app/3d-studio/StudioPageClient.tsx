@@ -34,7 +34,7 @@ export default function StudioPageClient() {
   };
 
   return (
-    <main className="flex min-h-[100dvh] flex-col bg-[#fbf9f6] pt-16 text-[#1b1c1a] md:h-[100dvh] md:min-h-0 md:pt-20">
+    <main className="min-h-[100dvh] bg-[#fbf9f6] pt-16 text-[#1b1c1a] md:pt-20">
 
       {/* Studio Header */}
       <header className="relative z-10 shrink-0 border-b border-black/10 bg-[#fbf9f6] px-5 py-4 sm:px-8 md:py-5">
@@ -69,14 +69,14 @@ export default function StudioPageClient() {
         </div>
       </header>
 
-      {/* Workspace */}
+      {/* Workspace — page scrolls naturally; viewer sticks on desktop */}
       <section
         aria-label="3D furniture configurator"
-        className="mx-auto flex w-full max-w-[1800px] flex-1 flex-col md:min-h-0 md:flex-row"
+        className="mx-auto w-full max-w-[1800px] md:grid md:grid-cols-[minmax(0,1fr)_360px] lg:grid-cols-[minmax(0,1fr)_400px]"
       >
 
         {/* 3D Viewer */}
-        <div className="relative min-h-[300px] flex-1 overflow-hidden bg-[#e9e4dc] sm:min-h-[380px] md:min-h-0">
+        <div className="relative h-[62svh] min-h-[320px] overflow-hidden bg-[#e9e4dc] md:sticky md:top-20 md:h-[calc(100svh-5rem)] md:min-h-[480px]">
 
           {/* Viewer Label */}
           <div className="pointer-events-none absolute left-4 top-4 z-10 sm:left-7 sm:top-6">
@@ -95,7 +95,7 @@ export default function StudioPageClient() {
         {/* Controls */}
         <aside
           aria-label="Furniture customisation controls"
-          className="relative z-10 flex w-full shrink-0 flex-col border-t border-black/10 bg-[#fbf9f6] md:w-[360px] md:border-l md:border-t-0 lg:w-[400px]"
+          className="relative border-t border-black/10 bg-[#fbf9f6] md:border-l md:border-t-0"
         >
 
           <div className="border-b border-black/10 px-5 py-4 sm:px-7">
@@ -108,20 +108,18 @@ export default function StudioPageClient() {
             </h2>
 
             <p className="mt-1 text-xs leading-5 text-[#6b6d69]">
-              Choose your furniture and explore the options.
+              Your choices update the 3D model live.
             </p>
           </div>
 
-          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-            <StudioControls
-              furniture={furniture}
-              config={config}
-              fabric={fabric}
-              onFurnitureChange={handleFurnitureChange}
-              onConfigChange={setConfig}
-              onFabricChange={setFabric}
-            />
-          </div>
+          <StudioControls
+            furniture={furniture}
+            config={config}
+            fabric={fabric}
+            onFurnitureChange={handleFurnitureChange}
+            onConfigChange={setConfig}
+            onFabricChange={setFabric}
+          />
 
           {/* Current Selection */}
           <div className="shrink-0 border-t border-black/10 bg-[#f5f1eb] px-5 py-4 sm:px-7">
