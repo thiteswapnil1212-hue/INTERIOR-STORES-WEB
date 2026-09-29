@@ -132,14 +132,14 @@ export default function StudioPageClient() {
               />
 
               <div className="min-w-0 flex-1">
-                <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#8b8d89]">
+                <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#6b6d69]">
                   Your design
                 </p>
 
                 <p className="truncate text-sm font-medium">
                   {FURNITURE_LABELS[furniture]} · {CONFIG_LABELS[config]} · {fabric.name}
                 </p>
-                <p className="truncate text-[11px] text-[#8b8d89]">
+                <p className="truncate text-[11px] text-[#6b6d69]">
                   {CONFIG_DIMENSIONS[config]}
                 </p>
               </div>
