@@ -122,7 +122,7 @@ export default function AboutPage() {
               </p>
 
               <p>
-                With 20+ years of hands-on furniture and furnishing experience,
+                With 17 years of hands-on furniture and furnishing experience,
                 we understand the practical details behind comfortable
                 seating, accurate measurements, suitable materials and a good
                 finish.
@@ -137,6 +137,40 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/*
+        FOUNDER PHOTO — to add a founder portrait to the story section:
+        1. Save the photo as public/images/about/founder.jpg
+        2. Add `import Image from "next/image";` at the top of this file
+        3. Uncomment the block below and set the name in the caption.
+      */}
+      {/*
+      <section className="border-t border-[#747878]/15 px-6 py-24 md:px-16 md:py-32">
+        <div className="mx-auto grid max-w-[1440px] gap-12 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <Image
+              src="/images/about/founder.jpg"
+              alt="Founder of Mauli Interior"
+              width={640}
+              height={800}
+              className="w-full object-cover"
+            />
+          </div>
+          <div className="md:col-span-6 md:col-start-7">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#805533]">
+              The Founder
+            </p>
+            <h2 className="mt-5 font-serif text-4xl leading-tight md:text-6xl">
+              [Founder name]
+            </h2>
+            <p className="mt-7 max-w-md text-[15px] leading-7 text-[#5c5e5c]">
+              [Two or three sentences about the founder — how the work started,
+              what they care about in the craft.]
+            </p>
+          </div>
+        </div>
+      </section>
+      */}
 
       {/* EXPERIENCE */}
       <section className="bg-[#1b1c1a] px-6 py-20 text-[#fbf9f6] md:px-16 md:py-28">
@@ -159,7 +193,7 @@ export default function AboutPage() {
 
             <div className="p-8 md:p-12">
               <span className="font-serif text-7xl md:text-8xl">
-                20+
+                17
               </span>
 
               <p className="mt-5 max-w-sm text-sm leading-6 text-[#b9bab6]">
@@ -310,6 +344,47 @@ export default function AboutPage() {
               Tell us about your space and we can discuss your furnishing
               requirement.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* WORKSHOP */}
+      <section className="border-t border-[#747878]/15 bg-[#f2eee8] px-6 py-20 md:px-16 md:py-24">
+        <div className="mx-auto grid max-w-[1440px] gap-10 md:grid-cols-12">
+          <div className="md:col-span-6">
+            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.16em] text-[#805533]">
+              Visit Us
+            </p>
+
+            <h2 className="font-serif text-4xl leading-tight md:text-6xl">
+              See where
+              <br />
+              it&apos;s made.
+            </h2>
+          </div>
+
+          <div className="md:col-span-5 md:col-start-8">
+            <address className="not-italic text-[15px] leading-7 text-[#5c5e5c]">
+              Godown Chowk, Alankapuram Road,
+              <br />
+              Bhosari, Pune 411039
+            </address>
+
+            <p className="mt-4 text-[15px] leading-7 text-[#5c5e5c]">
+              Open all days · 8:00 AM – 8:00 PM
+            </p>
+
+            <a
+              href="https://www.google.com/maps/dir/?api=1&destination=Godown+Chowk,+Alankapuram+Road,+Bhosari,+Pune+411039"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-6 inline-flex min-h-11 items-center gap-3 border-b border-[#1b1c1a] pb-2 text-[10px] font-semibold uppercase tracking-[0.16em] transition-colors hover:border-[#805533] hover:text-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
+            >
+              Get Directions
+              <span className="text-base transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">
+                ↗
+              </span>
+            </a>
           </div>
         </div>
       </section>
