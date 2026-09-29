@@ -6,7 +6,7 @@ import Link from "next/link";
 import { LoaderCircle, ArrowLeft } from "lucide-react";
 
 import StudioControls from "../../components/studio/StudioControls";
-import { FurnitureType, ConfigType, FabricType, FABRICS } from "../../components/studio/types";
+import { FurnitureType, ConfigType, FabricType, FABRICS, DEFAULT_CONFIG, FURNITURE_LABELS } from "../../components/studio/types";
 
 const StudioViewer = dynamic(
   () => import("../../components/studio/StudioViewer"),
@@ -25,8 +25,13 @@ const StudioViewer = dynamic(
 
 export default function StudioPageClient() {
   const [furniture, setFurniture] = useState<FurnitureType>("sofa");
-  const [config, setConfig] = useState<ConfigType>("2_seater");
+  const [config, setConfig] = useState<ConfigType>("3_seater");
   const [fabric, setFabric] = useState<FabricType>(FABRICS[0]);
+
+  const handleFurnitureChange = (f: FurnitureType) => {
+    setFurniture(f);
+    setConfig(DEFAULT_CONFIG[f]);
+  };
 
   return (
     <main className="flex min-h-[100dvh] flex-col bg-[#fbf9f6] pt-16 text-[#1b1c1a] md:h-[100dvh] md:min-h-0 md:pt-20">
@@ -111,7 +116,7 @@ export default function StudioPageClient() {
               furniture={furniture}
               config={config}
               fabric={fabric}
-              onFurnitureChange={setFurniture}
+              onFurnitureChange={handleFurnitureChange}
               onConfigChange={setConfig}
               onFabricChange={setFabric}
             />
@@ -138,11 +143,7 @@ export default function StudioPageClient() {
               </div>
 
               <span className="text-xs text-[#8b8d89]">
-                {furniture === "wall_panel"
-                  ? "Wall Panel"
-                  : furniture === "bed"
-                    ? "Bed"
-                    : "Sofa"}
+                {FURNITURE_LABELS[furniture]}
               </span>
             </div>
           </div>
