@@ -105,7 +105,7 @@ export default function ContactPageClient() {
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-8 md:mt-10 md:grid-cols-1 md:gap-y-7">
 
             <div>
-              <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#8b8d89]">
+              <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6b6d69]">
                 Call or WhatsApp
               </p>
               <div className="flex flex-col">
@@ -115,10 +115,10 @@ export default function ContactPageClient() {
                 >
                   +91 99212 60926
                 </a>
-                <p className="text-[11px] leading-4 text-[#8b8d89]">
+                <p className="text-[11px] leading-4 text-[#6b6d69]">
                   Primary · WhatsApp available
                 </p>
-                <p className="mt-1 text-[11px] leading-4 text-[#8b8d89]">
+                <p className="mt-1 text-[11px] leading-4 text-[#6b6d69]">
                   For urgent enquiries, please call this number.
                 </p>
                 <a
@@ -127,14 +127,14 @@ export default function ContactPageClient() {
                 >
                   +91 82088 11046
                 </a>
-                <p className="text-[11px] leading-4 text-[#8b8d89]">
+                <p className="text-[11px] leading-4 text-[#6b6d69]">
                   Secondary
                 </p>
               </div>
             </div>
 
             <div>
-              <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#8b8d89]">
+              <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6b6d69]">
                 Workshop Hours
               </p>
               <p className="text-[14px] leading-6 text-[#444748]">
@@ -145,7 +145,7 @@ export default function ContactPageClient() {
             </div>
 
             <div>
-              <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#8b8d89]">
+              <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6b6d69]">
                 Email
               </p>
               <a
@@ -157,7 +157,7 @@ export default function ContactPageClient() {
             </div>
 
             <div className="sm:col-span-2 md:col-span-1">
-              <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#8b8d89]">
+              <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6b6d69]">
                 Workshop
               </p>
               <address className="not-italic text-[14px] leading-6 text-[#444748]">
@@ -211,7 +211,7 @@ export default function ContactPageClient() {
                 <div>
                   <label
                     htmlFor="contact-name"
-                    className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.16em] text-[#747878]"
+                    className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.16em] text-[#5c5e5c]"
                   >
                     Your Name <span aria-hidden="true">*</span>
                     <span className="sr-only">(required)</span>
@@ -225,14 +225,14 @@ export default function ContactPageClient() {
                     minLength={2}
                     maxLength={80}
                     placeholder="Enter your name"
-                    className="min-h-11 w-full border-0 border-b border-[#747878]/30 bg-transparent px-0 py-3 text-[14px] outline-none transition-colors placeholder:text-[#aaa9a5] focus:border-[#805533] focus-visible:ring-0"
+                    className="min-h-11 w-full border-0 border-b border-[#747878]/30 bg-transparent px-0 py-3 text-[14px] outline-none transition-colors placeholder:text-[#8b8d89] focus:border-[#805533] focus-visible:ring-0"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="contact-phone"
-                    className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.16em] text-[#747878]"
+                    className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.16em] text-[#5c5e5c]"
                   >
                     Phone Number <span aria-hidden="true">*</span>
                     <span className="sr-only">(required)</span>
@@ -247,7 +247,7 @@ export default function ContactPageClient() {
                     pattern="[+]?[0-9 ()-]{10,18}"
                     title="Enter a valid phone number (10–18 digits)"
                     placeholder="+91  XXXXX XXXXX"
-                    className="min-h-11 w-full border-0 border-b border-[#747878]/30 bg-transparent px-0 py-3 text-[14px] outline-none transition-colors placeholder:text-[#aaa9a5] focus:border-[#805533] focus-visible:ring-0"
+                    className="min-h-11 w-full border-0 border-b border-[#747878]/30 bg-transparent px-0 py-3 text-[14px] outline-none transition-colors placeholder:text-[#8b8d89] focus:border-[#805533] focus-visible:ring-0"
                   />
                 </div>
               </div>
@@ -256,7 +256,7 @@ export default function ContactPageClient() {
               <div>
                 <label
                   htmlFor="contact-service"
-                  className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.16em] text-[#747878]"
+                  className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.16em] text-[#5c5e5c]"
                 >
                   Service <span aria-hidden="true">*</span>
                   <span className="sr-only">(required)</span>
@@ -283,7 +283,7 @@ export default function ContactPageClient() {
               <div>
                 <label
                   htmlFor="contact-requirement"
-                  className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.16em] text-[#747878]"
+                  className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.16em] text-[#5c5e5c]"
                 >
                   Requirement <span aria-hidden="true">*</span>
                   <span className="sr-only">(required)</span>
@@ -296,16 +296,16 @@ export default function ContactPageClient() {
                   maxLength={1500}
                   rows={4}
                   placeholder="Tell us about your space, measurements, preferred design, or anything else..."
-                  className="w-full resize-y border-0 border-b border-[#747878]/30 bg-transparent px-0 py-3 text-[14px] leading-6 outline-none transition-colors placeholder:text-[#aaa9a5] focus:border-[#805533] focus-visible:ring-0"
+                  className="w-full resize-y border-0 border-b border-[#747878]/30 bg-transparent px-0 py-3 text-[14px] leading-6 outline-none transition-colors placeholder:text-[#8b8d89] focus:border-[#805533] focus-visible:ring-0"
                 />
-                <p className="mt-2 text-[10px] text-[#8b8d89]">
+                <p className="mt-2 text-[10px] text-[#6b6d69]">
                   You can share photos and measurements directly on WhatsApp.
                 </p>
               </div>
 
               {/* SERVICE LIST */}
               <div className="border-y border-[#747878]/15 py-5">
-                <p className="mb-4 text-[9px] font-semibold uppercase tracking-[0.16em] text-[#8b8d89]">
+                <p className="mb-4 text-[9px] font-semibold uppercase tracking-[0.16em] text-[#6b6d69]">
                   We specialise in
                 </p>
                 <div className="flex flex-wrap gap-x-4 gap-y-2 sm:gap-x-5">
@@ -341,7 +341,7 @@ export default function ContactPageClient() {
               <div className="flex flex-col gap-5 pt-1 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-3">
                   <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#805533]" aria-hidden="true" />
-                  <p className="text-[10px] leading-5 text-[#8b8d89]">
+                  <p className="text-[10px] leading-5 text-[#6b6d69]">
                     Your enquiry opens in WhatsApp for you to send.
                   </p>
                 </div>
