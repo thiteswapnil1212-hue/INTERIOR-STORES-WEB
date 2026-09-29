@@ -62,7 +62,7 @@ export default function Testimonials() {
                 <p className="text-sm font-medium text-[#1b1c1a]">
                   {testimonial.name}
                 </p>
-                <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-[#8b8d89]">
+                <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-[#6b6d69]">
                   {testimonial.detail}
                 </p>
               </figcaption>
