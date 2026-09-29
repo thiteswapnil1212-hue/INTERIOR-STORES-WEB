@@ -164,10 +164,10 @@ export default function ProjectsPage() {
       >
         <div className="mx-auto max-w-[1440px]">
           <div className="mb-5 flex items-center justify-between">
-            <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#8b8d89]">
+            <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#6b6d69]">
               Featured category
             </p>
-            <span className="text-[9px] uppercase tracking-[0.14em] text-[#8b8d89]">
+            <span className="text-[9px] uppercase tracking-[0.14em] text-[#6b6d69]">
               01 / 04
             </span>
           </div>
@@ -194,7 +194,7 @@ export default function ProjectsPage() {
                 {projects[0].description}
               </p>
 
-              <div className="mt-5 flex items-center gap-2 text-[10px] uppercase tracking-[0.12em] text-[#8b8d89]">
+              <div className="mt-5 flex items-center gap-2 text-[10px] uppercase tracking-[0.12em] text-[#6b6d69]">
                 <span className="h-1 w-1 rounded-full bg-[#805533]" aria-hidden="true" />
                 {projects[0].location}
               </div>
@@ -230,7 +230,7 @@ export default function ProjectsPage() {
               </h2>
             </div>
 
-            <p className="max-w-xs text-[12px] leading-6 text-[#8b8d89]">
+            <p className="max-w-xs text-[12px] leading-6 text-[#6b6d69]">
               Made-to-order furnishing for homes across Pune and PCMC.
             </p>
           </div>
@@ -242,7 +242,7 @@ export default function ProjectsPage() {
 
                 <div className="mt-5 flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#8b8d89]">
+                    <p className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#6b6d69]">
                       {project.number} / {project.category}
                     </p>
 
@@ -254,7 +254,7 @@ export default function ProjectsPage() {
                       {project.description}
                     </p>
 
-                    <p className="mt-3 text-[10px] uppercase tracking-[0.12em] text-[#8b8d89]">
+                    <p className="mt-3 text-[10px] uppercase tracking-[0.12em] text-[#6b6d69]">
                       {project.location}
                     </p>
                   </div>
