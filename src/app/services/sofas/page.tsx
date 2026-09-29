@@ -300,7 +300,7 @@ export default function SofasPage() {
               href="/3d-studio"
               className="inline-flex min-h-11 items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
-              Explore 3D Studio
+              Design yours in 3D
               <span>↗</span>
             </Link>
           </div>
