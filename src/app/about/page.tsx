@@ -90,7 +90,7 @@ export default function AboutPage() {
           </div>
 
           <div className="mt-20 border-t border-[#747878]/20 pt-5">
-            <div className="flex justify-between text-[10px] uppercase tracking-[0.16em] text-[#8b8d89]">
+            <div className="flex justify-between text-[10px] uppercase tracking-[0.16em] text-[#6b6d69]">
               <span>Pune · Pimpri-Chinchwad</span>
               <span>Since 2009</span>
             </div>
