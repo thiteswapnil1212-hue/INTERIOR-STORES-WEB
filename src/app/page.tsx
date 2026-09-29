@@ -8,6 +8,8 @@ import FeaturedWork from "../components/home/FeaturedWork";
 import WhyMauli from "../components/home/WhyMauli";
 import FAQSection from "../components/home/FAQSection";
 import FinalCTA from "../components/home/FinalCTA";
+import Marquee from "../components/home/Marquee";
+import Reveal from "../components/motion/Reveal";
 
 const siteUrl = "https://mauliinterior-stores-web.vercel.app";
 
@@ -116,7 +118,7 @@ export default function Home() {
         <div className="mx-auto grid max-w-[1600px] grid-cols-1 items-center gap-8 px-5 py-8 sm:px-8 sm:py-12 md:min-h-[calc(100svh-80px)] md:grid-cols-12 md:gap-8 md:px-12 lg:px-16 lg:py-16">
           {/* Hero content */}
           <div className="order-2 flex flex-col md:order-1 md:col-span-5">
-            <div className="mb-5 flex items-center gap-3 sm:mb-6">
+            <div className="animate-fade-up mb-5 flex items-center gap-3 sm:mb-6">
               <span
                 aria-hidden="true"
                 className="h-px w-8 bg-[#805533] sm:w-10"
@@ -129,7 +131,8 @@ export default function Home() {
 
             <h1
               id="hero-heading"
-              className="max-w-xl font-serif text-[clamp(2.4rem,8vw,5rem)] leading-[0.98] tracking-[-0.04em]"
+              style={{ animationDelay: "120ms" }}
+              className="animate-fade-up max-w-xl font-serif text-[clamp(2.4rem,8vw,5rem)] leading-[0.98] tracking-[-0.04em]"
             >
               Interiors made
               <br />
@@ -138,14 +141,20 @@ export default function Home() {
               </span>
             </h1>
 
-            <p className="mt-5 max-w-lg text-sm leading-7 text-[#555856] sm:mt-7 sm:text-base">
+            <p
+              style={{ animationDelay: "240ms" }}
+              className="animate-fade-up mt-5 max-w-lg text-sm leading-7 text-[#555856] sm:mt-7 sm:text-base"
+            >
               Thoughtfully crafted sofas, curtains, beds and
               furnishing solutions designed around your space,
               comfort and everyday life.
             </p>
 
             {/* Main actions */}
-            <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
+            <div
+              style={{ animationDelay: "360ms" }}
+              className="animate-fade-up mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap"
+            >
               <Link
                 href="/projects"
                 className="inline-flex min-h-12 items-center justify-center gap-3 bg-[#1b1c1a] px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 sm:px-7"
@@ -164,7 +173,10 @@ export default function Home() {
             </div>
 
             {/* Trust points */}
-            <div className="mt-8 grid grid-cols-1 gap-3 border-t border-black/10 pt-5 sm:mt-10 sm:grid-cols-3 sm:gap-2 sm:pt-6">
+            <div
+              style={{ animationDelay: "480ms" }}
+              className="animate-fade-up mt-8 grid grid-cols-1 gap-3 border-t border-black/10 pt-5 sm:mt-10 sm:grid-cols-3 sm:gap-2 sm:pt-6"
+            >
               {trustPoints.map((point) => (
                 <div
                   key={point}
@@ -181,7 +193,10 @@ export default function Home() {
           </div>
 
           {/* Hero image */}
-          <div className="order-1 min-w-0 md:order-2 md:col-span-7">
+          <div
+            style={{ animationDelay: "200ms" }}
+            className="animate-fade-up order-1 min-w-0 md:order-2 md:col-span-7"
+          >
             <div className="group relative aspect-[4/3] w-full overflow-hidden bg-[#e8e3dd] sm:aspect-[5/4] md:aspect-[4/5] lg:h-[76vh] lg:aspect-auto">
               <Image
                 src="/images/home/hero.jpg"
@@ -213,7 +228,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* SERVICES TICKER */}
+      <Marquee />
+
       {/* BRAND STATEMENT */}
+      <Reveal>
       <section className="border-b border-black/5 bg-[#f4f0eb]">
         <div className="mx-auto max-w-[1200px] px-5 py-14 sm:px-8 sm:py-16 md:px-12 md:py-20">
           <div className="grid gap-5 md:grid-cols-12 md:items-end md:gap-8">
@@ -236,8 +255,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </Reveal>
 
       {/* SERVICES */}
+      <Reveal>
       <section
         aria-labelledby="home-services-heading"
         className="border-b border-black/5"
@@ -269,8 +290,10 @@ export default function Home() {
 
         <ServicesSection />
       </section>
+      </Reveal>
 
       {/* QUICK SERVICE DISCOVERY */}
+      <Reveal>
       <section
         aria-labelledby="service-discovery-heading"
         className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8 sm:py-16 md:px-12 lg:px-16 lg:py-24"
@@ -335,11 +358,15 @@ export default function Home() {
           ))}
         </div>
       </section>
+      </Reveal>
 
       {/* FEATURED WORK */}
-      <FeaturedWork />
+      <Reveal>
+        <FeaturedWork />
+      </Reveal>
 
       {/* 3D STUDIO */}
+      <Reveal>
       <section
         aria-label="Explore Mauli 3D Studio"
         className="bg-[#1b1c1a] text-white"
@@ -372,15 +399,22 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </Reveal>
 
       {/* WHY MAULI */}
-      <WhyMauli />
+      <Reveal>
+        <WhyMauli />
+      </Reveal>
 
       {/* FAQ */}
-      <FAQSection />
+      <Reveal>
+        <FAQSection />
+      </Reveal>
 
       {/* FINAL CTA */}
-      <FinalCTA />
+      <Reveal>
+        <FinalCTA />
+      </Reveal>
     </main>
   );
 }
