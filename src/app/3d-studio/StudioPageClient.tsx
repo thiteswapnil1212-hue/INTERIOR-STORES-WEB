@@ -6,7 +6,7 @@ import Link from "next/link";
 import { LoaderCircle, ArrowLeft } from "lucide-react";
 
 import StudioControls from "../../components/studio/StudioControls";
-import { FurnitureType, ConfigType, FabricType, FABRICS, DEFAULT_CONFIG, FURNITURE_LABELS } from "../../components/studio/types";
+import { FurnitureType, ConfigType, FabricType, FABRICS, DEFAULT_CONFIG, FURNITURE_LABELS, CONFIG_LABELS, CONFIG_DIMENSIONS } from "../../components/studio/types";
 
 const StudioViewer = dynamic(
   () => import("../../components/studio/StudioViewer"),
@@ -53,7 +53,8 @@ export default function StudioPageClient() {
             </h1>
 
             <p className="mt-2 hidden max-w-xl text-sm leading-6 text-[#6b6d69] sm:block">
-              Explore furniture styles and fabric colours to create a look that feels like home.
+              Pick a style, choose a fabric, check the size — then send your
+              design straight to us on WhatsApp for a quote.
             </p>
           </div>
 
@@ -134,17 +135,16 @@ export default function StudioPageClient() {
 
               <div className="min-w-0 flex-1">
                 <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#8b8d89]">
-                  Current fabric
+                  Your design
                 </p>
 
                 <p className="truncate text-sm font-medium">
-                  {fabric.name}
+                  {FURNITURE_LABELS[furniture]} · {CONFIG_LABELS[config]} · {fabric.name}
+                </p>
+                <p className="truncate text-[11px] text-[#8b8d89]">
+                  {CONFIG_DIMENSIONS[config]}
                 </p>
               </div>
-
-              <span className="text-xs text-[#8b8d89]">
-                {FURNITURE_LABELS[furniture]}
-              </span>
             </div>
           </div>
 
