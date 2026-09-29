@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Our Projects",
@@ -112,6 +113,12 @@ function ProjectImage({
 export default function ProjectsPage() {
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#fbf9f6] pt-16 text-[#1b1c1a] md:pt-20">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Projects", path: "/projects" },
+        ]}
+      />
 
       {/* INTRO */}
       <section aria-labelledby="projects-heading" className="px-5 pb-14 pt-12 sm:px-6 sm:pb-20 sm:pt-16 md:px-16 md:pt-24">
