@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { FurnitureSelector } from "./FurnitureSelector";
 import { MaterialSelector } from "./MaterialSelector";
-import { FurnitureType, ConfigType, FabricType, FABRICS, FURNITURE_LABELS, CONFIG_OPTIONS, CONFIG_LABELS } from "./types";
+import { FurnitureType, ConfigType, FabricType, FABRICS, FURNITURE_LABELS, CONFIG_OPTIONS, CONFIG_LABELS, CONFIG_DIMENSIONS } from "./types";
 
 interface StudioControlsProps {
   furniture: FurnitureType;
@@ -14,6 +14,8 @@ interface StudioControlsProps {
   onConfigChange: (c: ConfigType) => void;
   onFabricChange: (f: FabricType) => void;
 }
+
+const WHATSAPP_NUMBER = "919921260926";
 
 export default function StudioControls({
   furniture,
@@ -25,11 +27,17 @@ export default function StudioControls({
 }: StudioControlsProps) {
   const furnitureLabel = FURNITURE_LABELS[furniture];
   const configLabel = CONFIG_LABELS[config];
+  const dimensions = CONFIG_DIMENSIONS[config];
 
   const enquiryParams = new URLSearchParams({
     service: "Custom Sofas",
     note: `3D Studio selection: ${furnitureLabel}, ${configLabel}, ${fabric.name} fabric`,
   });
+
+  const whatsappMessage = encodeURIComponent(
+    `Hi Mauli Interior! I designed this in your 3D Studio:\n\n\u2022 ${furnitureLabel} \u2014 ${configLabel}\n\u2022 Fabric: ${fabric.name}\n\u2022 Typical size: ${dimensions}\n\nPlease share a quote.`
+  );
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`;
 
   return (
     <div className="flex flex-col h-full divide-y divide-black/10">
@@ -59,6 +67,16 @@ export default function StudioControls({
               </button>
             ))}
           </div>
+
+          <div className="border border-black/10 bg-[#f5f1eb] px-4 py-3">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#805533]">
+              Typical size
+            </p>
+            <p className="mt-1 text-sm font-medium text-[#1b1c1a]">{dimensions}</p>
+            <p className="mt-1 text-[11px] leading-4 text-[#8b8d89]">
+              Final measurements are taken at your home before we build.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -69,13 +87,21 @@ export default function StudioControls({
       {/* Enquire CTA */}
       <div className="p-6 lg:p-8 bg-[#fbf9f6] sticky bottom-0 border-t border-black/10 flex-none">
         <p className="text-[10px] uppercase tracking-widest text-[#8b8d89] mb-3">
-          Like what you see? Send us an enquiry.
+          Happy with your design? Send it to us for a quote.
         </p>
-        <Link
-          href={`/contact?${enquiryParams.toString()}`}
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
           className="block w-full py-4 bg-[#1b1c1a] text-white text-[10px] font-semibold tracking-[0.16em] uppercase text-center hover:bg-[#805533] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
         >
-          Enquire Now
+          Send Design on WhatsApp
+        </a>
+        <Link
+          href={`/contact?${enquiryParams.toString()}`}
+          className="mt-3 block text-center text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8b8d89] transition-colors hover:text-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
+        >
+          Or enquire via the contact form
         </Link>
       </div>
     </div>
