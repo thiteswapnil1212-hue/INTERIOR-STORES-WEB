@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "About",
@@ -58,6 +59,12 @@ const strengths = [
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[#fbf9f6] pt-16 text-[#1b1c1a] md:pt-20">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ]}
+      />
 
       {/* HERO */}
       <section className="flex min-h-[50vh] items-center px-6 pt-10 md:min-h-[calc(100vh-80px)] md:px-16 md:pt-0">
