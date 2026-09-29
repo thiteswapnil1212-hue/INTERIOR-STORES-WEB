@@ -46,7 +46,7 @@ export default function SofaHero() {
         </div>
 
         {/* Local service information */}
-        <div className="mt-2 flex flex-wrap gap-x-6 gap-y-2 text-[11px] uppercase tracking-[0.1em] text-[#8b8d89]">
+        <div className="mt-2 flex flex-wrap gap-x-6 gap-y-2 text-[11px] uppercase tracking-[0.1em] text-[#6b6d69]">
           <span>Made to Measure</span>
           <span>•</span>
           <span>Pune & PCMC</span>
