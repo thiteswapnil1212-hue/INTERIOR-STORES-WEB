@@ -6,6 +6,7 @@ import Link from "next/link";
 import ServicesSection from "../components/home/ServicesSection";
 import FeaturedWork from "../components/home/FeaturedWork";
 import WhyMauli from "../components/home/WhyMauli";
+import FAQSection from "../components/home/FAQSection";
 import FinalCTA from "../components/home/FinalCTA";
 
 const siteUrl = "https://mauliinterior-stores-web.vercel.app";
@@ -374,6 +375,9 @@ export default function Home() {
 
       {/* WHY MAULI */}
       <WhyMauli />
+
+      {/* FAQ */}
+      <FAQSection />
 
       {/* FINAL CTA */}
       <FinalCTA />
