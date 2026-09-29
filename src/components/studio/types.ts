@@ -95,3 +95,21 @@ export const DEFAULT_CONFIG: Record<FurnitureType, ConfigType> = {
   curtains: "blackout",
   wall_panel: "panel_classic",
 };
+
+/** Typical sizes shown to help customers judge fit. Final measurements are taken at home. */
+export const CONFIG_DIMENSIONS: Record<ConfigType, string> = {
+  "2_seater": "5 ft wide \u00D7 2.8 ft deep",
+  "3_seater": "6.5 ft wide \u00D7 3 ft deep",
+  l_shape: "8 ft \u00D7 5.5 ft, L-shape",
+  custom: "Made to your measurements",
+  single: "3 ft \u00D7 6.25 ft",
+  double: "4.5 ft \u00D7 6.25 ft",
+  queen: "5 ft \u00D7 6.5 ft",
+  king: "6 ft \u00D7 6.5 ft",
+  sheer: "Made to your window size",
+  blackout: "Made to your window size",
+  linen: "Made to your window size",
+  panel_classic: "Made to your wall size",
+  panel_modern: "Made to your wall size",
+  panel_full: "Made to your wall size",
+};
