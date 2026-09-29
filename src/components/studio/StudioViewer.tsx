@@ -235,11 +235,77 @@ function CurtainsModel({ fabricHex, config }: { fabricHex: string; config: Confi
       {/* Panels */}
       <CurtainPanel geometry={geo} fabricHex={fabricHex} material={material} position={[-0.78, 1.1, 0]} />
       <CurtainPanel geometry={geo} fabricHex={fabricHex} material={material} position={[0.78, 1.1, 0]} />
-      {/* Soft backdrop wall */}
-      <mesh position={[0, 1.35, -0.55]}>
-        <planeGeometry args={[5.2, 2.9]} />
-        <meshStandardMaterial color="#e6dfd2" roughness={1} />
+    </group>
+  );
+}
+
+/* ------------------------------- ROOM ------------------------------------ */
+
+const WALL_COLOR = "#ece5d6";
+const WALL_SIDE_COLOR = "#e4dccb";
+const FLOOR_COLOR = "#d8cebb";
+
+function RoomShell({ furniture }: { furniture: FurnitureType }) {
+  const isCurtains = furniture === "curtains";
+  const isPanel = furniture === "wall_panel";
+
+  return (
+    <group>
+      {/* Floor */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
+        <planeGeometry args={[18, 18]} />
+        <meshStandardMaterial color={FLOOR_COLOR} roughness={0.95} />
       </mesh>
+
+      {/* Back wall — the panel model brings its own wall */}
+      {!isPanel && (
+        <mesh position={[0, 2.25, -2.6]}>
+          <planeGeometry args={[18, 4.5]} />
+          <meshStandardMaterial color={WALL_COLOR} roughness={1} />
+        </mesh>
+      )}
+
+      {/* Side wall for depth on larger pieces */}
+      {!isPanel && !isCurtains && (
+        <mesh rotation={[0, Math.PI / 2, 0]} position={[-5, 2.25, 0]}>
+          <planeGeometry args={[18, 4.5]} />
+          <meshStandardMaterial color={WALL_SIDE_COLOR} roughness={1} />
+        </mesh>
+      )}
+
+      {/* Sunlit window behind the curtains */}
+      {isCurtains && (
+        <group position={[0, 0, -2.55]}>
+          {/* daylight glow */}
+          <mesh position={[0, 1.5, 0.03]}>
+            <planeGeometry args={[2.7, 1.9]} />
+            <meshStandardMaterial
+              color="#fff8ea"
+              emissive="#ffedc4"
+              emissiveIntensity={0.85}
+              roughness={1}
+            />
+          </mesh>
+          {/* frame: top, bottom, sides */}
+          {[
+            { args: [3.0, 0.09, 0.09] as const, pos: [0, 2.5, 0.06] as const },
+            { args: [3.0, 0.09, 0.09] as const, pos: [0, 0.5, 0.06] as const },
+            { args: [0.09, 2.09, 0.09] as const, pos: [-1.455, 1.5, 0.06] as const },
+            { args: [0.09, 2.09, 0.09] as const, pos: [1.455, 1.5, 0.06] as const },
+            { args: [0.06, 1.9, 0.06] as const, pos: [0, 1.5, 0.06] as const },
+          ].map((p, i) => (
+            <mesh key={i} position={[p.pos[0], p.pos[1], p.pos[2]]} castShadow>
+              <boxGeometry args={[p.args[0], p.args[1], p.args[2]]} />
+              <meshStandardMaterial color="#f4efe3" roughness={0.8} />
+            </mesh>
+          ))}
+          {/* sill */}
+          <mesh position={[0, 0.44, 0.1]} castShadow>
+            <boxGeometry args={[3.2, 0.07, 0.22]} />
+            <meshStandardMaterial color="#f4efe3" roughness={0.8} />
+          </mesh>
+        </group>
+      )}
     </group>
   );
 }
@@ -310,6 +376,8 @@ export default function StudioViewer({ furniture, fabricHex, config }: StudioVie
         {furniture === "curtains" && <CurtainsModel fabricHex={fabricHex} config={config} />}
         {furniture === "wall_panel" && <WallPanelModel fabricHex={fabricHex} config={config} />}
 
+        <RoomShell furniture={furniture} />
+
         <ContactShadows position={[0, 0.001, 0]} opacity={0.32} scale={9} blur={2.6} far={3.2} color="#4a4238" />
 
         <OrbitControls
@@ -317,7 +385,7 @@ export default function StudioViewer({ furniture, fabricHex, config }: StudioVie
           enablePan={false}
           enableZoom
           minDistance={3}
-          maxDistance={9}
+          maxDistance={7}
           minPolarAngle={Math.PI / 5}
           maxPolarAngle={Math.PI / 2.05}
           autoRotate
