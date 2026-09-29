@@ -1,33 +1,41 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const services = [
   {
     number: "01",
     title: "Custom Sofas",
-    description:
-      "Sofas built to your room's size, comfort and style.",
+    description: "Sofas built to your room's size, comfort and style.",
     href: "/services/sofas",
+    image: "/images/sofas/sofa-hero.jpg",
+    imageAlt: "Custom-made sofa by Mauli Interior",
     available: true,
   },
   {
     number: "02",
     title: "Curtains",
-    description:
-      "Curtains picked for your windows, light and interiors.",
+    description: "Curtains picked for your windows, light and interiors.",
+    href: "/contact",
+    image: "/images/home/featured-curtains.jpg",
+    imageAlt: "Custom curtains fitted by Mauli Interior",
     available: false,
   },
   {
     number: "03",
     title: "Beds & Mattresses",
-    description:
-      "Beds and mattresses made for your space and sleep.",
+    description: "Beds and mattresses made for your space and sleep.",
+    href: "/contact",
+    image: "/images/home/featured-beds.jpg",
+    imageAlt: "Custom bed made by Mauli Interior",
     available: false,
   },
   {
     number: "04",
     title: "Wall & Bed Panels",
-    description:
-      "Panels that add warmth and finish to bedrooms and walls.",
+    description: "Panels that add warmth and finish to bedrooms and walls.",
+    href: "/contact",
+    image: "/images/home/featured-furnishing.jpg",
+    imageAlt: "Decorative wall panels by Mauli Interior",
     available: false,
   },
 ];
@@ -43,9 +51,7 @@ export default function ServicesSection() {
               What We Make
             </p>
 
-            <h2
-              className="font-serif text-4xl leading-tight tracking-tight md:text-5xl"
-            >
+            <h2 className="font-serif text-4xl leading-tight tracking-tight md:text-5xl">
               Everything your
               <br />
               home needs.
@@ -59,63 +65,73 @@ export default function ServicesSection() {
         </div>
 
         {/* Services */}
-        <div className="grid gap-px overflow-hidden border border-[#747878]/15 bg-[#747878]/15 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 sm:grid-cols-2 lg:gap-8">
           {services.map((service) => {
-            const content = (
+            const card = (
               <>
-                <div className="flex items-start justify-between">
-                  <span className="text-[11px] font-medium tracking-[0.12em] text-[#805533]">
+                {/* Image */}
+                <div className="relative aspect-[16/10] overflow-hidden bg-[#e8e3dd]">
+                  <Image
+                    src={service.image}
+                    alt={service.imageAlt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <span className="absolute left-4 top-4 bg-[#fbf9f6]/95 px-3 py-1.5 text-[10px] font-semibold tracking-[0.14em] text-[#805533]">
                     {service.number}
                   </span>
-
-                  {service.available && (
-                    <span
-                      aria-hidden="true"
-                      className="text-lg text-[#805533] transition-transform duration-300 group-hover:translate-x-1"
-                    >
-                      →
-                    </span>
-                  )}
                 </div>
 
-                <div className="mt-14">
-                  <h3 className="font-serif text-2xl tracking-tight md:text-[26px]">
-                    {service.title}
-                  </h3>
+                {/* Body */}
+                <div className="p-6 md:p-7">
+                  <div className="flex items-start justify-between gap-4">
+                    <h3 className="font-serif text-2xl tracking-tight md:text-[26px]">
+                      {service.title}
+                    </h3>
+                    {service.available && (
+                      <span
+                        aria-hidden="true"
+                        className="mt-1 text-lg text-[#805533] transition-transform duration-300 group-hover:translate-x-1"
+                      >
+                        →
+                      </span>
+                    )}
+                  </div>
 
                   <p className="mt-3 text-sm leading-6 text-[#5c5e5c]">
                     {service.description}
                   </p>
-                </div>
 
-                <div className="mt-8 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.14em]">
-                  {service.available ? (
-                    <>
+                  <div className="mt-6 text-[10px] font-semibold uppercase tracking-[0.14em]">
+                    {service.available ? (
                       <span className="border-b border-[#1b1c1a] pb-1 transition-colors duration-200 group-hover:border-[#805533] group-hover:text-[#805533]">
                         Explore service
                       </span>
-                    </>
-                  ) : (
-                    <span className="text-[#8b8d89]">Coming soon</span>
-                  )}
+                    ) : (
+                      <span className="text-[#8b8d89]">Coming soon</span>
+                    )}
+                  </div>
                 </div>
               </>
             );
+
+            const className =
+              "group block overflow-hidden border border-[#747878]/15 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-18px_rgba(27,28,26,0.25)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-4 motion-reduce:transition-none motion-reduce:hover:translate-y-0";
 
             return service.href ? (
               <Link
                 key={service.title}
                 href={service.href}
-                className="group min-h-[280px] bg-[#fbf9f6] p-7 transition-colors duration-300 hover:bg-[#f2eee8] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#805533] md:p-8"
+                className={className}
+                aria-label={`${service.title} — ${service.available ? "explore service" : "enquire"}`}
               >
-                {content}
+                {card}
               </Link>
             ) : (
-              <div
-                key={service.title}
-                className="group min-h-[280px] bg-[#fbf9f6] p-7 md:p-8"
-              >
-                {content}
+              <div key={service.title} className={className}>
+                {card}
               </div>
             );
           })}
