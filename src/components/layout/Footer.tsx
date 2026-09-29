@@ -115,7 +115,7 @@ export default function Footer() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-sm text-[#b9bab6] transition-colors hover:text-[#fbf9f6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c5a47e]"
+                        className="inline-block py-1.5 text-sm text-[#b9bab6] transition-colors hover:text-[#fbf9f6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c5a47e]"
                       >
                         {link.label}
                       </Link>
@@ -144,11 +144,11 @@ export default function Footer() {
 
         {/* Bottom Row */}
         <div className="mt-14 flex flex-col gap-3 border-t border-[#fbf9f6]/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[11px] text-[#6b6d6a]">
+          <p className="text-[11px] text-[#b9bab6]">
             © {currentYear} Mauli Interior. All rights reserved.
           </p>
 
-          <p className="text-[11px] text-[#6b6d6a]">
+          <p className="text-[11px] text-[#b9bab6]">
             Pune · Pimpri-Chinchwad · Since 2009
           </p>
         </div>
