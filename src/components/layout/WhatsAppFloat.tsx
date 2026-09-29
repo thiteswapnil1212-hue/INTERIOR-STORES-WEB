@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const WHATSAPP_NUMBER = "919921260926";
 
@@ -7,10 +10,15 @@ const prefilledMessage = encodeURIComponent(
 );
 
 /**
- * Floating WhatsApp chat button, visible on every page.
+ * Floating WhatsApp chat button, visible on every page except the 3D studio
+ * (the studio has its own design-sharing CTA, and the float was covering
+ * configurator buttons there).
  * Enquiries open WhatsApp directly with a pre-filled message.
  */
 export default function WhatsAppFloat() {
+  const pathname = usePathname();
+  if (pathname === "/3d-studio") return null;
+
   return (
     <Link
       href={`https://wa.me/${WHATSAPP_NUMBER}?text=${prefilledMessage}`}
