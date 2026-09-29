@@ -6,6 +6,7 @@ import SofaHero from "../../../components/sofa/SofaHero";
 import SofaStyles from "../../../components/sofa/SofaStyles";
 import SeatingFeatures from "../../../components/sofa/SeatingFeatures";
 import IntegratedDesign from "../../../components/sofa/IntegratedDesign";
+import BreadcrumbJsonLd from "../../../components/seo/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Custom Sofas in Pune",
@@ -76,6 +77,13 @@ const steps = [
 export default function SofasPage() {
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#fbf9f6] text-[#1b1c1a]">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+          { name: "Custom Sofas", path: "/services/sofas" },
+        ]}
+      />
 
       {/* BREADCRUMB */}
       <nav
