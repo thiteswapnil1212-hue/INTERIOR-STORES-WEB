@@ -5,7 +5,7 @@ const services = [
     number: "01",
     title: "Custom Sofas",
     description:
-      "Made-to-measure sofas designed around your room, comfort and interior style.",
+      "Sofas built to your room's size, comfort and style.",
     href: "/services/sofas",
     available: true,
   },
@@ -13,21 +13,21 @@ const services = [
     number: "02",
     title: "Curtains",
     description:
-      "Custom curtains selected to complement your interiors, windows and furnishing.",
+      "Curtains picked for your windows, light and interiors.",
     available: false,
   },
   {
     number: "03",
     title: "Beds & Mattresses",
     description:
-      "Comfortable bedroom solutions made to suit your space and everyday needs.",
+      "Beds and mattresses made for your space and sleep.",
     available: false,
   },
   {
     number: "04",
     title: "Wall & Bed Panels",
     description:
-      "Decorative panels designed to add warmth, character and a refined finish.",
+      "Panels that add warmth and finish to bedrooms and walls.",
     available: false,
   },
 ];
@@ -53,8 +53,8 @@ export default function ServicesSection() {
           </div>
 
           <p className="max-w-xl text-sm leading-7 text-[#5c5e5c] md:col-span-5 md:col-start-8">
-            From custom seating to complete furnishing details, we create
-            practical pieces that fit naturally into your home.
+            Custom seating, curtains, beds and finishing details — made to
+            fit your home.
           </p>
         </div>
 
