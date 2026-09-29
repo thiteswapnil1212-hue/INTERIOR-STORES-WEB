@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import "./globals.css";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import WhatsAppFloat from "../components/layout/WhatsAppFloat";
 
 const siteUrl = "https://mauliinterior-stores-web.vercel.app";
 
@@ -226,6 +227,8 @@ export default function RootLayout({
         </div>
 
         <Footer />
+
+        <WhatsAppFloat />
       </body>
     </html>
   );
