@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, RoundedBox, ContactShadows } from "@react-three/drei";
@@ -351,12 +351,24 @@ function WallPanelModel({ fabricHex, config }: { fabricHex: string; config: Conf
 
 /* -------------------------------- VIEWER --------------------------------- */
 
+/** Flattering default angle per furniture type (flat pieces face the camera). */
+const CAMERA_POSITIONS: Record<FurnitureType, [number, number, number]> = {
+  sofa: [3.1, 2.0, 4.4],
+  bed: [3.4, 2.2, 4.8],
+  curtains: [0, 1.7, 5.2],
+  wall_panel: [0, 1.6, 4.6],
+};
+
 export default function StudioViewer({ furniture, fabricHex, config }: StudioViewerProps) {
+  // Gentle auto-rotation until the user first grabs the model.
+  const [spin, setSpin] = useState(true);
+
   return (
     <div className="relative h-full min-h-[300px] w-full">
       <Canvas
+        key={furniture}
         shadows
-        camera={{ position: [3.1, 2.0, 4.4], fov: 40 }}
+        camera={{ position: CAMERA_POSITIONS[furniture], fov: 40 }}
         style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}
         aria-label="3D furniture colour preview"
       >
@@ -388,8 +400,9 @@ export default function StudioViewer({ furniture, fabricHex, config }: StudioVie
           maxDistance={7}
           minPolarAngle={Math.PI / 5}
           maxPolarAngle={Math.PI / 2.05}
-          autoRotate
+          autoRotate={spin}
           autoRotateSpeed={0.7}
+          onStart={() => setSpin(false)}
         />
       </Canvas>
 
