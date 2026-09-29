@@ -19,8 +19,8 @@ export default function FinalCTA() {
 
         {/* Description */}
         <p className="mx-auto mt-7 max-w-xl text-sm leading-7 text-[#b8bab7] md:text-base">
-          Tell us about your space, your ideas and what you have in mind.
-          We&apos;ll help turn them into something made specifically for you.
+          Tell us what you need. We&apos;ll make it for your space — and give
+          you a clear quote.
         </p>
 
         {/* CTA */}
