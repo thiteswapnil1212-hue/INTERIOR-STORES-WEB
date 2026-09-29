@@ -1,7 +1,8 @@
-
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
+import Reveal from "../../components/motion/Reveal";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -17,37 +18,51 @@ const services = [
     number: "01",
     title: "Custom Sofas",
     description:
-      "Made-to-measure sofas designed around your room, comfort and interior style.",
+      "Made-to-measure sofas designed around your room, comfort and interior style. Pick the size, fabric and finish — we build it in our Pune workshop.",
+    image: "/images/services/sofas.jpg",
+    alt: "Premium custom sofa in a bright modern living room",
     href: "/services/sofas",
-    available: true,
+    cta: "Explore sofas",
   },
   {
     number: "02",
     title: "Curtains",
     description:
-      "Custom curtains selected to complement your interiors, windows and furnishing.",
-    available: false,
+      "Custom curtains selected to complement your interiors, windows and furnishing — from sheer day curtains to full blackout drapes.",
+    image: "/images/services/curtains.jpg",
+    alt: "Elegant grey curtains in a sunlit living room",
+    href: "/contact",
+    cta: "Get a quote",
   },
   {
     number: "03",
     title: "Beds & Mattresses",
     description:
-      "Comfortable bedroom solutions made to suit your space and everyday needs.",
-    available: false,
+      "Comfortable bedroom solutions made to suit your space and everyday needs — upholstered beds with mattresses in every size.",
+    image: "/images/services/beds.jpg",
+    alt: "Luxury upholstered bed with tufted headboard",
+    href: "/contact",
+    cta: "Get a quote",
   },
   {
     number: "04",
     title: "Wall & Bed Panels",
     description:
-      "Decorative panels designed to add warmth, character and a refined finish.",
-    available: false,
+      "Decorative panels designed to add warmth, character and a refined finish — padded headboard walls, moulding and feature panelling.",
+    image: "/images/services/panels.jpg",
+    alt: "Padded wall panel headboard in a premium bedroom",
+    href: "/contact",
+    cta: "Get a quote",
   },
   {
     number: "05",
     title: "Cushions",
     description:
-      "Custom cushions made to match your existing furnishing and colour palette.",
-    available: false,
+      "Custom cushions made to match your existing furnishing and colour palette — the finishing touch for sofas and beds.",
+    image: "/images/services/cushions.jpg",
+    alt: "Decorative blue cushions on a beige sofa",
+    href: "/contact",
+    cta: "Get a quote",
   },
 ];
 
@@ -91,54 +106,64 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* SERVICES LIST */}
+      {/* SERVICES */}
       <section
-        aria-label="Available services"
+        aria-label="Our services"
         className="px-5 py-14 sm:px-8 sm:py-20 md:px-12 lg:px-16"
       >
-        <div className="mx-auto max-w-[1440px]">
-          <div className="border-y border-[#747878]/15">
-            {services.map((service) =>
-              service.available && service.href ? (
+        <div className="mx-auto max-w-[1440px] space-y-16 sm:space-y-24">
+          {services.map((service, index) => (
+            <Reveal key={service.title}>
+              <article
+                className={`grid items-center gap-8 md:grid-cols-2 md:gap-12 lg:gap-16 ${
+                  index % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
+                }`}
+              >
                 <Link
-                  key={service.title}
                   href={service.href}
-                  className="group flex items-center justify-between border-b border-[#747878]/15 py-7 last:border-b-0 hover:bg-[#f5f1eb] px-2 -mx-2 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-inset"
+                  className="group relative block overflow-hidden bg-[#ece7de] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+                  aria-label={`${service.title} — ${service.cta}`}
                 >
-                  <div className="flex items-center gap-7 min-w-0">
-                    <span className="text-xs text-[#805533] shrink-0">{service.number}</span>
-                    <div className="min-w-0">
-                      <h2 className="font-serif text-2xl sm:text-3xl">{service.title}</h2>
-                      <p className="mt-1 text-[13px] leading-5 text-[#6b6d69] max-w-lg">{service.description}</p>
-                    </div>
+                  <div className="relative aspect-[4/3] w-full">
+                    <Image
+                      src={service.image}
+                      alt={service.alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
                   </div>
-                  <span
-                    className="ml-4 shrink-0 text-[#805533] text-lg transition-transform duration-300 group-hover:translate-x-1"
-                    aria-hidden="true"
-                  >
-                    →
+                  <span className="absolute left-5 top-5 bg-[#1b1c1a]/85 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
+                    {service.number}
                   </span>
                 </Link>
-              ) : (
-                <div
-                  key={service.title}
-                  className="flex items-center justify-between border-b border-[#747878]/15 py-7 last:border-b-0 px-2 -mx-2"
-                  aria-label={`${service.title} — coming soon`}
-                >
-                  <div className="flex items-center gap-7 min-w-0">
-                    <span className="text-xs text-[#8b8d89] shrink-0">{service.number}</span>
-                    <div className="min-w-0">
-                      <h2 className="font-serif text-2xl sm:text-3xl text-[#8b8d89]">{service.title}</h2>
-                      <p className="mt-1 text-[13px] leading-5 text-[#aaa9a5] max-w-lg">{service.description}</p>
-                    </div>
-                  </div>
-                  <span className="ml-4 shrink-0 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8b8d89]">
-                    Coming soon
-                  </span>
+
+                <div className="max-w-lg">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#805533]">
+                    Service {service.number}
+                  </p>
+                  <h2 className="mt-3 font-serif text-3xl leading-tight sm:text-4xl lg:text-5xl">
+                    {service.title}
+                  </h2>
+                  <p className="mt-4 text-[14px] leading-7 text-[#5c5e5c] sm:text-[15px]">
+                    {service.description}
+                  </p>
+                  <Link
+                    href={service.href}
+                    className="group mt-6 inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-colors duration-300 hover:text-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+                  >
+                    {service.cta}
+                    <span
+                      className="transition-transform duration-300 group-hover:translate-x-1"
+                      aria-hidden="true"
+                    >
+                      →
+                    </span>
+                  </Link>
                 </div>
-              )
-            )}
-          </div>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </section>
 
