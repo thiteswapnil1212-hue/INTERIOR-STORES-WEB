@@ -4,25 +4,25 @@ export default function WhyMauli() {
       number: "01",
       title: "Made to Measure",
       description:
-        "Every piece is crafted to fit your exact dimensions, layout and everyday needs.",
+        "Built to your exact dimensions and layout.",
     },
     {
       number: "02",
       title: "Quality Materials",
       description:
-        "We carefully select fabrics, woods, cushioning and hardware for lasting comfort and durability.",
+        "Fabrics, wood, cushioning and hardware picked to last.",
     },
     {
       number: "03",
       title: "Personalised Design",
       description:
-        "From fabric and colour to shape and finish, every detail is chosen around your space and style.",
+        "Fabric, colour, shape, finish — chosen around your space.",
     },
     {
       number: "04",
       title: "Local Craftsmanship",
       description:
-        "Thoughtfully made by skilled local craftsmen in Pune, with attention given to every detail.",
+        "Made by skilled craftsmen in Pune, with care in every detail.",
     },
   ];
 
@@ -41,8 +41,8 @@ export default function WhyMauli() {
           </h2>
 
           <p className="mt-5 max-w-xl text-sm leading-7 text-[#555755] md:text-base">
-            We believe good interiors are not about choosing from a catalogue.
-            They are about creating pieces that belong naturally in your home.
+            No catalogue pieces. Everything is made for your home — your
+            measurements, your fabric, your style.
           </p>
         </div>
 
@@ -51,7 +51,7 @@ export default function WhyMauli() {
           {reasons.map((reason, index) => (
             <div
               key={reason.number}
-              className={`group border-b border-[#747878]/15 p-7 transition-colors duration-300 hover:bg-[#f6f3ee] md:p-9 ${
+              className={`group border-b border-[#747878]/15 p-7 transition-all duration-300 hover:-translate-y-1 hover:bg-[#f6f3ee] motion-reduce:transition-none motion-reduce:hover:translate-y-0 md:p-9 ${
                 index % 2 === 0
                   ? "md:border-r md:border-[#747878]/15"
                   : ""
