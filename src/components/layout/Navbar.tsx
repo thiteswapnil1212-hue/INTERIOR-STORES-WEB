@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const navLinks = [
@@ -195,15 +195,26 @@ export default function Navbar() {
           </div>
 
           {/* =================================================
-              DESKTOP CTA
+              DESKTOP CONTACT + CTA
           ================================================== */}
 
-          <Link
-            href="/contact"
-            className="group inline-flex min-h-11 items-center justify-center bg-[#1b1c1a] px-6 text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
-          >
-            <span>Get a Quote</span>
-          </Link>
+          <div className="flex shrink-0 items-center gap-6">
+            <a
+              href="tel:+919921260926"
+              aria-label="Call Mauli Interior on +91 99212 60926"
+              className="inline-flex items-center gap-2 text-[13px] font-medium text-[#555856] transition-colors duration-300 hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+            >
+              <Phone size={15} strokeWidth={1.8} aria-hidden="true" />
+              +91 99212 60926
+            </a>
+
+            <Link
+              href="/contact"
+              className="group inline-flex min-h-11 items-center justify-center bg-[#1b1c1a] px-6 text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+            >
+              <span>Get a Quote</span>
+            </Link>
+          </div>
         </nav>
       </header>
 
@@ -357,6 +368,16 @@ export default function Navbar() {
           >
             Get a Quote
           </Link>
+
+          <a
+            href="tel:+919921260926"
+            onClick={() => setIsOpen(false)}
+            aria-label="Call Mauli Interior on +91 99212 60926"
+            className="mt-4 flex min-h-12 items-center justify-center gap-2 border border-[#1b1c1a]/20 px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-colors duration-300 hover:border-[#805533] hover:text-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+          >
+            <Phone size={14} strokeWidth={1.8} aria-hidden="true" />
+            Call +91 99212 60926
+          </a>
 
           {/* =================================================
               MOBILE FOOTER
