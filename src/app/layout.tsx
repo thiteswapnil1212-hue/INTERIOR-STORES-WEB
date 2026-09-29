@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import WhatsAppFloat from "../components/layout/WhatsAppFloat";
+import BackToTop from "../components/layout/BackToTop";
 
 const siteUrl = "https://mauliinterior-stores-web.vercel.app";
 
@@ -229,6 +230,8 @@ export default function RootLayout({
         <Footer />
 
         <WhatsAppFloat />
+
+        <BackToTop />
       </body>
     </html>
   );
