@@ -73,7 +73,7 @@ export default function StudioControls({
               Typical size
             </p>
             <p className="mt-1 text-sm font-medium text-[#1b1c1a]">{dimensions}</p>
-            <p className="mt-1 text-[11px] leading-4 text-[#8b8d89]">
+            <p className="mt-1 text-[11px] leading-4 text-[#6b6d69]">
               Final measurements are taken at your home before we build.
             </p>
           </div>
@@ -86,7 +86,7 @@ export default function StudioControls({
 
       {/* Enquire CTA */}
       <div className="p-6 lg:p-8 bg-[#fbf9f6] sticky bottom-0 border-t border-black/10 flex-none">
-        <p className="text-[10px] uppercase tracking-widest text-[#8b8d89] mb-3">
+        <p className="text-[10px] uppercase tracking-widest text-[#6b6d69] mb-3">
           Happy with your design? Send it to us for a quote.
         </p>
         <a
@@ -99,7 +99,7 @@ export default function StudioControls({
         </a>
         <Link
           href={`/contact?${enquiryParams.toString()}`}
-          className="mt-3 block text-center text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8b8d89] transition-colors hover:text-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
+          className="mt-3 block text-center text-[10px] font-semibold uppercase tracking-[0.14em] text-[#6b6d69] transition-colors hover:text-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
         >
           Or enquire via the contact form
         </Link>
