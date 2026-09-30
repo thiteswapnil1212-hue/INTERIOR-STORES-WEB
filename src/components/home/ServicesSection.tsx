@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 const services = [
   {
@@ -58,10 +59,19 @@ export default function ServicesSection() {
             </h2>
           </div>
 
-          <p className="max-w-xl text-sm leading-7 text-[#5c5e5c] md:col-span-5 md:col-start-8">
-            Custom seating, curtains, beds and finishing details — made to
-            fit your home.
-          </p>
+          <div className="md:col-span-5 md:col-start-8">
+            <p className="max-w-xl text-sm leading-7 text-[#5c5e5c]">
+              Custom seating, curtains, beds and finishing details — made to
+              fit your home.
+            </p>
+            <Link
+              href="/services"
+              className="mt-6 inline-flex min-h-10 items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#805533] transition-colors hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+            >
+              View all services
+              <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+            </Link>
+          </div>
         </div>
 
         {/* Services */}
@@ -95,7 +105,7 @@ export default function ServicesSection() {
                         aria-hidden="true"
                         className="mt-1 text-lg text-[#805533] transition-transform duration-300 group-hover:translate-x-1"
                       >
-                        →
+                        <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
                       </span>
                     )}
                   </div>
