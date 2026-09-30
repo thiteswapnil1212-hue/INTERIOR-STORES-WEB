@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import ParallaxImage from "../motion/ParallaxImage";
 
 /**
  * Only /services/sofas has a dedicated page.
@@ -109,15 +109,13 @@ export default function FeaturedWork() {
               </div>
 
               {/* Image */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden md:col-span-7 md:aspect-[16/8]">
-                <Image
-                  src={item.src}
-                  alt={`Custom ${item.title} by Mauli Interior`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 58vw"
-                  className="object-cover transition-transform duration-700 ease-out motion-reduce:transition-none group-hover:scale-[1.025]"
-                />
-              </div>
+              <ParallaxImage
+                src={item.src}
+                alt={`Custom ${item.title} by Mauli Interior`}
+                sizes="(max-width: 768px) 100vw, 58vw"
+                className="w-full aspect-[4/3] md:aspect-[16/8] md:col-span-7"
+                imgClassName="transition-transform duration-700 ease-out motion-reduce:transition-none group-hover:scale-[1.025]"
+              />
             </Link>
           ))}
         </div>
