@@ -40,7 +40,7 @@ export default function ScrollMoment({
   bgClass = "bg-[#f6f2ec]",
   label,
   sweep,
-  trackClass = "h-[220vh]",
+  trackClass = "h-[180vh] md:h-[220vh]",
 }: ScrollMomentProps) {
   const trackRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
