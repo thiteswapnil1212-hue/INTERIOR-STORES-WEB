@@ -2,6 +2,8 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { WHATSAPP_NUMBER, PRIMARY_PHONE_DISPLAY, PRIMARY_TEL_HREF, SECONDARY_PHONE_DISPLAY, SECONDARY_TEL_HREF } from "../../lib/contact";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 const services = [
   "Custom Sofas",
@@ -12,7 +14,7 @@ const services = [
   "Wall / Bed Panels",
 ];
 
-const WHATSAPP_NUMBER = "919921260926";
+
 
 export default function ContactPageClient() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -110,10 +112,10 @@ export default function ContactPageClient() {
               </p>
               <div className="flex flex-col">
                 <a
-                  href="tel:+919921260926"
+                  href={PRIMARY_TEL_HREF}
                   className="flex min-h-10 w-fit items-center text-[14px] transition-colors hover:text-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
                 >
-                  +91 99212 60926
+                  {PRIMARY_PHONE_DISPLAY}
                 </a>
                 <p className="text-[11px] leading-4 text-[#6b6d69]">
                   Primary · WhatsApp available
@@ -122,10 +124,10 @@ export default function ContactPageClient() {
                   For urgent enquiries, please call this number.
                 </p>
                 <a
-                  href="tel:+918208811046"
+                  href={SECONDARY_TEL_HREF}
                   className="mt-2 flex min-h-10 w-fit items-center text-[14px] transition-colors hover:text-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
                 >
-                  +91 82088 11046
+                  {SECONDARY_PHONE_DISPLAY}
                 </a>
                 <p className="text-[11px] leading-4 text-[#6b6d69]">
                   Secondary
@@ -177,7 +179,7 @@ export default function ContactPageClient() {
           >
             Continue on WhatsApp
             <span className="text-base transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">
-              ↗
+              <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
             </span>
           </a>
         </div>
@@ -225,7 +227,7 @@ export default function ContactPageClient() {
                     minLength={2}
                     maxLength={80}
                     placeholder="Enter your name"
-                    className="min-h-11 w-full border-0 border-b border-[#747878]/30 bg-transparent px-0 py-3 text-[14px] outline-none transition-colors placeholder:text-[#8b8d89] focus:border-[#805533] focus-visible:ring-0"
+                    className="min-h-11 w-full border-0 border-b border-[#747878]/30 bg-transparent px-0 py-3 text-base outline-none transition-colors placeholder:text-[#8b8d89] focus:border-[#805533] focus-visible:ring-0"
                   />
                 </div>
 
@@ -247,7 +249,7 @@ export default function ContactPageClient() {
                     pattern="[+]?[0-9 ()-]{10,18}"
                     title="Enter a valid phone number (10–18 digits)"
                     placeholder="+91  XXXXX XXXXX"
-                    className="min-h-11 w-full border-0 border-b border-[#747878]/30 bg-transparent px-0 py-3 text-[14px] outline-none transition-colors placeholder:text-[#8b8d89] focus:border-[#805533] focus-visible:ring-0"
+                    className="min-h-11 w-full border-0 border-b border-[#747878]/30 bg-transparent px-0 py-3 text-base outline-none transition-colors placeholder:text-[#8b8d89] focus:border-[#805533] focus-visible:ring-0"
                   />
                 </div>
               </div>
@@ -266,7 +268,7 @@ export default function ContactPageClient() {
                   name="service"
                   defaultValue=""
                   required
-                  className="min-h-11 w-full cursor-pointer border-0 border-b border-[#747878]/30 bg-[#fbf9f6] px-0 py-3 text-[14px] outline-none transition-colors focus:border-[#805533] focus-visible:ring-0"
+                  className="min-h-11 w-full cursor-pointer border-0 border-b border-[#747878]/30 bg-[#fbf9f6] px-0 py-3 text-base outline-none transition-colors focus:border-[#805533] focus-visible:ring-0"
                 >
                   <option value="" disabled>
                     Select what you&apos;re looking for
@@ -296,7 +298,7 @@ export default function ContactPageClient() {
                   maxLength={1500}
                   rows={4}
                   placeholder="Tell us about your space, measurements, preferred design, or anything else..."
-                  className="w-full resize-y border-0 border-b border-[#747878]/30 bg-transparent px-0 py-3 text-[14px] leading-6 outline-none transition-colors placeholder:text-[#8b8d89] focus:border-[#805533] focus-visible:ring-0"
+                  className="w-full resize-y border-0 border-b border-[#747878]/30 bg-transparent px-0 py-3 text-base leading-6 outline-none transition-colors placeholder:text-[#8b8d89] focus:border-[#805533] focus-visible:ring-0"
                 />
                 <p className="mt-2 text-[10px] text-[#6b6d69]">
                   You can share photos and measurements directly on WhatsApp.
@@ -331,7 +333,7 @@ export default function ContactPageClient() {
                       rel="noopener noreferrer"
                       className="font-semibold underline hover:text-[#805533]"
                     >
-                      Open WhatsApp directly →
+                      Open WhatsApp directly <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
                     </a>
                   </p>
                 </div>
@@ -353,7 +355,7 @@ export default function ContactPageClient() {
                 >
                   {isSubmitting ? "Opening WhatsApp…" : "Send Enquiry"}
                   <span className="text-base transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
-                    →
+                    <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
                   </span>
                 </button>
               </div>
@@ -402,7 +404,7 @@ export default function ContactPageClient() {
             >
               Get Directions
               <span className="text-base transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">
-                ↗
+                <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
               </span>
             </a>
           </div>
