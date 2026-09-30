@@ -3,6 +3,7 @@ import Link from "next/link";
 import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
 import Reveal from "../../components/motion/Reveal";
 import TiltCard from "../../components/motion/TiltCard";
+import ScrollMoment from "../../components/motion/ScrollMoment";
 import ParallaxImage from "../../components/motion/ParallaxImage";
 import SplitText from "../../components/motion/SplitText";
 import { ArrowRight } from "lucide-react";
@@ -109,6 +110,23 @@ export default function ServicesPage() {
           </p>
         </div>
       </section>
+
+      {/* CURTAINS — scroll-driven 3D moment */}
+      <ScrollMoment
+        model="curtains"
+        kicker="Curtains"
+        title={
+          <>
+            Fabric that
+            <br />
+            <span className="text-[#805533]">breathes.</span>
+          </>
+        }
+        sub="Sheers, blackouts and linens — stitched for your windows, hung with care."
+        cta={{ href: "/contact", label: "Get a curtains quote" }}
+        bgClass="bg-[#fbf9f6]"
+        label="Three-dimensional linen curtains swaying gently, moving more as you scroll"
+      />
 
       {/* SERVICES */}
       <section
