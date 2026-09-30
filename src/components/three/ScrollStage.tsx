@@ -6,6 +6,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { ContactShadows } from "@react-three/drei";
 import { SofaModel, BedModel } from "../studio/StudioViewer";
 import { CurtainModel, type SwayRef } from "./CurtainModel";
+import FitCamera, { useMobile } from "./FitCamera";
 import type { MutableRefObject, ReactNode } from "react";
 
 export type ScrollModel = "sofa" | "bed" | "curtains";
@@ -56,11 +57,37 @@ function BreezeDriver({
 
 const FRAMING: Record<
   ScrollModel,
-  { camera: [number, number, number]; lookAt: [number, number, number]; fov: number }
+  {
+    camera: [number, number, number];
+    lookAt: [number, number, number];
+    fov: number;
+    /** world-space width that must stay visible on narrow screens */
+    fitWidth: number;
+    /** drops the look target on portrait screens, lifting the model clear of bottom copy */
+    lookDrop: number;
+  }
 > = {
-  sofa: { camera: [3.2, 1.9, 4.7], lookAt: [0, 0.85, 0], fov: 36 },
-  bed: { camera: [3.6, 2.3, 4.3], lookAt: [0, 0.5, 0], fov: 37 },
-  curtains: { camera: [0, 1.5, 5.4], lookAt: [0, 1.35, 0], fov: 40 },
+  sofa: {
+    camera: [3.2, 1.9, 4.7],
+    lookAt: [0, 0.85, 0],
+    fov: 36,
+    fitWidth: 2.6,
+    lookDrop: 0.55,
+  },
+  bed: {
+    camera: [3.6, 2.3, 4.3],
+    lookAt: [0, 0.5, 0],
+    fov: 37,
+    fitWidth: 2.8,
+    lookDrop: 0.55,
+  },
+  curtains: {
+    camera: [0, 1.5, 5.4],
+    lookAt: [0, 1.35, 0],
+    fov: 40,
+    fitWidth: 3.4,
+    lookDrop: 0.35,
+  },
 };
 
 type ScrollStageProps = {
@@ -89,24 +116,25 @@ export default function ScrollStage({
 }: ScrollStageProps) {
   const framing = FRAMING[model];
   const swayRef = useRef(1);
+  const mobile = useMobile();
 
   return (
     <Canvas
       shadows
-      dpr={[1, 1.75]}
+      dpr={mobile ? [1, 1.5] : [1, 1.75]}
       camera={{ position: framing.camera, fov: framing.fov }}
       frameloop={running ? "always" : "never"}
       gl={{ alpha: true, antialias: true }}
       style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}
       aria-label={label}
-      onCreated={({ camera }) =>
-        camera.lookAt(
-          framing.lookAt[0],
-          framing.lookAt[1],
-          framing.lookAt[2]
-        )
-      }
     >
+      <FitCamera
+        base={framing.camera}
+        fov={framing.fov}
+        lookAt={framing.lookAt}
+        fitWidth={framing.fitWidth}
+        lookDrop={framing.lookDrop}
+      />
       {/* Soft studio light — gentle key, cool fill, warm rim */}
       <ambientLight intensity={0.65} />
       <directionalLight
@@ -114,7 +142,7 @@ export default function ScrollStage({
         intensity={1.7}
         color="#fff1e0"
         castShadow
-        shadow-mapSize={[1024, 1024]}
+        shadow-mapSize={mobile ? [512, 512] : [1024, 1024]}
       />
       <directionalLight position={[-5, 3, -2]} intensity={0.45} color="#cdd7ff" />
       <directionalLight position={[0, 3, -5]} intensity={0.5} color="#ffd9b8" />
