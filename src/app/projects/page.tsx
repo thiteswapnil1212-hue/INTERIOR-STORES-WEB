@@ -1,9 +1,11 @@
 
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import ParallaxImage from "../../components/motion/ParallaxImage";
+import SplitText from "../../components/motion/SplitText";
+import HorizontalGallery from "../../components/projects/HorizontalGallery";
+import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Our Projects",
@@ -83,20 +85,20 @@ function ProjectImage({
 }) {
   return (
     <div
-      className={`group relative isolate overflow-hidden bg-[#e9e4dc] ${
+      className={`group relative isolate bg-[#e9e4dc] ${
         featured ? "aspect-[16/10]" : "aspect-[4/3]"
       }`}
     >
-      <Image
+      <ParallaxImage
         src={src}
         alt={alt}
-        fill
         sizes={
           featured
             ? "(max-width: 768px) 100vw, 66vw"
             : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
         }
-        className="object-cover transition-transform duration-700 ease-out motion-reduce:transition-none md:group-hover:scale-[1.03]"
+        className="absolute inset-0"
+        imgClassName="transition-transform duration-700 ease-out motion-reduce:transition-none md:group-hover:scale-[1.03]"
       />
 
       <div className="absolute inset-0 border border-black/[0.03]" />
@@ -133,14 +135,15 @@ export default function ProjectsPage() {
                 </p>
               </div>
 
-              <h1
+              <SplitText
+                as="h1"
                 id="projects-heading"
                 className="font-serif text-4xl leading-[0.98] tracking-tight sm:text-6xl md:text-7xl lg:text-[80px]"
-              >
-                Made for
-                <br />
-                <span className="text-[#805533]">your space.</span>
-              </h1>
+                lines={[
+                  { text: "Made for" },
+                  { text: "your space.", accent: true },
+                ]}
+              />
             </div>
 
             <div className="max-w-md md:col-span-4 md:justify-self-end">
@@ -214,65 +217,8 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      {/* PROJECT GRID */}
-      <section
-        aria-label="All project categories"
-        className="border-t border-[#747878]/15 px-5 py-16 sm:px-6 sm:py-20 md:px-16 md:py-24"
-      >
-        <div className="mx-auto max-w-[1440px]">
-          <div className="mb-10 flex flex-col gap-4 sm:mb-14 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#805533]">
-                Explore our services
-              </p>
-
-              <h2 className="mt-3 font-serif text-3xl leading-tight sm:text-4xl md:text-5xl">
-                Crafted around you.
-              </h2>
-            </div>
-
-            <p className="max-w-xs text-[12px] leading-6 text-[#6b6d69]">
-              Made-to-order furnishing for homes across Pune and PCMC.
-            </p>
-          </div>
-
-          <div className="grid gap-x-6 gap-y-12 sm:grid-cols-2 sm:gap-y-14 lg:gap-x-8">
-            {projects.slice(1).map((project) => (
-              <article key={project.number} className="group">
-                <ProjectImage src={project.image} alt={project.imageAlt} />
-
-                <div className="mt-5 flex items-start justify-between gap-4">
-                  <div className="min-w-0">
-                    <p className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#6b6d69]">
-                      {project.number} / {project.category}
-                    </p>
-
-                    <h3 className="mt-2 font-serif text-2xl leading-tight sm:text-3xl">
-                      {project.title}
-                    </h3>
-
-                    <p className="mt-3 max-w-md text-[12px] leading-6 text-[#6b6d69] sm:text-[13px]">
-                      {project.description}
-                    </p>
-
-                    <p className="mt-3 text-[10px] uppercase tracking-[0.12em] text-[#6b6d69]">
-                      {project.location}
-                    </p>
-                  </div>
-
-                  <Link
-                    href="/contact"
-                    aria-label={`Enquire about ${project.title}`}
-                    className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#747878]/25 text-lg transition-all duration-300 hover:border-[#805533] hover:bg-[#805533] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
-                  >
-                    <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* PROJECT GALLERY — scroll-driven horizontal sweep */}
+      <HorizontalGallery projects={projects.slice(1)} />
 
       {/* CUSTOM WORK CTA */}
       <section aria-label="Start an enquiry" className="px-5 pb-20 sm:px-6 sm:pb-28 md:px-16">
