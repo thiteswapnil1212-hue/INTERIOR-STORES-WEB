@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
+import SplitText from "../../components/motion/SplitText";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -74,11 +75,14 @@ export default function AboutPage() {
             About Mauli Interior · Since 2009
           </p>
 
-          <h1 className="max-w-5xl font-serif text-[clamp(2.8rem,8vw,7rem)] leading-[0.98] tracking-tight">
-            Made around
-            <br />
-            <span className="text-[#805533]">your space.</span>
-          </h1>
+          <SplitText
+            as="h1"
+            className="max-w-5xl font-serif text-[clamp(2.8rem,8vw,7rem)] leading-[0.98] tracking-tight"
+            lines={[
+              { text: "Made around" },
+              { text: "your space.", accent: true },
+            ]}
+          />
 
           <div className="mt-12 grid gap-8 md:grid-cols-12">
             <div className="md:col-span-5 md:col-start-8">
