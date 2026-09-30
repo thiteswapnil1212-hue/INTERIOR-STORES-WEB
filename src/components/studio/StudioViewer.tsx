@@ -21,7 +21,7 @@ function Upholstery({ color, roughness = 0.9 }: { color: string; roughness?: num
 
 /* ------------------------------- SOFA ---------------------------------- */
 
-function SofaModel({ fabricHex, config }: { fabricHex: string; config: ConfigType }) {
+export function SofaModel({ fabricHex, config }: { fabricHex: string; config: ConfigType }) {
   const width = config === "2_seater" ? 1.7 : config === "custom" ? 2.6 : 2.3;
   const seats = config === "2_seater" ? 2 : 3;
   const innerW = width - 0.48; // minus arms
