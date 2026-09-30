@@ -10,6 +10,8 @@ import FAQSection from "../components/home/FAQSection";
 import FinalCTA from "../components/home/FinalCTA";
 import Marquee from "../components/home/Marquee";
 import Reveal from "../components/motion/Reveal";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import Showcase3D from "../components/home/Showcase3D";
 
 const siteUrl = "https://mauliinterior-stores-web.vercel.app";
 
@@ -159,6 +161,7 @@ export default function Home() {
                 className="inline-flex min-h-12 items-center justify-center gap-3 bg-[#1b1c1a] px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 sm:px-7"
               >
                 Explore Our Work
+                <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
               </Link>
 
               <Link
@@ -166,6 +169,7 @@ export default function Home() {
                 className="inline-flex min-h-12 items-center justify-center gap-3 border border-[#1b1c1a]/20 px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-colors duration-300 hover:border-[#805533] hover:bg-[#805533] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 sm:px-7"
               >
                 Get a Quote
+                <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
               </Link>
             </div>
 
@@ -256,35 +260,7 @@ export default function Home() {
 
       {/* SERVICES */}
       <Reveal>
-      <section
-        aria-labelledby="home-services-heading"
-        className="border-b border-black/5"
-      >
-        <div className="mx-auto max-w-[1600px] px-5 pt-14 sm:px-8 sm:pt-16 md:px-12 lg:px-16">
-          <div className="mb-2 flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-end">
-            <div>
-              <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#805533]">
-                What we make
-              </p>
-
-              <h2
-                id="home-services-heading"
-                className="font-serif text-3xl tracking-tight sm:text-5xl"
-              >
-                Furnishing for every room.
-              </h2>
-            </div>
-
-            <Link
-              href="/services"
-              className="inline-flex min-h-10 items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#805533] transition-colors hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
-            >
-              View all services
-              <span aria-hidden="true">→</span>
-            </Link>
-          </div>
-        </div>
-
+      <section className="border-b border-black/5">
         <ServicesSection />
       </section>
       </Reveal>
@@ -341,7 +317,7 @@ export default function Home() {
                       aria-hidden="true"
                       className="text-lg transition-transform duration-300 group-hover:translate-x-1"
                     >
-                      →
+                      <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
                     </span>
                   </div>
 
@@ -361,41 +337,8 @@ export default function Home() {
         <FeaturedWork />
       </Reveal>
 
-      {/* 3D STUDIO */}
-      <Reveal>
-      <section
-        aria-label="Explore Mauli 3D Studio"
-        className="bg-[#1b1c1a] text-white"
-      >
-        <div className="mx-auto grid max-w-[1400px] items-center gap-8 px-5 py-14 sm:px-8 sm:py-16 md:grid-cols-12 md:gap-10 md:px-12 md:py-20 lg:px-16">
-          <div className="md:col-span-8">
-            <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#c5a47e]">
-              Design before you decide
-            </p>
-
-            <h2 className="max-w-3xl font-serif text-3xl leading-tight tracking-tight sm:text-5xl">
-              See your furniture ideas come together in our
-              3D Studio.
-            </h2>
-
-            <p className="mt-5 max-w-2xl text-sm leading-7 text-white/65">
-              Try furniture layouts, materials and finishes while planning
-              your home.
-            </p>
-          </div>
-
-          <div className="md:col-span-4 md:flex md:justify-end">
-            <Link
-              href="/3d-studio"
-              className="inline-flex min-h-12 w-full items-center justify-center gap-3 border border-white/25 px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:border-white hover:bg-white hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1b1c1a] sm:w-auto sm:px-7"
-            >
-              Explore 3D Studio
-              <span aria-hidden="true">↗</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-      </Reveal>
+      {/* 3D SHOWCASE — scroll-driven turntable */}
+      <Showcase3D />
 
       {/* WHY MAULI */}
       <Reveal>
