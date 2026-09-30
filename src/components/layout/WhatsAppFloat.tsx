@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { WHATSAPP_NUMBER } from "../../lib/contact";
 
-const WHATSAPP_NUMBER = "919921260926";
+
 
 const prefilledMessage = encodeURIComponent(
   "Hello Mauli Interior! I'd like to enquire about your services."
@@ -25,7 +26,7 @@ export default function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with Mauli Interior on WhatsApp"
-      className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25d366] text-white shadow-[0_8px_24px_rgba(37,211,102,0.45)] transition-transform duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25d366] focus-visible:ring-offset-2 md:bottom-8 md:right-8"
+      className="fixed bottom-5 right-5 z-40 hidden h-14 w-14 md:flex items-center justify-center rounded-full bg-[#25d366] text-white shadow-[0_8px_24px_rgba(37,211,102,0.45)] transition-transform duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25d366] focus-visible:ring-offset-2 md:bottom-8 md:right-8"
     >
       <svg
         width="26"
