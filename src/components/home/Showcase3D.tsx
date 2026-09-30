@@ -18,7 +18,7 @@ const ShowcaseCanvas = dynamic(() => import("./ShowcaseCanvas"), {
 
 const BEATS = [
   {
-    title: "Spin it.",
+    title: "Every angle.",
     text: "Our signature three-seater, modelled true to size. Scroll and watch it turn.",
   },
   {
