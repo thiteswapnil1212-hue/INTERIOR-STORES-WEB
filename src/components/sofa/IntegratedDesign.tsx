@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 const services = [
   "Custom Sofas",
@@ -71,7 +72,7 @@ export default function IntegratedDesign() {
                 </div>
 
                 <span className="text-xs text-[#999a98]">
-                  →
+                  <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
                 </span>
               </div>
             ))}
@@ -86,7 +87,7 @@ export default function IntegratedDesign() {
               Discuss Your Space
 
               <span className="transition-transform duration-300 group-hover:translate-x-1">
-                →
+                <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
               </span>
             </Link>
           </div>
