@@ -14,9 +14,26 @@ interface StudioViewerProps {
 
 const LEG_COLOR = "#3a3530";
 const LINEN_WHITE = "#f6f3ec";
+const PILLOW_SAGE = "#9aa38b";
 
-function Upholstery({ color, roughness = 0.9 }: { color: string; roughness?: number }) {
-  return <meshStandardMaterial color={color} roughness={roughness} />;
+/**
+ * Cloth-like upholstery. The sheen layer is what separates fabric
+ * from plastic under studio light — keep roughness high, sheen on.
+ */
+function Upholstery({ color, roughness = 0.95 }: { color: string; roughness?: number }) {
+  const sheenColor = useMemo(
+    () => new THREE.Color(color).lerp(new THREE.Color("#ffffff"), 0.5),
+    [color]
+  );
+  return (
+    <meshPhysicalMaterial
+      color={color}
+      roughness={roughness}
+      sheen={1}
+      sheenRoughness={0.55}
+      sheenColor={sheenColor}
+    />
+  );
 }
 
 /* ------------------------------- SOFA ---------------------------------- */
@@ -24,70 +41,132 @@ function Upholstery({ color, roughness = 0.9 }: { color: string; roughness?: num
 export function SofaModel({ fabricHex, config }: { fabricHex: string; config: ConfigType }) {
   const width = config === "2_seater" ? 1.7 : config === "custom" ? 2.6 : 2.3;
   const seats = config === "2_seater" ? 2 : 3;
-  const innerW = width - 0.48; // minus arms
+  const innerW = width - 0.52; // minus arms
   const seatW = innerW / seats;
   const isL = config === "l_shape";
 
+  // Handmade imperfection: no two cushions sit exactly alike.
+  const jitter = useMemo(
+    () =>
+      Array.from({ length: 3 }, (_, i) => ({
+        rz: (((i * 37) % 3) - 1) * 0.02,
+        dy: ((i * 53) % 5) * 0.0022,
+      })),
+    []
+  );
+
   return (
     <group>
-      {/* Legs */}
-      {[
-        [-width / 2 + 0.15, -0.38],
-        [width / 2 - 0.15, -0.38],
-        [-width / 2 + 0.15, 0.38],
-        [width / 2 - 0.15, 0.38],
-      ].map(([x, z], i) => (
-        <mesh key={i} position={[x, 0.06, z]} castShadow>
-          <cylinderGeometry args={[0.035, 0.028, 0.12, 12]} />
-          <meshStandardMaterial color={LEG_COLOR} roughness={0.5} />
+      {/* Splayed tapered wooden legs */}
+      {(
+        [
+          [-width / 2 + 0.16, -0.36, 0.1, -0.09],
+          [width / 2 - 0.16, -0.36, -0.1, -0.09],
+          [-width / 2 + 0.16, 0.36, 0.1, 0.09],
+          [width / 2 - 0.16, 0.36, -0.1, 0.09],
+        ] as [number, number, number, number][]
+      ).map(([x, z, rx, rz], i) => (
+        <mesh key={i} position={[x, 0.075, z]} rotation={[rx, 0, rz]} castShadow>
+          <cylinderGeometry args={[0.032, 0.02, 0.15, 12]} />
+          <meshStandardMaterial color="#2e2823" roughness={0.45} />
         </mesh>
       ))}
 
       {/* Base */}
-      <RoundedBox args={[width, 0.3, 0.95]} radius={0.06} smoothness={4} position={[0, 0.27, 0]} castShadow>
+      <RoundedBox args={[width, 0.32, 0.98]} radius={0.07} smoothness={4} position={[0, 0.29, 0]} castShadow>
         <Upholstery color={fabricHex} />
       </RoundedBox>
 
-      {/* Arms */}
+      {/* Arms with caps */}
       {[-1, 1].map((s) => (
-        <RoundedBox
-          key={s}
-          args={[0.24, 0.58, 0.95]}
-          radius={0.08}
-          smoothness={4}
-          position={[(s * (width / 2 - 0.12)), 0.56, 0]}
-          castShadow
-        >
-          <Upholstery color={fabricHex} />
-        </RoundedBox>
+        <group key={s}>
+          <RoundedBox
+            args={[0.26, 0.6, 0.98]}
+            radius={0.09}
+            smoothness={4}
+            position={[s * (width / 2 - 0.13), 0.59, 0]}
+            castShadow
+          >
+            <Upholstery color={fabricHex} />
+          </RoundedBox>
+          <RoundedBox
+            args={[0.3, 0.09, 1.02]}
+            radius={0.045}
+            smoothness={4}
+            position={[s * (width / 2 - 0.13), 0.93, 0]}
+            castShadow
+          >
+            <Upholstery color={fabricHex} />
+          </RoundedBox>
+        </group>
       ))}
 
       {/* Backrest frame */}
-      <RoundedBox args={[width, 0.62, 0.2]} radius={0.07} smoothness={4} position={[0, 0.62, -0.4]} castShadow>
+      <RoundedBox args={[width, 0.68, 0.22]} radius={0.08} smoothness={4} position={[0, 0.68, -0.42]} castShadow>
         <Upholstery color={fabricHex} />
       </RoundedBox>
 
-      {/* Seat + back cushions */}
+      {/* Seat cushions — plump */}
       {Array.from({ length: seats }).map((_, i) => {
         const x = -innerW / 2 + seatW * (i + 0.5);
         return (
-          <group key={i}>
-            <RoundedBox args={[seatW - 0.035, 0.17, 0.78]} radius={0.06} smoothness={4} position={[x, 0.5, 0.03]} castShadow>
-              <Upholstery color={fabricHex} />
-            </RoundedBox>
-            <RoundedBox
-              args={[seatW - 0.035, 0.44, 0.17]}
-              radius={0.07}
-              smoothness={4}
-              position={[x, 0.74, -0.27]}
-              rotation={[-0.1, 0, 0]}
-              castShadow
-            >
-              <Upholstery color={fabricHex} />
-            </RoundedBox>
-          </group>
+          <RoundedBox
+            key={i}
+            args={[seatW - 0.045, 0.2, 0.8]}
+            radius={0.08}
+            smoothness={4}
+            position={[x, 0.53, 0.04]}
+            rotation={[0, 0, jitter[i].rz * 0.5]}
+            castShadow
+          >
+            <Upholstery color={fabricHex} />
+          </RoundedBox>
         );
       })}
+
+      {/* Back cushions — reclined, each sitting a little differently */}
+      {Array.from({ length: seats }).map((_, i) => {
+        const x = -innerW / 2 + seatW * (i + 0.5);
+        return (
+          <RoundedBox
+            key={i}
+            args={[seatW - 0.045, 0.52, 0.2]}
+            radius={0.085}
+            smoothness={4}
+            position={[x, 0.84 + jitter[i].dy, -0.27]}
+            rotation={[-0.13, 0, jitter[i].rz]}
+            castShadow
+          >
+            <Upholstery color={fabricHex} />
+          </RoundedBox>
+        );
+      })}
+
+      {/* Styled throw pillows */}
+      {!isL && seats === 3 && (
+        <group>
+          <RoundedBox
+            args={[0.36, 0.36, 0.14]}
+            radius={0.06}
+            smoothness={4}
+            position={[-innerW / 2 + 0.34, 0.82, -0.08]}
+            rotation={[-0.12, 0.3, 0.1]}
+            castShadow
+          >
+            <Upholstery color={LINEN_WHITE} />
+          </RoundedBox>
+          <RoundedBox
+            args={[0.34, 0.34, 0.14]}
+            radius={0.06}
+            smoothness={4}
+            position={[innerW / 2 - 0.32, 0.8, -0.06]}
+            rotation={[-0.1, -0.35, -0.12]}
+            castShadow
+          >
+            <Upholstery color={PILLOW_SAGE} />
+          </RoundedBox>
+        </group>
+      )}
 
       {/* L-shape chaise extension */}
       {isL && (
@@ -106,7 +185,7 @@ export function SofaModel({ fabricHex, config }: { fabricHex: string; config: Co
 
 /* -------------------------------- BED ----------------------------------- */
 
-function BedModel({ fabricHex, config }: { fabricHex: string; config: ConfigType }) {
+export function BedModel({ fabricHex, config }: { fabricHex: string; config: ConfigType }) {
   const width =
     config === "single" ? 1.1 : config === "double" ? 1.5 : config === "king" ? 2.0 : 1.7;
   const length = 2.1;
