@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default function FinalCTA() {
   return (
@@ -32,7 +33,7 @@ export default function FinalCTA() {
             <span>Discuss Your Space</span>
 
             <span className="transition-transform duration-300 group-hover:translate-x-1">
-              →
+              <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
             </span>
           </Link>
         </div>
