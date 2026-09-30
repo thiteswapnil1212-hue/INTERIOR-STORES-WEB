@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 /**
  * Only /services/sofas has a dedicated page.
@@ -66,7 +67,7 @@ export default function FeaturedWork() {
           >
             View Projects
             <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
-              →
+              <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
             </span>
           </Link>
         </div>
@@ -102,7 +103,7 @@ export default function FeaturedWork() {
                     className="transition-transform duration-300 group-hover:translate-x-1"
                     aria-hidden="true"
                   >
-                    →
+                    <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
                   </span>
                 </span>
               </div>
