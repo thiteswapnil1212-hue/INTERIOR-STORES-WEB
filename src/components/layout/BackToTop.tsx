@@ -23,7 +23,7 @@ export default function BackToTop() {
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label="Back to top"
       tabIndex={show ? 0 : -1}
-      className={`fixed bottom-5 left-5 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-[#1b1c1a] text-white shadow-[0_8px_24px_rgba(27,28,26,0.35)] transition-all duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 md:bottom-8 md:left-8 ${
+      className={`fixed bottom-24 left-5 z-40 flex h-12 w-12 md:bottom-8 items-center justify-center rounded-full bg-[#1b1c1a] text-white shadow-[0_8px_24px_rgba(27,28,26,0.35)] transition-all duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 md:bottom-8 md:left-8 ${
         show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
       }`}
     >
