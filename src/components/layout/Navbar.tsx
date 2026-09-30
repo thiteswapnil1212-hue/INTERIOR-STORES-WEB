@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Phone } from "lucide-react";
+import { ArrowRight, Menu, Phone, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { WHATSAPP_NUMBER, PRIMARY_PHONE_DISPLAY, PRIMARY_TEL_HREF } from "../../lib/contact";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -152,11 +153,11 @@ export default function Navbar() {
             <Image
               src="/images/home/brand/mauli-logo.jpg"
               alt="Mauli Interior"
-              width={140}
-              height={48}
+              width={106}
+              height={112}
               priority
-              sizes="90px"
-              className="h-auto w-[82px] object-contain transition-opacity duration-300 group-hover:opacity-75 lg:w-[90px]"
+              sizes="56px"
+              className="h-14 w-auto object-contain transition-opacity duration-300 group-hover:opacity-75"
             />
           </Link>
 
@@ -200,12 +201,12 @@ export default function Navbar() {
 
           <div className="flex shrink-0 items-center gap-6">
             <a
-              href="tel:+919921260926"
-              aria-label="Call Mauli Interior on +91 99212 60926"
+              href={PRIMARY_TEL_HREF}
+              aria-label={`Call Mauli Interior on ${PRIMARY_PHONE_DISPLAY}`}
               className="inline-flex items-center gap-2 text-[13px] font-medium text-[#555856] transition-colors duration-300 hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
             >
               <Phone size={15} strokeWidth={1.8} aria-hidden="true" />
-              +91 99212 60926
+              {PRIMARY_PHONE_DISPLAY}
             </a>
 
             <Link
@@ -243,11 +244,11 @@ export default function Navbar() {
           <Image
             src="/images/home/brand/mauli-logo.jpg"
             alt="Mauli Interior"
-            width={130}
-            height={44}
+            width={84}
+            height={88}
             priority
-            sizes="75px"
-            className="h-auto w-[75px] object-contain"
+            sizes="44px"
+            className="h-11 w-auto object-contain"
           />
         </Link>
 
@@ -291,16 +292,16 @@ export default function Navbar() {
             href="/"
             aria-label="Mauli Interior home"
             onClick={() => setIsOpen(false)}
-            className="flex h-10 w-[60px] shrink-0 items-center overflow-hidden"
+            className="flex h-10 shrink-0 items-center overflow-hidden"
           >
             <Image
               src="/images/home/brand/mauli-logo.jpg"
               alt="Mauli Interior"
-              width={120}
-              height={40}
+              width={68}
+              height={72}
               priority
               sizes="60px"
-              className="block h-auto w-[60px] object-contain"
+              className="block h-9 w-auto object-contain"
             />
           </Link>
 
@@ -351,7 +352,7 @@ export default function Navbar() {
                       : "translate-x-[-4px] opacity-40 group-hover:translate-x-0"
                   }`}
                 >
-                  →
+                  <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
                 </span>
               </Link>
             );
@@ -370,13 +371,13 @@ export default function Navbar() {
           </Link>
 
           <a
-            href="tel:+919921260926"
+            href={PRIMARY_TEL_HREF}
             onClick={() => setIsOpen(false)}
-            aria-label="Call Mauli Interior on +91 99212 60926"
+            aria-label={`Call Mauli Interior on ${PRIMARY_PHONE_DISPLAY}`}
             className="mt-4 flex min-h-12 items-center justify-center gap-2 border border-[#1b1c1a]/20 px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-colors duration-300 hover:border-[#805533] hover:text-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
           >
             <Phone size={14} strokeWidth={1.8} aria-hidden="true" />
-            Call +91 99212 60926
+            Call {PRIMARY_PHONE_DISPLAY}
           </a>
 
           {/* =================================================
