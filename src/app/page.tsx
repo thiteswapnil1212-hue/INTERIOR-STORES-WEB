@@ -11,7 +11,7 @@ import FinalCTA from "../components/home/FinalCTA";
 import Marquee from "../components/home/Marquee";
 import Reveal from "../components/motion/Reveal";
 import TiltCard from "../components/motion/TiltCard";
-import SpinStrip from "../components/home/SpinStrip";
+import ScrollMoment from "../components/motion/ScrollMoment";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Showcase3D from "../components/home/Showcase3D";
 
@@ -233,8 +233,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* INTERACTIVE 3D SPIN */}
-      <SpinStrip />
+      {/* SIGNATURE SOFA — scroll-driven 3D moment */}
+      <ScrollMoment
+        model="sofa"
+        kicker="The signature three-seater"
+        title={
+          <>
+            Made around
+            <br />
+            <span className="text-[#805533]">you.</span>
+          </>
+        }
+        sub="Sized for your room. Built by hand in our Bhosari workshop."
+        cta={{ href: "/3d-studio", label: "Design yours in 3D" }}
+        bgClass="bg-[#f6f2ec]"
+        label="Three-dimensional model of a terracotta three-seater sofa that turns as you scroll"
+      />
 
       {/* SERVICES TICKER */}
       <Marquee />
