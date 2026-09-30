@@ -1,3 +1,5 @@
+import { ArrowRight } from "lucide-react";
+
 export default function WhyMauli() {
   const reasons = [
     {
@@ -64,7 +66,7 @@ export default function WhyMauli() {
                 </span>
 
                 <span className="text-xs text-[#999a98] transition-transform duration-300 group-hover:translate-x-1">
-                  →
+                  <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
                 </span>
               </div>
 
