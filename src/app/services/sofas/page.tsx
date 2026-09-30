@@ -7,6 +7,7 @@ import SofaStyles from "../../../components/sofa/SofaStyles";
 import SeatingFeatures from "../../../components/sofa/SeatingFeatures";
 import IntegratedDesign from "../../../components/sofa/IntegratedDesign";
 import BreadcrumbJsonLd from "../../../components/seo/BreadcrumbJsonLd";
+import SplitText from "../../../components/motion/SplitText";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -146,16 +147,15 @@ export default function SofasPage() {
           </div>
 
           <div className="md:col-span-8">
-            <h2
+            <SplitText
+              as="h2"
               id="sofa-intro-heading"
               className="max-w-4xl font-serif text-3xl leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl"
-            >
-              A sofa should fit your home,
-              <span className="text-[#805533]">
-                {" "}
-                not the other way around.
-              </span>
-            </h2>
+              lines={[
+                { text: "A sofa should fit your home," },
+                { text: "not the other way around.", accent: true },
+              ]}
+            />
 
             <p className="mt-6 max-w-2xl text-[14px] leading-7 text-[#62625e] sm:text-[15px] sm:leading-8">
               From compact two-seaters to spacious L-shaped sofas, explore
