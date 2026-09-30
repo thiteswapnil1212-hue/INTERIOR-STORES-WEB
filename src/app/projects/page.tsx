@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Our Projects",
@@ -205,7 +206,7 @@ export default function ProjectsPage() {
               >
                 Enquire about a sofa
                 <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
-                  →
+                  <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
                 </span>
               </Link>
             </div>
@@ -264,7 +265,7 @@ export default function ProjectsPage() {
                     aria-label={`Enquire about ${project.title}`}
                     className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#747878]/25 text-lg transition-all duration-300 hover:border-[#805533] hover:bg-[#805533] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
                   >
-                    <span aria-hidden="true">↗</span>
+                    <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
                   </Link>
                 </div>
               </article>
@@ -311,7 +312,7 @@ export default function ProjectsPage() {
                   className="transition-transform duration-300 group-hover:translate-x-1"
                   aria-hidden="true"
                 >
-                  →
+                  <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
                 </span>
               </Link>
             </div>
