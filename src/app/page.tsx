@@ -159,7 +159,6 @@ export default function Home() {
                 className="inline-flex min-h-12 items-center justify-center gap-3 bg-[#1b1c1a] px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 sm:px-7"
               >
                 Explore Our Work
-                <span aria-hidden="true">↗</span>
               </Link>
 
               <Link
@@ -167,7 +166,6 @@ export default function Home() {
                 className="inline-flex min-h-12 items-center justify-center gap-3 border border-[#1b1c1a]/20 px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-colors duration-300 hover:border-[#805533] hover:bg-[#805533] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 sm:px-7"
               >
                 Get a Quote
-                <span aria-hidden="true">↗</span>
               </Link>
             </div>
 
