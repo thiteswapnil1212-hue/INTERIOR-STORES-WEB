@@ -10,6 +10,8 @@ import FAQSection from "../components/home/FAQSection";
 import FinalCTA from "../components/home/FinalCTA";
 import Marquee from "../components/home/Marquee";
 import Reveal from "../components/motion/Reveal";
+import TiltCard from "../components/motion/TiltCard";
+import SpinStrip from "../components/home/SpinStrip";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Showcase3D from "../components/home/Showcase3D";
 
@@ -199,35 +201,40 @@ export default function Home() {
             className="animate-fade-up order-1 min-w-0 md:order-2 md:col-span-7"
           >
             <div className="animate-hero-zoom group relative aspect-[4/3] w-full overflow-hidden bg-[#e8e3dd] sm:aspect-[5/4] md:aspect-[4/5] lg:h-[76vh] lg:aspect-auto">
-              <Image
-                src="/images/home/hero.jpg"
-                alt="Living room with home furnishing by Mauli Interior"
-                fill
-                priority
-                fetchPriority="high"
-                sizes="(max-width: 767px) 100vw, (max-width: 1279px) 58vw, 900px"
-                className="object-cover transition-transform duration-700 ease-out motion-reduce:transition-none md:group-hover:scale-[1.025]"
-              />
+              <TiltCard className="h-full w-full" maxTilt={4}>
+                <Image
+                  src="/images/home/hero.jpg"
+                  alt="Living room with home furnishing by Mauli Interior"
+                  fill
+                  priority
+                  fetchPriority="high"
+                  sizes="(max-width: 767px) 100vw, (max-width: 1279px) 58vw, 900px"
+                  className="object-cover transition-transform duration-700 ease-out motion-reduce:transition-none md:group-hover:scale-[1.025]"
+                />
 
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent"
-              />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent"
+                />
 
-              {/* Service area badge */}
-              <div className="absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] bg-white/95 px-4 py-3 backdrop-blur-sm sm:bottom-5 sm:left-5 sm:px-5 sm:py-4">
-                <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#805533]">
-                  Serving
-                </p>
+                {/* Service area badge */}
+                <div className="absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] bg-white/95 px-4 py-3 backdrop-blur-sm sm:bottom-5 sm:left-5 sm:px-5 sm:py-4">
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#805533]">
+                    Serving
+                  </p>
 
-                <p className="mt-1 text-xs font-medium leading-5 text-[#1b1c1a] sm:text-sm">
-                  Pune · PCMC · Bhosari · Moshi
-                </p>
-              </div>
+                  <p className="mt-1 text-xs font-medium leading-5 text-[#1b1c1a] sm:text-sm">
+                    Pune · PCMC · Bhosari · Moshi
+                  </p>
+                </div>
+              </TiltCard>
             </div>
           </div>
         </div>
       </section>
+
+      {/* INTERACTIVE 3D SPIN */}
+      <SpinStrip />
 
       {/* SERVICES TICKER */}
       <Marquee />
