@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { ContactShadows } from "@react-three/drei";
 import { SofaModel } from "../studio/StudioViewer";
+import FitCamera, { useMobile } from "./FitCamera";
 import type { MutableRefObject } from "react";
 
 export type SpinControl = {
@@ -29,15 +30,20 @@ export const createSpinControl = (): SpinControl => ({
   mouseY: 0,
 });
 
+const SOFA_BASE: [number, number, number] = [3.2, 1.9, 4.7];
+const SOFA_LOOK: [number, number, number] = [0, 0.85, 0];
+
 function SofaRig({
   controlRef,
   reducedMotion,
+  fittedBase,
 }: {
   controlRef: MutableRefObject<SpinControl>;
   reducedMotion: boolean;
+  /** camera home position after portrait fitting (parallax orbits this) */
+  fittedBase: MutableRefObject<THREE.Vector3>;
 }) {
   const group = useRef<THREE.Group>(null);
-  const baseCam = useRef({ x: 3.2, y: 1.9 });
 
   useFrame((state, delta) => {
     const groupObj = group.current;
@@ -62,17 +68,17 @@ function SofaRig({
       const cam = state.camera;
       cam.position.x = THREE.MathUtils.damp(
         cam.position.x,
-        baseCam.current.x + c.mouseX * 0.7,
+        fittedBase.current.x + c.mouseX * 0.7,
         3,
         delta
       );
       cam.position.y = THREE.MathUtils.damp(
         cam.position.y,
-        baseCam.current.y + c.mouseY * 0.35,
+        fittedBase.current.y + c.mouseY * 0.35,
         3,
         delta
       );
-      cam.lookAt(0, 0.85, 0);
+      cam.lookAt(SOFA_LOOK[0], SOFA_LOOK[1], SOFA_LOOK[2]);
     }
   });
 
@@ -101,11 +107,17 @@ export default function SpinCanvas({
   reducedMotion,
   label,
 }: SpinCanvasProps) {
+  const mobile = useMobile();
+  const fittedBase = useRef(new THREE.Vector3(...SOFA_BASE));
+  const handleFit = useCallback((p: THREE.Vector3) => {
+    fittedBase.current.copy(p);
+  }, []);
+
   return (
     <Canvas
       shadows
-      dpr={[1, 1.75]}
-      camera={{ position: [3.2, 1.9, 4.7], fov: 36 }}
+      dpr={mobile ? [1, 1.5] : [1, 1.75]}
+      camera={{ position: SOFA_BASE, fov: 36 }}
       frameloop={running && !reducedMotion ? "always" : "never"}
       gl={{ alpha: true, antialias: true }}
       style={{
@@ -118,17 +130,28 @@ export default function SpinCanvas({
       }}
       aria-label={label}
     >
+      <FitCamera
+        base={SOFA_BASE}
+        fov={36}
+        lookAt={SOFA_LOOK}
+        fitWidth={2.6}
+        onFit={handleFit}
+      />
       <ambientLight intensity={0.75} />
       <directionalLight
         position={[4, 6, 3]}
         intensity={2.2}
         castShadow
-        shadow-mapSize={[1024, 1024]}
+        shadow-mapSize={mobile ? [512, 512] : [1024, 1024]}
       />
       <directionalLight position={[-5, 3, -2]} intensity={0.5} color="#cdd7ff" />
       <directionalLight position={[0, 2, 5]} intensity={0.6} color="#ffd9b8" />
 
-      <SofaRig controlRef={controlRef} reducedMotion={reducedMotion} />
+      <SofaRig
+        controlRef={controlRef}
+        reducedMotion={reducedMotion}
+        fittedBase={fittedBase}
+      />
 
       <ContactShadows
         position={[0, 0.001, 0]}
