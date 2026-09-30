@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import TiltCard from "../motion/TiltCard";
 
 export default function WhyMauli() {
   const reasons = [
@@ -51,14 +52,19 @@ export default function WhyMauli() {
         {/* Reasons */}
         <div className="grid border-t border-[#747878]/15 md:grid-cols-2">
           {reasons.map((reason, index) => (
-            <div
+            <TiltCard
               key={reason.number}
-              className={`group border-b border-[#747878]/15 p-7 transition-all duration-300 hover:-translate-y-1 hover:bg-[#f6f3ee] motion-reduce:transition-none motion-reduce:hover:translate-y-0 md:p-9 ${
+              maxTilt={4}
+              glare={false}
+              className={`border-b border-[#747878]/15 ${
                 index % 2 === 0
                   ? "md:border-r md:border-[#747878]/15"
                   : ""
               }`}
             >
+              <div
+                className="group h-full p-7 transition-colors duration-300 hover:bg-[#f6f3ee] motion-reduce:transition-none md:p-9"
+              >
               {/* Number */}
               <div className="mb-8 flex items-start justify-between">
                 <span className="text-xs font-medium tracking-[0.12em] text-[#805533]">
@@ -78,7 +84,8 @@ export default function WhyMauli() {
               <p className="mt-3 max-w-md text-sm leading-6 text-[#555755]">
                 {reason.description}
               </p>
-            </div>
+              </div>
+            </TiltCard>
           ))}
         </div>
 
