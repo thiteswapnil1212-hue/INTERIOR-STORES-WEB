@@ -5,6 +5,8 @@ import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import WhatsAppFloat from "../components/layout/WhatsAppFloat";
 import BackToTop from "../components/layout/BackToTop";
+import MobileContactBar from "../components/layout/MobileContactBar";
+import { PRIMARY_TEL_HREF } from "../lib/contact";
 
 const siteUrl = "https://mauliinterior-stores-web.vercel.app";
 
@@ -126,7 +128,7 @@ const structuredData = {
       name: siteName,
       url: siteUrl,
       description,
-      telephone: "+919921260926",
+      telephone: PRIMARY_TEL_HREF.replace("tel:", "+"),
       email: "thiteswapnil1212@gmail.com",
       address: {
         "@type": "PostalAddress",
@@ -232,6 +234,8 @@ export default function RootLayout({
         <WhatsAppFloat />
 
         <BackToTop />
+
+        <MobileContactBar />
       </body>
     </html>
   );
