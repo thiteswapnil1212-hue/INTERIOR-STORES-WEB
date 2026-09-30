@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import TiltCard from "../motion/TiltCard";
 
 export type GalleryProject = {
   number: string;
@@ -128,6 +129,7 @@ export default function HorizontalGallery({
           key={project.number}
           className="group w-[70vw] shrink-0 sm:w-[56vw] lg:w-[36vw] xl:w-[31vw]"
         >
+          <TiltCard maxTilt={5} className="h-full">
           <div className="relative aspect-[4/3] overflow-hidden bg-[#e9e4dc]">
             <Image
               src={project.image}
@@ -162,6 +164,7 @@ export default function HorizontalGallery({
               <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
             </Link>
           </div>
+          </TiltCard>
         </article>
       ))}
 
