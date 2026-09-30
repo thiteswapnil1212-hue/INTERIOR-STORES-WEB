@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { PRIMARY_PHONE_DISPLAY } from "../../lib/contact";
 
 const faqs = [
   {
@@ -21,7 +22,7 @@ const faqs = [
   {
     question: "How do I get a price quote?",
     answer:
-      "Send your requirement through the enquiry form, call +91 99212 60926, or message us on WhatsApp. We'll discuss your space and share a quote.",
+      `Send your requirement through the enquiry form, call ${PRIMARY_PHONE_DISPLAY}, or message us on WhatsApp. We'll discuss your space and share a quote.`,
   },
   {
     question: "Where is your workshop?",
