@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import TiltCard from "../motion/TiltCard";
 
 const services = [
   {
@@ -130,19 +131,20 @@ export default function ServicesSection() {
             const className =
               "group block overflow-hidden border border-[#747878]/15 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-18px_rgba(27,28,26,0.25)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-4 motion-reduce:transition-none motion-reduce:hover:translate-y-0";
 
-            return service.href ? (
-              <Link
-                key={service.title}
-                href={service.href}
-                className={className}
-                aria-label={`${service.title} — ${service.available ? "explore service" : "enquire"}`}
-              >
-                {card}
-              </Link>
-            ) : (
-              <div key={service.title} className={className}>
-                {card}
-              </div>
+            return (
+              <TiltCard key={service.title} maxTilt={5}>
+                {service.href ? (
+                  <Link
+                    href={service.href}
+                    className={className}
+                    aria-label={`${service.title} — ${service.available ? "explore service" : "enquire"}`}
+                  >
+                    {card}
+                  </Link>
+                ) : (
+                  <div className={className}>{card}</div>
+                )}
+              </TiltCard>
             );
           })}
         </div>
