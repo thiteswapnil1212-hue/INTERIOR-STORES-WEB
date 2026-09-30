@@ -7,6 +7,7 @@ import SofaStyles from "../../../components/sofa/SofaStyles";
 import SeatingFeatures from "../../../components/sofa/SeatingFeatures";
 import IntegratedDesign from "../../../components/sofa/IntegratedDesign";
 import BreadcrumbJsonLd from "../../../components/seo/BreadcrumbJsonLd";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Custom Sofas in Pune",
@@ -169,7 +170,7 @@ export default function SofasPage() {
             >
               Discuss your sofa
               <span className="transition-transform duration-300 group-hover:translate-x-1">
-                →
+                <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
               </span>
             </Link>
           </div>
@@ -292,7 +293,7 @@ export default function SofasPage() {
             >
               Get a Quote
               <span className="transition-transform duration-300 group-hover:translate-x-1">
-                →
+                <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
               </span>
             </Link>
 
@@ -301,7 +302,7 @@ export default function SofasPage() {
               className="inline-flex min-h-11 items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               Design yours in 3D
-              <span>↗</span>
+              <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
             </Link>
           </div>
         </div>
@@ -315,7 +316,7 @@ export default function SofasPage() {
             href="/services"
             className="inline-flex min-h-10 w-fit items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#805533] transition-colors hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
           >
-            <span>←</span>
+            <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" />
             View all services
           </Link>
 
@@ -324,7 +325,7 @@ export default function SofasPage() {
             className="inline-flex min-h-10 w-fit items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#805533] transition-colors hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
           >
             Have a question?
-            <span>→</span>
+            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
           </Link>
         </div>
       </section>
