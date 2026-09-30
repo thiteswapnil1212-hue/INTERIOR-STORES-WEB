@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
 import SplitText from "../../components/motion/SplitText";
+import ScrollMoment from "../../components/motion/ScrollMoment";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -352,6 +353,25 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* WORKSHOP BED — scroll-driven 3D moment */}
+      <ScrollMoment
+        model="bed"
+        kicker="From our workshop"
+        title={
+          <>
+            Built in
+            <br />
+            <span className="text-[#805533]">Bhosari.</span>
+          </>
+        }
+        sub="Beds, sofas and panels — made by hand, made to measure, made to last."
+        cta={{ href: "/services", label: "See what we make" }}
+        bgClass="bg-[#f2eee8]"
+        label="Three-dimensional model of an upholstered bed that turns as you scroll"
+        sweep={Math.PI * 0.9}
+        trackClass="h-[200vh]"
+      />
 
       {/* WORKSHOP */}
       <section className="border-t border-[#747878]/15 bg-[#f2eee8] px-6 py-20 md:px-16 md:py-24">
