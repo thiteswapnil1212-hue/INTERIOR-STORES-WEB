@@ -41,7 +41,6 @@ export default function SpinViewer({
   const [ready, setReady] = useState(false);
   const [running, setRunning] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [hintVisible, setHintVisible] = useState(true);
   const dragState = useRef({ active: false, lastX: 0 });
 
   useEffect(() => {
@@ -103,7 +102,6 @@ export default function SpinViewer({
     const onPointerDown = (e: PointerEvent) => {
       dragState.current = { active: true, lastX: e.clientX };
       control.dragging = true;
-      setHintVisible(false);
       el.setPointerCapture?.(e.pointerId);
     };
     const onPointerMove = (e: PointerEvent) => {
@@ -167,14 +165,6 @@ export default function SpinViewer({
             label={label}
           />
           <CanvasReady onReady={() => setReady(true)} />
-        </div>
-      )}
-
-      {!reducedMotion && hintVisible && ready && (
-        <div className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2">
-          <span className="inline-flex items-center gap-2 rounded-full bg-[#1b1c1a]/80 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-white backdrop-blur-sm">
-            Drag to spin
-          </span>
         </div>
       )}
     </div>
