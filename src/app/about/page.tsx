@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About",
@@ -382,7 +383,7 @@ export default function AboutPage() {
             >
               Get Directions
               <span className="text-base transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">
-                ↗
+                <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
               </span>
             </a>
           </div>
@@ -410,7 +411,7 @@ export default function AboutPage() {
           >
             Start an Enquiry
             <span className="transition-transform duration-300 group-hover:translate-x-1">
-              →
+              <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
             </span>
           </Link>
         </div>
