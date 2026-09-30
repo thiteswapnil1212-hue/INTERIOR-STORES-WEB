@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default function SofaHero() {
   return (
@@ -34,7 +35,7 @@ export default function SofaHero() {
             className="inline-flex items-center gap-4 bg-[#1b1c1a] px-8 py-4 text-xs font-semibold uppercase tracking-[0.1em] text-white transition-all duration-300 hover:bg-[#805533] focus:outline-none focus:ring-2 focus:ring-[#805533] focus:ring-offset-2"
           >
             Get a Sofa Quote
-            <span aria-hidden="true">→</span>
+            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
           </Link>
 
           <Link
