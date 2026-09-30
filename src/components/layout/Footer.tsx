@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { WHATSAPP_NUMBER, PRIMARY_PHONE_DISPLAY, PRIMARY_TEL_HREF, SECONDARY_PHONE_DISPLAY, SECONDARY_TEL_HREF } from "../../lib/contact";
 
-const WHATSAPP_NUMBER = "919921260926";
+
 
 const footerLinks = [
   {
@@ -45,16 +46,16 @@ export default function Footer() {
                   Phone
                 </p>
                 <a
-                  href="tel:+919921260926"
+                  href={PRIMARY_TEL_HREF}
                   className="mt-1 block text-sm text-[#d5d6d2] transition-colors hover:text-[#c5a47e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c5a47e]"
                 >
-                  +91 99212 60926
+                  {PRIMARY_PHONE_DISPLAY}
                 </a>
                 <a
-                  href="tel:+918208811046"
+                  href={SECONDARY_TEL_HREF}
                   className="block text-sm text-[#d5d6d2] transition-colors hover:text-[#c5a47e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c5a47e]"
                 >
-                  +91 82088 11046
+                  {SECONDARY_PHONE_DISPLAY}
                 </a>
               </div>
 
