@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
 import Reveal from "../../components/motion/Reveal";
+import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -157,7 +158,7 @@ export default function ServicesPage() {
                       className="transition-transform duration-300 group-hover:translate-x-1"
                       aria-hidden="true"
                     >
-                      →
+                      <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
                     </span>
                   </Link>
                 </div>
@@ -191,7 +192,7 @@ export default function ServicesPage() {
             className="group inline-flex min-h-12 shrink-0 items-center gap-5 bg-[#1b1c1a] px-7 py-4 text-[10px] font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
           >
             Contact Us
-            <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
+            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </div>
       </section>
