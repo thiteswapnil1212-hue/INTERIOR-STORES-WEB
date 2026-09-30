@@ -5,6 +5,7 @@ import React from "react";
 import { FurnitureSelector } from "./FurnitureSelector";
 import { MaterialSelector } from "./MaterialSelector";
 import { FurnitureType, ConfigType, FabricType, FABRICS, FURNITURE_LABELS, CONFIG_OPTIONS, CONFIG_LABELS, CONFIG_DIMENSIONS } from "./types";
+import { WHATSAPP_NUMBER } from "../../lib/contact";
 
 interface StudioControlsProps {
   furniture: FurnitureType;
@@ -15,7 +16,7 @@ interface StudioControlsProps {
   onFabricChange: (f: FabricType) => void;
 }
 
-const WHATSAPP_NUMBER = "919921260926";
+
 
 export default function StudioControls({
   furniture,
