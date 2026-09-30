@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 const sofaStyles = [
   {
@@ -87,7 +88,7 @@ export default function SofaStyles() {
                 >
                   Enquire about this
                   <span className="transition-transform duration-200 group-hover/link:translate-x-1">
-                    →
+                    <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
                   </span>
                 </Link>
               </div>
