@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
 import Reveal from "../../components/motion/Reveal";
+import TiltCard from "../../components/motion/TiltCard";
 import ParallaxImage from "../../components/motion/ParallaxImage";
 import SplitText from "../../components/motion/SplitText";
 import { ArrowRight } from "lucide-react";
@@ -122,6 +123,7 @@ export default function ServicesPage() {
                   index % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
                 }`}
               >
+                <TiltCard maxTilt={5}>
                 <Link
                   href={service.href}
                   className="group relative block bg-[#ece7de] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
@@ -138,6 +140,7 @@ export default function ServicesPage() {
                     {service.number}
                   </span>
                 </Link>
+                </TiltCard>
 
                 <div className="max-w-lg">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#805533]">
