@@ -1,0 +1,438 @@
+From 19a5165bdb9b08c2ac91729dc3ab031095256fc5 Mon Sep 17 00:00:00 2001
+From: Muse <muse@local>
+Date: Tue, 29 Sep 2026 04:29:29 +0000
+Subject: [PATCH] Add UX motion: scroll reveals, hero entrance, marquee,
+ back-to-top, smooth FAQ
+
+- Reveal component: sections fade up on scroll (IntersectionObserver, reduced-motion safe)
+- Hero entrance: staggered fade-up on headline, copy, CTAs, trust points, image
+- Marquee: slim scrolling services strip below hero (decorative, aria-hidden, pauses on hover)
+- BackToTop: floating button appears after scrolling, opposite WhatsApp button
+- FAQ accordion: smooth height animation instead of instant toggle
+- Smooth scrolling for anchor links (reduced-motion guarded)
+- Note: navbar hide-on-scroll + active link already existed upstream; left untouched
+---
+ src/app/globals.css                 | 55 ++++++++++++++++++++++++++++-
+ src/app/layout.tsx                  |  3 ++
+ src/app/page.tsx                    | 54 ++++++++++++++++++++++------
+ src/components/home/FAQSection.tsx  | 15 +++++---
+ src/components/home/Marquee.tsx     | 34 ++++++++++++++++++
+ src/components/layout/BackToTop.tsx | 33 +++++++++++++++++
+ src/components/motion/Reveal.tsx    | 55 +++++++++++++++++++++++++++++
+ 7 files changed, 233 insertions(+), 16 deletions(-)
+ create mode 100644 src/components/home/Marquee.tsx
+ create mode 100644 src/components/layout/BackToTop.tsx
+ create mode 100644 src/components/motion/Reveal.tsx
+
+diff --git a/src/app/globals.css b/src/app/globals.css
+index e844dd4..36da59f 100644
+--- a/src/app/globals.css
++++ b/src/app/globals.css
+@@ -403,4 +403,57 @@ summary {
+     max-width: 100%;
+     break-inside: avoid;
+   }
+-}
+\ No newline at end of file
++}
++/* ================= Motion & UX ================= */
++
++@keyframes fade-up {
++  from {
++    opacity: 0;
++    transform: translateY(26px);
++  }
++  to {
++    opacity: 1;
++    transform: translateY(0);
++  }
++}
++
++@keyframes marquee-x {
++  from {
++    transform: translateX(0);
++  }
++  to {
++    transform: translateX(-50%);
++  }
++}
++
++@layer components {
++  /* Staggered entrance for hero elements — set delay inline via style */
++  .animate-fade-up {
++    opacity: 0;
++    animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
++  }
++
++  /* Seamless horizontal ticker — content must be duplicated exactly 2x */
++  .animate-marquee {
++    animation: marquee-x 32s linear infinite;
++  }
++  .animate-marquee:hover {
++    animation-play-state: paused;
++  }
++}
++
++@media (prefers-reduced-motion: no-preference) {
++  html {
++    scroll-behavior: smooth;
++  }
++}
++
++@media (prefers-reduced-motion: reduce) {
++  .animate-fade-up {
++    animation: none;
++    opacity: 1;
++  }
++  .animate-marquee {
++    animation: none;
++  }
++}
+diff --git a/src/app/layout.tsx b/src/app/layout.tsx
+index b713625..5bf748d 100644
+--- a/src/app/layout.tsx
++++ b/src/app/layout.tsx
+@@ -4,6 +4,7 @@ import "./globals.css";
+ import Navbar from "../components/layout/Navbar";
+ import Footer from "../components/layout/Footer";
+ import WhatsAppFloat from "../components/layout/WhatsAppFloat";
++import BackToTop from "../components/layout/BackToTop";
+ 
+ const siteUrl = "https://mauliinterior-stores-web.vercel.app";
+ 
+@@ -229,6 +230,8 @@ export default function RootLayout({
+         <Footer />
+ 
+         <WhatsAppFloat />
++
++        <BackToTop />
+       </body>
+     </html>
+   );
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 2e69f17..1748a3e 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -8,6 +8,8 @@ import FeaturedWork from "../components/home/FeaturedWork";
+ import WhyMauli from "../components/home/WhyMauli";
+ import FAQSection from "../components/home/FAQSection";
+ import FinalCTA from "../components/home/FinalCTA";
++import Marquee from "../components/home/Marquee";
++import Reveal from "../components/motion/Reveal";
+ 
+ const siteUrl = "https://mauliinterior-stores-web.vercel.app";
+ 
+@@ -116,7 +118,7 @@ export default function Home() {
+         <div className="mx-auto grid max-w-[1600px] grid-cols-1 items-center gap-8 px-5 py-8 sm:px-8 sm:py-12 md:min-h-[calc(100svh-80px)] md:grid-cols-12 md:gap-8 md:px-12 lg:px-16 lg:py-16">
+           {/* Hero content */}
+           <div className="order-2 flex flex-col md:order-1 md:col-span-5">
+-            <div className="mb-5 flex items-center gap-3 sm:mb-6">
++            <div className="animate-fade-up mb-5 flex items-center gap-3 sm:mb-6">
+               <span
+                 aria-hidden="true"
+                 className="h-px w-8 bg-[#805533] sm:w-10"
+@@ -129,7 +131,8 @@ export default function Home() {
+ 
+             <h1
+               id="hero-heading"
+-              className="max-w-xl font-serif text-[clamp(2.4rem,8vw,5rem)] leading-[0.98] tracking-[-0.04em]"
++              style={{ animationDelay: "120ms" }}
++              className="animate-fade-up max-w-xl font-serif text-[clamp(2.4rem,8vw,5rem)] leading-[0.98] tracking-[-0.04em]"
+             >
+               Interiors made
+               <br />
+@@ -138,14 +141,20 @@ export default function Home() {
+               </span>
+             </h1>
+ 
+-            <p className="mt-5 max-w-lg text-sm leading-7 text-[#555856] sm:mt-7 sm:text-base">
++            <p
++              style={{ animationDelay: "240ms" }}
++              className="animate-fade-up mt-5 max-w-lg text-sm leading-7 text-[#555856] sm:mt-7 sm:text-base"
++            >
+               Thoughtfully crafted sofas, curtains, beds and
+               furnishing solutions designed around your space,
+               comfort and everyday life.
+             </p>
+ 
+             {/* Main actions */}
+-            <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
++            <div
++              style={{ animationDelay: "360ms" }}
++              className="animate-fade-up mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap"
++            >
+               <Link
+                 href="/projects"
+                 className="inline-flex min-h-12 items-center justify-center gap-3 bg-[#1b1c1a] px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 sm:px-7"
+@@ -164,7 +173,10 @@ export default function Home() {
+             </div>
+ 
+             {/* Trust points */}
+-            <div className="mt-8 grid grid-cols-1 gap-3 border-t border-black/10 pt-5 sm:mt-10 sm:grid-cols-3 sm:gap-2 sm:pt-6">
++            <div
++              style={{ animationDelay: "480ms" }}
++              className="animate-fade-up mt-8 grid grid-cols-1 gap-3 border-t border-black/10 pt-5 sm:mt-10 sm:grid-cols-3 sm:gap-2 sm:pt-6"
++            >
+               {trustPoints.map((point) => (
+                 <div
+                   key={point}
+@@ -181,7 +193,10 @@ export default function Home() {
+           </div>
+ 
+           {/* Hero image */}
+-          <div className="order-1 min-w-0 md:order-2 md:col-span-7">
++          <div
++            style={{ animationDelay: "200ms" }}
++            className="animate-fade-up order-1 min-w-0 md:order-2 md:col-span-7"
++          >
+             <div className="group relative aspect-[4/3] w-full overflow-hidden bg-[#e8e3dd] sm:aspect-[5/4] md:aspect-[4/5] lg:h-[76vh] lg:aspect-auto">
+               <Image
+                 src="/images/home/hero.jpg"
+@@ -213,7 +228,11 @@ export default function Home() {
+         </div>
+       </section>
+ 
++      {/* SERVICES TICKER */}
++      <Marquee />
++
+       {/* BRAND STATEMENT */}
++      <Reveal>
+       <section className="border-b border-black/5 bg-[#f4f0eb]">
+         <div className="mx-auto max-w-[1200px] px-5 py-14 sm:px-8 sm:py-16 md:px-12 md:py-20">
+           <div className="grid gap-5 md:grid-cols-12 md:items-end md:gap-8">
+@@ -236,8 +255,10 @@ export default function Home() {
+           </div>
+         </div>
+       </section>
++      </Reveal>
+ 
+       {/* SERVICES */}
++      <Reveal>
+       <section
+         aria-labelledby="home-services-heading"
+         className="border-b border-black/5"
+@@ -269,8 +290,10 @@ export default function Home() {
+ 
+         <ServicesSection />
+       </section>
++      </Reveal>
+ 
+       {/* QUICK SERVICE DISCOVERY */}
++      <Reveal>
+       <section
+         aria-labelledby="service-discovery-heading"
+         className="mx-auto max-w-[1600px] px-5 py-14 sm:px-8 sm:py-16 md:px-12 lg:px-16 lg:py-24"
+@@ -335,11 +358,15 @@ export default function Home() {
+           ))}
+         </div>
+       </section>
++      </Reveal>
+ 
+       {/* FEATURED WORK */}
+-      <FeaturedWork />
++      <Reveal>
++        <FeaturedWork />
++      </Reveal>
+ 
+       {/* 3D STUDIO */}
++      <Reveal>
+       <section
+         aria-label="Explore Mauli 3D Studio"
+         className="bg-[#1b1c1a] text-white"
+@@ -372,15 +399,22 @@ export default function Home() {
+           </div>
+         </div>
+       </section>
++      </Reveal>
+ 
+       {/* WHY MAULI */}
+-      <WhyMauli />
++      <Reveal>
++        <WhyMauli />
++      </Reveal>
+ 
+       {/* FAQ */}
+-      <FAQSection />
++      <Reveal>
++        <FAQSection />
++      </Reveal>
+ 
+       {/* FINAL CTA */}
+-      <FinalCTA />
++      <Reveal>
++        <FinalCTA />
++      </Reveal>
+     </main>
+   );
+ }
+\ No newline at end of file
+diff --git a/src/components/home/FAQSection.tsx b/src/components/home/FAQSection.tsx
+index e49e023..3dba76d 100644
+--- a/src/components/home/FAQSection.tsx
++++ b/src/components/home/FAQSection.tsx
+@@ -101,12 +101,17 @@ export default function FAQSection() {
+ 
+                 <div
+                   id={`faq-answer-${index}`}
+-                  hidden={!isOpen}
+-                  className="pb-6 pr-10"
++                  className={`grid transition-all duration-300 ease-out motion-reduce:transition-none ${
++                    isOpen
++                      ? "grid-rows-[1fr] opacity-100"
++                      : "grid-rows-[0fr] opacity-0"
++                  }`}
+                 >
+-                  <p className="max-w-2xl text-sm leading-7 text-[#5c5e5c]">
+-                    {faq.answer}
+-                  </p>
++                  <div className="overflow-hidden">
++                    <p className="max-w-2xl pb-6 pr-10 text-sm leading-7 text-[#5c5e5c]">
++                      {faq.answer}
++                    </p>
++                  </div>
+                 </div>
+               </div>
+             );
+diff --git a/src/components/home/Marquee.tsx b/src/components/home/Marquee.tsx
+new file mode 100644
+index 0000000..b8d0b46
+--- /dev/null
++++ b/src/components/home/Marquee.tsx
+@@ -0,0 +1,34 @@
++const items = [
++  "Custom Sofas",
++  "Curtains",
++  "Beds",
++  "Mattresses",
++  "Cushions",
++  "Wall Panels",
++];
++
++/**
++ * Slim scrolling strip of service names below the hero.
++ * Decorative — hidden from assistive tech since the same
++ * services are listed in the page content.
++ */
++export default function Marquee() {
++  return (
++    <div
++      aria-hidden="true"
++      className="overflow-hidden border-b border-black/5 bg-[#f4f0eb] py-3.5"
++    >
++      <div className="animate-marquee flex w-max items-center">
++        {[...items, ...items].map((item, index) => (
++          <span
++            key={index}
++            className="flex items-center text-[10px] font-semibold uppercase tracking-[0.22em] text-[#8b8d89]"
++          >
++            <span className="px-6">{item}</span>
++            <span className="h-1 w-1 rounded-full bg-[#805533]" />
++          </span>
++        ))}
++      </div>
++    </div>
++  );
++}
+diff --git a/src/components/layout/BackToTop.tsx b/src/components/layout/BackToTop.tsx
+new file mode 100644
+index 0000000..d3a3225
+--- /dev/null
++++ b/src/components/layout/BackToTop.tsx
+@@ -0,0 +1,33 @@
++"use client";
++
++import { useEffect, useState } from "react";
++import { ArrowUp } from "lucide-react";
++
++/**
++ * Back-to-top button. Appears after scrolling down,
++ * sits opposite the WhatsApp float button.
++ */
++export default function BackToTop() {
++  const [show, setShow] = useState(false);
++
++  useEffect(() => {
++    const onScroll = () => setShow(window.scrollY > 600);
++    onScroll();
++    window.addEventListener("scroll", onScroll, { passive: true });
++    return () => window.removeEventListener("scroll", onScroll);
++  }, []);
++
++  return (
++    <button
++      type="button"
++      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
++      aria-label="Back to top"
++      tabIndex={show ? 0 : -1}
++      className={`fixed bottom-5 left-5 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-[#1b1c1a] text-white shadow-[0_8px_24px_rgba(27,28,26,0.35)] transition-all duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 md:bottom-8 md:left-8 ${
++        show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
++      }`}
++    >
++      <ArrowUp size={18} strokeWidth={2} aria-hidden="true" />
++    </button>
++  );
++}
+diff --git a/src/components/motion/Reveal.tsx b/src/components/motion/Reveal.tsx
+new file mode 100644
+index 0000000..4e173be
+--- /dev/null
++++ b/src/components/motion/Reveal.tsx
+@@ -0,0 +1,55 @@
++"use client";
++
++import { useEffect, useRef, useState, type ReactNode } from "react";
++
++type RevealProps = {
++  children: ReactNode;
++  className?: string;
++  delay?: number;
++};
++
++/**
++ * Fades content up the first time it scrolls into view.
++ * Respects prefers-reduced-motion (shows content immediately).
++ */
++export default function Reveal({ children, className = "", delay = 0 }: RevealProps) {
++  const ref = useRef<HTMLDivElement>(null);
++  const [visible, setVisible] = useState(false);
++
++  useEffect(() => {
++    const el = ref.current;
++    if (!el) return;
++
++    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
++      setVisible(true);
++      return;
++    }
++
++    const observer = new IntersectionObserver(
++      (entries) => {
++        entries.forEach((entry) => {
++          if (entry.isIntersecting) {
++            setVisible(true);
++            observer.disconnect();
++          }
++        });
++      },
++      { threshold: 0.12, rootMargin: "0px 0px -48px 0px" }
++    );
++
++    observer.observe(el);
++    return () => observer.disconnect();
++  }, []);
++
++  return (
++    <div
++      ref={ref}
++      style={{ transitionDelay: `${delay}ms` }}
++      className={`${className} transition-all duration-700 ease-out motion-reduce:transition-none ${
++        visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
++      }`}
++    >
++      {children}
++    </div>
++  );
++}
+-- 
+2.43.0
+

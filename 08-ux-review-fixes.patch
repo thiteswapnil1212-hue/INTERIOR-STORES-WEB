@@ -1,0 +1,248 @@
+From 2f492a57959e188a8ded4eb60869c5356576acf9 Mon Sep 17 00:00:00 2001
+From: Muse <muse@local>
+Date: Tue, 29 Sep 2026 13:30:55 +0000
+Subject: [PATCH 1/5] Hide floating WhatsApp button on 3D studio page
+
+---
+ src/components/layout/WhatsAppFloat.tsx | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/src/components/layout/WhatsAppFloat.tsx b/src/components/layout/WhatsAppFloat.tsx
+index a18550c..f63900b 100644
+--- a/src/components/layout/WhatsAppFloat.tsx
++++ b/src/components/layout/WhatsAppFloat.tsx
+@@ -1,4 +1,7 @@
++"use client";
++
+ import Link from "next/link";
++import { usePathname } from "next/navigation";
+ 
+ const WHATSAPP_NUMBER = "919921260926";
+ 
+@@ -7,10 +10,15 @@ const prefilledMessage = encodeURIComponent(
+ );
+ 
+ /**
+- * Floating WhatsApp chat button, visible on every page.
++ * Floating WhatsApp chat button, visible on every page except the 3D studio
++ * (the studio has its own design-sharing CTA, and the float was covering
++ * configurator buttons there).
+  * Enquiries open WhatsApp directly with a pre-filled message.
+  */
+ export default function WhatsAppFloat() {
++  const pathname = usePathname();
++  if (pathname === "/3d-studio") return null;
++
+   return (
+     <Link
+       href={`https://wa.me/${WHATSAPP_NUMBER}?text=${prefilledMessage}`}
+-- 
+2.43.0
+
+
+From 88d92f23a7cb7c1a0ba7f4d0bb77bbfdc932841a Mon Sep 17 00:00:00 2001
+From: Muse <muse@local>
+Date: Tue, 29 Sep 2026 13:30:55 +0000
+Subject: [PATCH 2/5] Studio layout: natural page scroll with sticky viewer
+
+---
+ src/app/3d-studio/StudioPageClient.tsx | 30 ++++++++++++--------------
+ 1 file changed, 14 insertions(+), 16 deletions(-)
+
+diff --git a/src/app/3d-studio/StudioPageClient.tsx b/src/app/3d-studio/StudioPageClient.tsx
+index f363b95..bd2c2ea 100644
+--- a/src/app/3d-studio/StudioPageClient.tsx
++++ b/src/app/3d-studio/StudioPageClient.tsx
+@@ -34,7 +34,7 @@ export default function StudioPageClient() {
+   };
+ 
+   return (
+-    <main className="flex min-h-[100dvh] flex-col bg-[#fbf9f6] pt-16 text-[#1b1c1a] md:h-[100dvh] md:min-h-0 md:pt-20">
++    <main className="min-h-[100dvh] bg-[#fbf9f6] pt-16 text-[#1b1c1a] md:pt-20">
+ 
+       {/* Studio Header */}
+       <header className="relative z-10 shrink-0 border-b border-black/10 bg-[#fbf9f6] px-5 py-4 sm:px-8 md:py-5">
+@@ -69,14 +69,14 @@ export default function StudioPageClient() {
+         </div>
+       </header>
+ 
+-      {/* Workspace */}
++      {/* Workspace — page scrolls naturally; viewer sticks on desktop */}
+       <section
+         aria-label="3D furniture configurator"
+-        className="mx-auto flex w-full max-w-[1800px] flex-1 flex-col md:min-h-0 md:flex-row"
++        className="mx-auto w-full max-w-[1800px] md:grid md:grid-cols-[minmax(0,1fr)_360px] lg:grid-cols-[minmax(0,1fr)_400px]"
+       >
+ 
+         {/* 3D Viewer */}
+-        <div className="relative min-h-[300px] flex-1 overflow-hidden bg-[#e9e4dc] sm:min-h-[380px] md:min-h-0">
++        <div className="relative h-[62svh] min-h-[320px] overflow-hidden bg-[#e9e4dc] md:sticky md:top-20 md:h-[calc(100svh-5rem)] md:min-h-[480px]">
+ 
+           {/* Viewer Label */}
+           <div className="pointer-events-none absolute left-4 top-4 z-10 sm:left-7 sm:top-6">
+@@ -95,7 +95,7 @@ export default function StudioPageClient() {
+         {/* Controls */}
+         <aside
+           aria-label="Furniture customisation controls"
+-          className="relative z-10 flex w-full shrink-0 flex-col border-t border-black/10 bg-[#fbf9f6] md:w-[360px] md:border-l md:border-t-0 lg:w-[400px]"
++          className="relative border-t border-black/10 bg-[#fbf9f6] md:border-l md:border-t-0"
+         >
+ 
+           <div className="border-b border-black/10 px-5 py-4 sm:px-7">
+@@ -108,20 +108,18 @@ export default function StudioPageClient() {
+             </h2>
+ 
+             <p className="mt-1 text-xs leading-5 text-[#6b6d69]">
+-              Choose your furniture and explore the options.
++              Your choices update the 3D model live.
+             </p>
+           </div>
+ 
+-          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+-            <StudioControls
+-              furniture={furniture}
+-              config={config}
+-              fabric={fabric}
+-              onFurnitureChange={handleFurnitureChange}
+-              onConfigChange={setConfig}
+-              onFabricChange={setFabric}
+-            />
+-          </div>
++          <StudioControls
++            furniture={furniture}
++            config={config}
++            fabric={fabric}
++            onFurnitureChange={handleFurnitureChange}
++            onConfigChange={setConfig}
++            onFabricChange={setFabric}
++          />
+ 
+           {/* Current Selection */}
+           <div className="shrink-0 border-t border-black/10 bg-[#f5f1eb] px-5 py-4 sm:px-7">
+-- 
+2.43.0
+
+
+From c502fe13decf218c2adbebf89ae304e698bbf522 Mon Sep 17 00:00:00 2001
+From: Muse <muse@local>
+Date: Tue, 29 Sep 2026 13:30:55 +0000
+Subject: [PATCH 3/5] Pause auto-rotate on first drag; per-furniture camera
+ angles
+
+---
+ src/components/studio/StudioViewer.tsx | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
+
+diff --git a/src/components/studio/StudioViewer.tsx b/src/components/studio/StudioViewer.tsx
+index eec108d..1475b65 100644
+--- a/src/components/studio/StudioViewer.tsx
++++ b/src/components/studio/StudioViewer.tsx
+@@ -1,6 +1,6 @@
+ "use client";
+ 
+-import { useMemo } from "react";
++import { useMemo, useState } from "react";
+ import * as THREE from "three";
+ import { Canvas } from "@react-three/fiber";
+ import { OrbitControls, RoundedBox, ContactShadows } from "@react-three/drei";
+@@ -351,12 +351,24 @@ function WallPanelModel({ fabricHex, config }: { fabricHex: string; config: Conf
+ 
+ /* -------------------------------- VIEWER --------------------------------- */
+ 
++/** Flattering default angle per furniture type (flat pieces face the camera). */
++const CAMERA_POSITIONS: Record<FurnitureType, [number, number, number]> = {
++  sofa: [3.1, 2.0, 4.4],
++  bed: [3.4, 2.2, 4.8],
++  curtains: [0, 1.7, 5.2],
++  wall_panel: [0, 1.6, 4.6],
++};
++
+ export default function StudioViewer({ furniture, fabricHex, config }: StudioViewerProps) {
++  // Gentle auto-rotation until the user first grabs the model.
++  const [spin, setSpin] = useState(true);
++
+   return (
+     <div className="relative h-full min-h-[300px] w-full">
+       <Canvas
++        key={furniture}
+         shadows
+-        camera={{ position: [3.1, 2.0, 4.4], fov: 40 }}
++        camera={{ position: CAMERA_POSITIONS[furniture], fov: 40 }}
+         style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}
+         aria-label="3D furniture colour preview"
+       >
+@@ -388,8 +400,9 @@ export default function StudioViewer({ furniture, fabricHex, config }: StudioVie
+           maxDistance={7}
+           minPolarAngle={Math.PI / 5}
+           maxPolarAngle={Math.PI / 2.05}
+-          autoRotate
++          autoRotate={spin}
+           autoRotateSpeed={0.7}
++          onStart={() => setSpin(false)}
+         />
+       </Canvas>
+ 
+-- 
+2.43.0
+
+
+From 916617556f56e956bc89c760057807eaac46321f Mon Sep 17 00:00:00 2001
+From: Muse <muse@local>
+Date: Tue, 29 Sep 2026 13:30:55 +0000
+Subject: [PATCH 4/5] Studio controls flow with page scroll
+
+---
+ src/components/studio/StudioControls.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/components/studio/StudioControls.tsx b/src/components/studio/StudioControls.tsx
+index 8cc1835..71eb34b 100644
+--- a/src/components/studio/StudioControls.tsx
++++ b/src/components/studio/StudioControls.tsx
+@@ -40,7 +40,7 @@ export default function StudioControls({
+   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`;
+ 
+   return (
+-    <div className="flex flex-col h-full divide-y divide-black/10">
++    <div className="flex flex-col divide-y divide-black/10">
+       <div className="p-6 lg:p-8 space-y-6 flex-none">
+         <FurnitureSelector selected={furniture} onSelect={onFurnitureChange} />
+       </div>
+-- 
+2.43.0
+
+
+From a5ebb3a3b7a3ba6660dd0b63f768d6ca76eeb916 Mon Sep 17 00:00:00 2001
+From: Muse <muse@local>
+Date: Tue, 29 Sep 2026 13:30:55 +0000
+Subject: [PATCH 5/5] Rename Custom option to Custom Size
+
+---
+ src/components/studio/types.ts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/components/studio/types.ts b/src/components/studio/types.ts
+index fdf023c..c2cd7a1 100644
+--- a/src/components/studio/types.ts
++++ b/src/components/studio/types.ts
+@@ -52,7 +52,7 @@ export const CONFIG_OPTIONS: Record<
+     { id: "2_seater", label: "2 Seater" },
+     { id: "3_seater", label: "3 Seater" },
+     { id: "l_shape", label: "L-Shape" },
+-    { id: "custom", label: "Custom" },
++    { id: "custom", label: "Custom Size" },
+   ],
+   bed: [
+     { id: "single", label: "Single" },
+@@ -76,7 +76,7 @@ export const CONFIG_LABELS: Record<ConfigType, string> = {
+   "2_seater": "2 Seater",
+   "3_seater": "3 Seater",
+   l_shape: "L-Shape",
+-  custom: "Custom",
++  custom: "Custom Size",
+   single: "Single",
+   double: "Double",
+   queen: "Queen",
+-- 
+2.43.0
+

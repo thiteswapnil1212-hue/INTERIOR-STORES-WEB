@@ -1,0 +1,554 @@
+From 60fec0c858cb63a17f2c687210f30d725983407c Mon Sep 17 00:00:00 2001
+From: Muse <muse@local>
+Date: Tue, 29 Sep 2026 04:22:43 +0000
+Subject: [PATCH] Add SEO features: WhatsApp float, FAQ schema, header call
+ links, breadcrumbs
+
+- Floating WhatsApp button on every page (pre-filled enquiry message)
+- FAQ section on homepage with FAQPage structured data (factual answers only)
+- Click-to-call phone number in desktop header and mobile menu
+- BreadcrumbList JSON-LD on services, sofas, projects, about, contact pages
+- Testimonials section built but unmounted (renders nothing until real reviews added)
+---
+ src/app/about/page.tsx                  |   7 ++
+ src/app/contact/page.tsx                |  13 ++-
+ src/app/layout.tsx                      |   3 +
+ src/app/page.tsx                        |   4 +
+ src/app/projects/page.tsx               |   7 ++
+ src/app/services/page.tsx               |   7 ++
+ src/app/services/sofas/page.tsx         |   8 ++
+ src/components/home/FAQSection.tsx      | 118 ++++++++++++++++++++++++
+ src/components/home/Testimonials.tsx    |  75 +++++++++++++++
+ src/components/layout/Navbar.tsx        |  37 ++++++--
+ src/components/layout/WhatsAppFloat.tsx |  34 +++++++
+ src/components/seo/BreadcrumbJsonLd.tsx |  33 +++++++
+ 12 files changed, 337 insertions(+), 9 deletions(-)
+ create mode 100644 src/components/home/FAQSection.tsx
+ create mode 100644 src/components/home/Testimonials.tsx
+ create mode 100644 src/components/layout/WhatsAppFloat.tsx
+ create mode 100644 src/components/seo/BreadcrumbJsonLd.tsx
+
+diff --git a/src/app/about/page.tsx b/src/app/about/page.tsx
+index 055427b..baa714c 100644
+--- a/src/app/about/page.tsx
++++ b/src/app/about/page.tsx
+@@ -1,5 +1,6 @@
+ import type { Metadata } from "next";
+ import Link from "next/link";
++import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
+ 
+ export const metadata: Metadata = {
+   title: "About",
+@@ -58,6 +59,12 @@ const strengths = [
+ export default function AboutPage() {
+   return (
+     <main className="min-h-screen bg-[#fbf9f6] pt-16 text-[#1b1c1a] md:pt-20">
++      <BreadcrumbJsonLd
++        items={[
++          { name: "Home", path: "/" },
++          { name: "About", path: "/about" },
++        ]}
++      />
+ 
+       {/* HERO */}
+       <section className="flex min-h-[50vh] items-center px-6 pt-10 md:min-h-[calc(100vh-80px)] md:px-16 md:pt-0">
+diff --git a/src/app/contact/page.tsx b/src/app/contact/page.tsx
+index df6dcb6..e1f93a3 100644
+--- a/src/app/contact/page.tsx
++++ b/src/app/contact/page.tsx
+@@ -1,6 +1,7 @@
+ 
+ import type { Metadata } from "next";
+ import ContactPageClient from "./ContactPageClient";
++import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
+ 
+ export const metadata: Metadata = {
+   title: "Contact",
+@@ -12,5 +13,15 @@ export const metadata: Metadata = {
+ };
+ 
+ export default function ContactPage() {
+-  return <ContactPageClient />;
++  return (
++    <>
++      <BreadcrumbJsonLd
++        items={[
++          { name: "Home", path: "/" },
++          { name: "Contact", path: "/contact" },
++        ]}
++      />
++      <ContactPageClient />
++    </>
++  );
+ }
+\ No newline at end of file
+diff --git a/src/app/layout.tsx b/src/app/layout.tsx
+index 66963a3..b713625 100644
+--- a/src/app/layout.tsx
++++ b/src/app/layout.tsx
+@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
+ import "./globals.css";
+ import Navbar from "../components/layout/Navbar";
+ import Footer from "../components/layout/Footer";
++import WhatsAppFloat from "../components/layout/WhatsAppFloat";
+ 
+ const siteUrl = "https://mauliinterior-stores-web.vercel.app";
+ 
+@@ -226,6 +227,8 @@ export default function RootLayout({
+         </div>
+ 
+         <Footer />
++
++        <WhatsAppFloat />
+       </body>
+     </html>
+   );
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 880dc78..2e69f17 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -6,6 +6,7 @@ import Link from "next/link";
+ import ServicesSection from "../components/home/ServicesSection";
+ import FeaturedWork from "../components/home/FeaturedWork";
+ import WhyMauli from "../components/home/WhyMauli";
++import FAQSection from "../components/home/FAQSection";
+ import FinalCTA from "../components/home/FinalCTA";
+ 
+ const siteUrl = "https://mauliinterior-stores-web.vercel.app";
+@@ -375,6 +376,9 @@ export default function Home() {
+       {/* WHY MAULI */}
+       <WhyMauli />
+ 
++      {/* FAQ */}
++      <FAQSection />
++
+       {/* FINAL CTA */}
+       <FinalCTA />
+     </main>
+diff --git a/src/app/projects/page.tsx b/src/app/projects/page.tsx
+index 409d928..ece0f4e 100644
+--- a/src/app/projects/page.tsx
++++ b/src/app/projects/page.tsx
+@@ -2,6 +2,7 @@
+ import type { Metadata } from "next";
+ import Image from "next/image";
+ import Link from "next/link";
++import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
+ 
+ export const metadata: Metadata = {
+   title: "Our Projects",
+@@ -112,6 +113,12 @@ function ProjectImage({
+ export default function ProjectsPage() {
+   return (
+     <main className="min-h-screen overflow-x-hidden bg-[#fbf9f6] pt-16 text-[#1b1c1a] md:pt-20">
++      <BreadcrumbJsonLd
++        items={[
++          { name: "Home", path: "/" },
++          { name: "Projects", path: "/projects" },
++        ]}
++      />
+ 
+       {/* INTRO */}
+       <section aria-labelledby="projects-heading" className="px-5 pb-14 pt-12 sm:px-6 sm:pb-20 sm:pt-16 md:px-16 md:pt-24">
+diff --git a/src/app/services/page.tsx b/src/app/services/page.tsx
+index 00f632e..0ccca49 100644
+--- a/src/app/services/page.tsx
++++ b/src/app/services/page.tsx
+@@ -1,6 +1,7 @@
+ 
+ import type { Metadata } from "next";
+ import Link from "next/link";
++import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
+ 
+ export const metadata: Metadata = {
+   title: "Services",
+@@ -53,6 +54,12 @@ const services = [
+ export default function ServicesPage() {
+   return (
+     <main className="min-h-screen bg-[#fbf9f6] pt-16 text-[#1b1c1a] md:pt-20">
++      <BreadcrumbJsonLd
++        items={[
++          { name: "Home", path: "/" },
++          { name: "Services", path: "/services" },
++        ]}
++      />
+ 
+       {/* HERO */}
+       <section
+diff --git a/src/app/services/sofas/page.tsx b/src/app/services/sofas/page.tsx
+index d218103..5fbf73d 100644
+--- a/src/app/services/sofas/page.tsx
++++ b/src/app/services/sofas/page.tsx
+@@ -6,6 +6,7 @@ import SofaHero from "../../../components/sofa/SofaHero";
+ import SofaStyles from "../../../components/sofa/SofaStyles";
+ import SeatingFeatures from "../../../components/sofa/SeatingFeatures";
+ import IntegratedDesign from "../../../components/sofa/IntegratedDesign";
++import BreadcrumbJsonLd from "../../../components/seo/BreadcrumbJsonLd";
+ 
+ export const metadata: Metadata = {
+   title: "Custom Sofas in Pune",
+@@ -76,6 +77,13 @@ const steps = [
+ export default function SofasPage() {
+   return (
+     <main className="min-h-screen overflow-x-hidden bg-[#fbf9f6] text-[#1b1c1a]">
++      <BreadcrumbJsonLd
++        items={[
++          { name: "Home", path: "/" },
++          { name: "Services", path: "/services" },
++          { name: "Custom Sofas", path: "/services/sofas" },
++        ]}
++      />
+ 
+       {/* BREADCRUMB */}
+       <nav
+diff --git a/src/components/home/FAQSection.tsx b/src/components/home/FAQSection.tsx
+new file mode 100644
+index 0000000..e49e023
+--- /dev/null
++++ b/src/components/home/FAQSection.tsx
+@@ -0,0 +1,118 @@
++"use client";
++
++import { useState } from "react";
++
++const faqs = [
++  {
++    question: "What does Mauli Interior make?",
++    answer:
++      "Custom sofas, curtains, beds, mattresses, cushions, and wall / bed panels. Everything is made to measure for your space.",
++  },
++  {
++    question: "Which areas do you serve?",
++    answer:
++      "Pune, Pimpri-Chinchwad (PCMC), Bhosari, Moshi, and nearby areas.",
++  },
++  {
++    question: "Do you visit my home for measurements?",
++    answer:
++      "Yes. We visit homes across Pune and PCMC to take measurements and understand your requirements before starting work.",
++  },
++  {
++    question: "How do I get a price quote?",
++    answer:
++      "Send your requirement through the enquiry form, call +91 99212 60926, or message us on WhatsApp. We'll discuss your space and share a quote.",
++  },
++  {
++    question: "Where is your workshop?",
++    answer: "Godown Chowk, Alankapuram Road, Bhosari, Pune.",
++  },
++  {
++    question: "How long does an order take?",
++    answer:
++      "It depends on the design and materials. Share your requirement with us and we'll give you a clear timeline along with your quote.",
++  },
++];
++
++const faqJsonLd = {
++  "@context": "https://schema.org",
++  "@type": "FAQPage",
++  mainEntity: faqs.map((faq) => ({
++    "@type": "Question",
++    name: faq.question,
++    acceptedAnswer: {
++      "@type": "Answer",
++      text: faq.answer,
++    },
++  })),
++};
++
++export default function FAQSection() {
++  const [openIndex, setOpenIndex] = useState<number | null>(0);
++
++  return (
++    <section
++      aria-labelledby="faq-heading"
++      className="border-t border-[#747878]/15 bg-[#fbf9f6]"
++    >
++      <script
++        type="application/ld+json"
++        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
++      />
++
++      <div className="mx-auto max-w-[1000px] px-5 py-14 sm:px-8 sm:py-16 md:px-12 md:py-20">
++        <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#805533]">
++          Common questions
++        </p>
++
++        <h2
++          id="faq-heading"
++          className="font-serif text-3xl tracking-tight sm:text-4xl md:text-5xl"
++        >
++          Before you ask.
++        </h2>
++
++        <div className="mt-8 divide-y divide-[#747878]/15 border-y border-[#747878]/15">
++          {faqs.map((faq, index) => {
++            const isOpen = openIndex === index;
++
++            return (
++              <div key={faq.question}>
++                <button
++                  type="button"
++                  onClick={() => setOpenIndex(isOpen ? null : index)}
++                  aria-expanded={isOpen}
++                  aria-controls={`faq-answer-${index}`}
++                  className="flex w-full items-center justify-between gap-6 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#805533]"
++                >
++                  <span className="text-[15px] font-medium text-[#1b1c1a] sm:text-base">
++                    {faq.question}
++                  </span>
++
++                  <span
++                    aria-hidden="true"
++                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#747878]/25 text-lg text-[#805533] transition-transform duration-300 ${
++                      isOpen ? "rotate-45" : ""
++                    }`}
++                  >
++                    +
++                  </span>
++                </button>
++
++                <div
++                  id={`faq-answer-${index}`}
++                  hidden={!isOpen}
++                  className="pb-6 pr-10"
++                >
++                  <p className="max-w-2xl text-sm leading-7 text-[#5c5e5c]">
++                    {faq.answer}
++                  </p>
++                </div>
++              </div>
++            );
++          })}
++        </div>
++      </div>
++    </section>
++  );
++}
+diff --git a/src/components/home/Testimonials.tsx b/src/components/home/Testimonials.tsx
+new file mode 100644
+index 0000000..6dff6b3
+--- /dev/null
++++ b/src/components/home/Testimonials.tsx
+@@ -0,0 +1,75 @@
++/**
++ * Customer testimonials section.
++ *
++ * HOW TO USE:
++ * 1. Add REAL customer reviews to the `testimonials` array below.
++ *    Do not invent reviews — only use genuine feedback from customers.
++ * 2. Import and render <Testimonials /> in src/app/page.tsx
++ *    (suggested position: after <WhyMauli />, before <FinalCTA />).
++ *
++ * The section renders nothing while the array is empty, so it is
++ * safe to leave mounted before reviews are added.
++ */
++
++type Testimonial = {
++  quote: string;
++  name: string;
++  detail: string; // e.g. "2BHK, Wakad" or "Custom L-shape sofa"
++};
++
++const testimonials: Testimonial[] = [
++  // Example (replace with real reviews):
++  // {
++  //   quote: "The sofa fits our living room perfectly and the fabric quality is excellent.",
++  //   name: "Priya S.",
++  //   detail: "Custom sofa, Baner",
++  // },
++];
++
++export default function Testimonials() {
++  if (testimonials.length === 0) {
++    return null;
++  }
++
++  return (
++    <section
++      aria-labelledby="testimonials-heading"
++      className="border-t border-[#747878]/15 bg-[#f4f0eb]"
++    >
++      <div className="mx-auto max-w-[1200px] px-5 py-14 sm:px-8 sm:py-16 md:px-12 md:py-20">
++        <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#805533]">
++          Customer words
++        </p>
++
++        <h2
++          id="testimonials-heading"
++          className="font-serif text-3xl tracking-tight sm:text-4xl md:text-5xl"
++        >
++          Homes we&apos;ve furnished.
++        </h2>
++
++        <div className="mt-10 grid gap-6 md:grid-cols-3">
++          {testimonials.map((testimonial) => (
++            <figure
++              key={`${testimonial.name}-${testimonial.detail}`}
++              className="flex flex-col border border-[#747878]/15 bg-[#fbf9f6] p-7"
++            >
++              <blockquote className="flex-1 text-sm leading-7 text-[#444748]">
++                &ldquo;{testimonial.quote}&rdquo;
++              </blockquote>
++
++              <figcaption className="mt-6 border-t border-[#747878]/15 pt-4">
++                <p className="text-sm font-medium text-[#1b1c1a]">
++                  {testimonial.name}
++                </p>
++                <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-[#8b8d89]">
++                  {testimonial.detail}
++                </p>
++              </figcaption>
++            </figure>
++          ))}
++        </div>
++      </div>
++    </section>
++  );
++}
+diff --git a/src/components/layout/Navbar.tsx b/src/components/layout/Navbar.tsx
+index a30d7ad..0fec991 100644
+--- a/src/components/layout/Navbar.tsx
++++ b/src/components/layout/Navbar.tsx
+@@ -3,7 +3,7 @@
+ import Image from "next/image";
+ import Link from "next/link";
+ import { usePathname } from "next/navigation";
+-import { Menu, X } from "lucide-react";
++import { Menu, X, Phone } from "lucide-react";
+ import { useEffect, useState } from "react";
+ 
+ const navLinks = [
+@@ -195,15 +195,26 @@ export default function Navbar() {
+           </div>
+ 
+           {/* =================================================
+-              DESKTOP CTA
++              DESKTOP CONTACT + CTA
+           ================================================== */}
+ 
+-          <Link
+-            href="/contact"
+-            className="group inline-flex min-h-11 items-center justify-center bg-[#1b1c1a] px-6 text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+-          >
+-            <span>Get a Quote</span>
+-          </Link>
++          <div className="flex shrink-0 items-center gap-6">
++            <a
++              href="tel:+919921260926"
++              aria-label="Call Mauli Interior on +91 99212 60926"
++              className="inline-flex items-center gap-2 text-[13px] font-medium text-[#555856] transition-colors duration-300 hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
++            >
++              <Phone size={15} strokeWidth={1.8} aria-hidden="true" />
++              +91 99212 60926
++            </a>
++
++            <Link
++              href="/contact"
++              className="group inline-flex min-h-11 items-center justify-center bg-[#1b1c1a] px-6 text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
++            >
++              <span>Get a Quote</span>
++            </Link>
++          </div>
+         </nav>
+       </header>
+ 
+@@ -358,6 +369,16 @@ export default function Navbar() {
+             Get a Quote
+           </Link>
+ 
++          <a
++            href="tel:+919921260926"
++            onClick={() => setIsOpen(false)}
++            aria-label="Call Mauli Interior on +91 99212 60926"
++            className="mt-4 flex min-h-12 items-center justify-center gap-2 border border-[#1b1c1a]/20 px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-colors duration-300 hover:border-[#805533] hover:text-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
++          >
++            <Phone size={14} strokeWidth={1.8} aria-hidden="true" />
++            Call +91 99212 60926
++          </a>
++
+           {/* =================================================
+               MOBILE FOOTER
+           ================================================== */}
+diff --git a/src/components/layout/WhatsAppFloat.tsx b/src/components/layout/WhatsAppFloat.tsx
+new file mode 100644
+index 0000000..a18550c
+--- /dev/null
++++ b/src/components/layout/WhatsAppFloat.tsx
+@@ -0,0 +1,34 @@
++import Link from "next/link";
++
++const WHATSAPP_NUMBER = "919921260926";
++
++const prefilledMessage = encodeURIComponent(
++  "Hello Mauli Interior! I'd like to enquire about your services."
++);
++
++/**
++ * Floating WhatsApp chat button, visible on every page.
++ * Enquiries open WhatsApp directly with a pre-filled message.
++ */
++export default function WhatsAppFloat() {
++  return (
++    <Link
++      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${prefilledMessage}`}
++      target="_blank"
++      rel="noopener noreferrer"
++      aria-label="Chat with Mauli Interior on WhatsApp"
++      className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25d366] text-white shadow-[0_8px_24px_rgba(37,211,102,0.45)] transition-transform duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25d366] focus-visible:ring-offset-2 md:bottom-8 md:right-8"
++    >
++      <svg
++        width="26"
++        height="26"
++        viewBox="0 0 24 24"
++        fill="currentColor"
++        aria-hidden="true"
++        className="shrink-0"
++      >
++        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
++      </svg>
++    </Link>
++  );
++}
+diff --git a/src/components/seo/BreadcrumbJsonLd.tsx b/src/components/seo/BreadcrumbJsonLd.tsx
+new file mode 100644
+index 0000000..4e70dc7
+--- /dev/null
++++ b/src/components/seo/BreadcrumbJsonLd.tsx
+@@ -0,0 +1,33 @@
++import type { ReactNode } from "react";
++
++const siteUrl = "https://mauliinterior-stores-web.vercel.app";
++
++type Crumb = {
++  name: string;
++  path: string;
++};
++
++/**
++ * Renders BreadcrumbList structured data so search engines
++ * understand the page's position in the site hierarchy.
++ * No visible output — purely for SEO.
++ */
++export default function BreadcrumbJsonLd({ items }: { items: Crumb[] }): ReactNode {
++  const data = {
++    "@context": "https://schema.org",
++    "@type": "BreadcrumbList",
++    itemListElement: items.map((item, index) => ({
++      "@type": "ListItem",
++      position: index + 1,
++      name: item.name,
++      item: `${siteUrl}${item.path}`,
++    })),
++  };
++
++  return (
++    <script
++      type="application/ld+json"
++      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
++    />
++  );
++}
+-- 
+2.43.0
+
