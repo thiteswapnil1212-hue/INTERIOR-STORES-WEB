@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
 import Reveal from "../../components/motion/Reveal";
+import ParallaxImage from "../../components/motion/ParallaxImage";
+import SplitText from "../../components/motion/SplitText";
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -90,14 +91,15 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          <h1
+          <SplitText
+            as="h1"
             id="services-page-heading"
             className="font-serif text-4xl leading-[1.0] tracking-tight sm:text-6xl md:text-7xl"
-          >
-            Furnishing for
-            <br />
-            <span className="text-[#805533]">every room.</span>
-          </h1>
+            lines={[
+              { text: "Furnishing for" },
+              { text: "every room.", accent: true },
+            ]}
+          />
 
           <p className="mt-6 max-w-xl text-[14px] leading-7 text-[#5c5e5c] sm:text-[15px]">
             From custom seating to complete bedroom furnishing, we create
@@ -122,18 +124,16 @@ export default function ServicesPage() {
               >
                 <Link
                   href={service.href}
-                  className="group relative block overflow-hidden bg-[#ece7de] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+                  className="group relative block bg-[#ece7de] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
                   aria-label={`${service.title} — ${service.cta}`}
                 >
-                  <div className="relative aspect-[4/3] w-full">
-                    <Image
-                      src={service.image}
-                      alt={service.alt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                    />
-                  </div>
+                  <ParallaxImage
+                    src={service.image}
+                    alt={service.alt}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="aspect-[4/3] w-full"
+                    imgClassName="transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
                   <span className="absolute left-5 top-5 bg-[#1b1c1a]/85 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
                     {service.number}
                   </span>
