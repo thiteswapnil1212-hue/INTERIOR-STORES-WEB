@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import SpinViewer from "../three/SpinViewer";
 
 export default function SofaHero() {
   return (
@@ -56,16 +56,16 @@ export default function SofaHero() {
         </div>
       </div>
 
-      {/* Hero Image */}
+      {/* Hero 3D — drag to spin */}
       <div className="order-1 md:order-2 md:col-span-7">
-        <div className="group relative aspect-[4/5] w-full overflow-hidden bg-[#e9e5df] md:aspect-auto md:h-[70vh]">
-          <Image
-            src="/images/sofas/sofa-hero.jpg"
-            alt="Custom-made sofa in a modern living room by Mauli Interior, Pune"
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, 58vw"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+        <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#ece7de] md:aspect-auto md:h-[70vh]">
+          <SpinViewer
+            className="h-full w-full"
+            posterSrc="/images/sofas/sofa-hero.jpg"
+            posterAlt="Custom-made sofa in a modern living room by Mauli Interior, Pune"
+            priorityPoster
+            loadMode="idle"
+            label="Interactive 3D model of a custom terracotta three-seater sofa. Drag to spin it."
           />
         </div>
       </div>
