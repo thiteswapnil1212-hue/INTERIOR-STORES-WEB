@@ -28,7 +28,7 @@ export default function FinalCTA() {
         <div className="mt-10">
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-5 border border-[#fbf9f6]/30 bg-[#fbf9f6] px-7 py-4 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-all duration-300 hover:bg-transparent hover:text-[#fbf9f6]"
+            className="group inline-flex items-center gap-5 border border-[#fbf9f6]/30 bg-[#fbf9f6] px-7 py-4 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-[background-color,color] duration-300 hover:bg-transparent hover:text-[#fbf9f6]"
           >
             <span>Discuss Your Space</span>
 
