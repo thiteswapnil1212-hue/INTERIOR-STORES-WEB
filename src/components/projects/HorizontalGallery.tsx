@@ -124,7 +124,7 @@ export default function HorizontalGallery({
 
   const cards = (
     <>
-      {projects.map((project) => (
+      {projects.map((project, i) => (
         <article
           key={project.number}
           className="group w-[70vw] shrink-0 sm:w-[56vw] lg:w-[36vw] xl:w-[31vw]"
@@ -135,6 +135,7 @@ export default function HorizontalGallery({
               src={project.image}
               alt={project.imageAlt}
               fill
+              priority={i === 0}
               sizes="(max-width: 640px) 70vw, (max-width: 1024px) 56vw, 36vw"
               className="object-cover transition-transform duration-700 ease-out motion-reduce:transition-none md:group-hover:scale-[1.03]"
             />
