@@ -11,7 +11,6 @@ const services = [
     href: "/services/sofas",
     image: "/images/sofas/sofa-hero.jpg",
     imageAlt: "Custom-made sofa by Mauli Interior",
-    available: true,
   },
   {
     number: "02",
@@ -20,7 +19,6 @@ const services = [
     href: "/services",
     image: "/images/home/featured-curtains.jpg",
     imageAlt: "Custom curtains fitted by Mauli Interior",
-    available: true,
   },
   {
     number: "03",
@@ -29,7 +27,6 @@ const services = [
     href: "/services",
     image: "/images/home/featured-beds.jpg",
     imageAlt: "Custom bed made by Mauli Interior",
-    available: true,
   },
   {
     number: "04",
@@ -38,7 +35,6 @@ const services = [
     href: "/services",
     image: "/images/home/featured-furnishing.jpg",
     imageAlt: "Decorative wall panels by Mauli Interior",
-    available: true,
   },
 ];
 
@@ -101,14 +97,12 @@ export default function ServicesSection() {
                     <h3 className="font-serif text-2xl tracking-tight md:text-[26px]">
                       {service.title}
                     </h3>
-                    {service.available && (
-                      <span
-                        aria-hidden="true"
-                        className="mt-1 text-lg text-[#805533] transition-transform duration-300 group-hover:translate-x-1"
-                      >
-                        <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
-                      </span>
-                    )}
+                    <span
+                      aria-hidden="true"
+                      className="mt-1 text-lg text-[#805533] transition-transform duration-300 group-hover:translate-x-1"
+                    >
+                      <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+                    </span>
                   </div>
 
                   <p className="mt-3 text-sm leading-6 text-[#5c5e5c]">
@@ -116,13 +110,9 @@ export default function ServicesSection() {
                   </p>
 
                   <div className="mt-6 text-[10px] font-semibold uppercase tracking-[0.14em]">
-                    {service.available ? (
-                      <span className="border-b border-[#1b1c1a] pb-1 transition-colors duration-200 group-hover:border-[#805533] group-hover:text-[#805533]">
-                        Explore service
-                      </span>
-                    ) : (
-                      <span className="text-[#6b6d69]">Coming soon</span>
-                    )}
+                    <span className="border-b border-[#1b1c1a] pb-1 transition-colors duration-200 group-hover:border-[#805533] group-hover:text-[#805533]">
+                      Explore service
+                    </span>
                   </div>
                 </div>
               </>
@@ -137,7 +127,7 @@ export default function ServicesSection() {
                   <Link
                     href={service.href}
                     className={className}
-                    aria-label={`${service.title} — ${service.available ? "explore service" : "enquire"}`}
+                    aria-label={`${service.title} — explore service`}
                   >
                     {card}
                   </Link>
