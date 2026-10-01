@@ -5,6 +5,7 @@ import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { ContactShadows } from "@react-three/drei";
 import { SofaModel } from "../studio/StudioViewer";
+import FitCamera, { useMobile } from "../three/FitCamera";
 import type { MutableRefObject } from "react";
 
 /**
@@ -41,16 +42,26 @@ interface ShowcaseCanvasProps {
 }
 
 export default function ShowcaseCanvas({ progressRef, running }: ShowcaseCanvasProps) {
+  const mobile = useMobile();
   return (
     <Canvas
       shadows
-      dpr={[1, 1.75]}
+      dpr={mobile ? [1, 1.5] : [1, 1.75]}
       camera={{ position: [3.4, 2.0, 4.8], fov: 38 }}
       frameloop={running ? "always" : "never"}
       style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}
       aria-label="Interactive 3D model of a terracotta three-seater sofa"
     >
       <color attach="background" args={["#141311"]} />
+      {/* Responsive framing — the old fixed camera cropped the sofa's
+          sides on portrait phones once the 270° sweep turned it side-on. */}
+      <FitCamera
+        base={[3.4, 2.0, 4.8]}
+        fov={38}
+        lookAt={[0, 0, 0]}
+        fitWidth={3.0}
+        lookDrop={0.3}
+      />
 
       {/* Premium studio lighting */}
       <ambientLight intensity={0.55} />
@@ -58,7 +69,7 @@ export default function ShowcaseCanvas({ progressRef, running }: ShowcaseCanvasP
         position={[4, 6, 3]}
         intensity={2.0}
         castShadow
-        shadow-mapSize={[1024, 1024]}
+        shadow-mapSize={mobile ? [512, 512] : [1024, 1024]}
       />
       <directionalLight position={[-5, 3, -2]} intensity={0.4} color="#cdd7ff" />
       <directionalLight position={[0, 2, 5]} intensity={0.5} color="#ffd9b8" />
