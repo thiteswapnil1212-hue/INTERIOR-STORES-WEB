@@ -127,14 +127,14 @@ export default function Navbar() {
       ====================================================== */}
 
       <header
-        className={`fixed left-0 right-0 top-0 z-50 hidden h-20 border-b transition-all duration-500 md:block ${
+        className={`fixed left-0 right-0 top-0 z-50 hidden h-20 border-b transition-[transform,background-color,border-color,box-shadow] duration-500 md:block ${
           showNavbar
             ? "translate-y-0"
             : "-translate-y-full"
         } ${
           scrolled
             ? "border-black/10 bg-[#fbf9f6]/95 shadow-[0_4px_20px_rgba(0,0,0,0.03)] backdrop-blur-md"
-            : "border-black/5 bg-[#fbf9f6]"
+            : "border-black/5 bg-[#fbf9f6]/95 backdrop-blur-md"
         }`}
       >
         <nav
@@ -184,10 +184,10 @@ export default function Navbar() {
 
                   <span
                     aria-hidden="true"
-                    className={`absolute bottom-0 left-0 h-px bg-[#805533] transition-all duration-300 ${
+                    className={`absolute bottom-0 left-0 h-px w-full origin-left bg-[#805533] transition-transform duration-300 ${
                       active
-                        ? "w-full"
-                        : "w-0 group-hover:w-full"
+                        ? "scale-x-100"
+                        : "scale-x-0 group-hover:scale-x-100"
                     }`}
                   />
                 </Link>
@@ -211,7 +211,7 @@ export default function Navbar() {
 
             <Link
               href="/contact"
-              className="group inline-flex min-h-11 items-center justify-center bg-[#1b1c1a] px-6 text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+              className="group inline-flex min-h-11 items-center justify-center bg-[#1b1c1a] px-6 text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
             >
               <span>Get a Quote</span>
             </Link>
@@ -224,14 +224,14 @@ export default function Navbar() {
       ====================================================== */}
 
       <header
-        className={`fixed left-0 right-0 top-0 z-50 flex h-16 items-center justify-between border-b px-5 transition-all duration-500 sm:px-6 md:hidden ${
+        className={`fixed left-0 right-0 top-0 z-50 flex h-16 items-center justify-between border-b px-5 transition-[transform,background-color,border-color,box-shadow] duration-500 sm:px-6 md:hidden ${
           showNavbar
             ? "translate-y-0"
             : "-translate-y-full"
         } ${
           scrolled
             ? "border-black/10 bg-[#fbf9f6]/95 shadow-[0_4px_20px_rgba(0,0,0,0.03)] backdrop-blur-md"
-            : "border-black/5 bg-[#fbf9f6]"
+            : "border-black/5 bg-[#fbf9f6]/95 backdrop-blur-md"
         }`}
       >
         {/* Mobile Logo */}
@@ -260,7 +260,7 @@ export default function Navbar() {
           aria-label="Open navigation menu"
           aria-expanded={isOpen}
           aria-controls="mobile-navigation"
-          className="flex h-11 w-11 items-center justify-center text-[#1b1c1a] transition-all duration-200 hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
+          className="flex h-11 w-11 items-center justify-center text-[#1b1c1a] transition-[background-color] duration-200 hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
         >
           <Menu
             size={23}
@@ -276,7 +276,7 @@ export default function Navbar() {
 
       <div
         id="mobile-navigation"
-        className={`fixed inset-0 z-[60] flex flex-col bg-[#fbf9f6] transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${
+        className={`fixed inset-0 z-[60] flex flex-col bg-[#fbf9f6] transition-[transform,opacity,visibility] duration-400 ease-primary md:hidden ${
           isOpen
             ? "visible translate-x-0 opacity-100"
             : "invisible translate-x-full opacity-0"
@@ -309,7 +309,7 @@ export default function Navbar() {
             type="button"
             onClick={() => setIsOpen(false)}
             aria-label="Close navigation menu"
-            className="flex h-11 w-11 items-center justify-center text-[#1b1c1a] transition-all duration-200 hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
+            className="flex h-11 w-11 items-center justify-center text-[#1b1c1a] transition-[background-color] duration-200 hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
           >
             <X
               size={23}
@@ -336,10 +336,10 @@ export default function Navbar() {
                 href={link.href}
                 onClick={() => setIsOpen(false)}
                 aria-current={active ? "page" : undefined}
-                className={`group flex items-center justify-between border-b border-black/10 py-5 text-[17px] transition-all duration-300 ${
+                className={`group flex items-center justify-between border-b border-black/10 py-5 text-[17px] transition-[transform,color] duration-300 ${
                   active
                     ? "font-medium text-[#1b1c1a]"
-                    : "text-[#555856] hover:pl-2 hover:text-[#1b1c1a]"
+                    : "text-[#555856] hover:translate-x-1 hover:text-[#1b1c1a]"
                 }`}
               >
                 <span>{link.label}</span>
@@ -365,7 +365,7 @@ export default function Navbar() {
           <Link
             href="/contact"
             onClick={() => setIsOpen(false)}
-            className="mt-8 flex min-h-12 items-center justify-center bg-[#1b1c1a] px-6 py-4 text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+            className="mt-8 flex min-h-12 items-center justify-center bg-[#1b1c1a] px-6 py-4 text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-[background-color] duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
           >
             Get a Quote
           </Link>
