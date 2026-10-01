@@ -11,6 +11,7 @@ import FinalCTA from "../components/home/FinalCTA";
 import Marquee from "../components/home/Marquee";
 import Reveal from "../components/motion/Reveal";
 import TiltCard from "../components/motion/TiltCard";
+import FadeImage from "../components/motion/FadeImage";
 import ScrollMoment from "../components/motion/ScrollMoment";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Showcase3D from "../components/home/Showcase3D";
@@ -160,18 +161,18 @@ export default function Home() {
             >
               <Link
                 href="/projects"
-                className="inline-flex min-h-12 items-center justify-center gap-3 bg-[#1b1c1a] px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 sm:px-7"
+                className="group inline-flex min-h-12 items-center justify-center gap-3 bg-[#1b1c1a] px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 sm:px-7"
               >
                 Explore Our Work
-                <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
+                <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
 
               <Link
                 href="/contact"
-                className="inline-flex min-h-12 items-center justify-center gap-3 border border-[#1b1c1a]/20 px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-colors duration-300 hover:border-[#805533] hover:bg-[#805533] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 sm:px-7"
+                className="group inline-flex min-h-12 items-center justify-center gap-3 border border-[#1b1c1a]/20 px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-colors duration-300 hover:border-[#805533] hover:bg-[#805533] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 sm:px-7"
               >
                 Get a Quote
-                <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
+                <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>
 
@@ -315,16 +316,16 @@ export default function Home() {
               key={service.title}
               href={service.href}
               aria-label={`Explore ${service.title}`}
-              className="group block min-w-0 transition-transform duration-500 ease-out hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-4 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+              className="group block min-w-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-4"
             >
               <article>
                 <div className="relative aspect-[4/3] overflow-hidden bg-[#e8e3dd]">
-                  <Image
+                  <FadeImage
                     src={service.image}
                     alt={service.imageAlt}
                     fill
                     sizes="(max-width: 639px) 100vw, (max-width: 767px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-700 ease-out motion-reduce:transition-none md:group-hover:scale-[1.04]"
+                    className="object-cover transition-[opacity,transform] duration-500 ease-primary motion-reduce:transition-none md:group-hover:scale-[1.04]"
                   />
                 </div>
 
