@@ -431,7 +431,7 @@ export default function AboutPage() {
 
           <Link
             href="/contact"
-            className="group inline-flex w-fit items-center gap-5 bg-[#fbf9f6] px-8 py-4 text-xs font-semibold uppercase tracking-[0.14em] text-[#1b1c1a] transition-all duration-300 hover:bg-[#1b1c1a] hover:text-[#fbf9f6]"
+            className="group inline-flex w-fit items-center gap-5 bg-[#fbf9f6] px-8 py-4 text-xs font-semibold uppercase tracking-[0.14em] text-[#1b1c1a] transition-[background-color,color] duration-300 hover:bg-[#1b1c1a] hover:text-[#fbf9f6]"
           >
             Start an Enquiry
             <span className="transition-transform duration-300 group-hover:translate-x-1">
