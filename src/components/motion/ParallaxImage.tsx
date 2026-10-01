@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 type ParallaxImageProps = {
@@ -33,6 +33,17 @@ export default function ParallaxImage({
 }: ParallaxImageProps) {
   const frameRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
+  // Fade the image in on load instead of popping. Priority images
+  // (above the fold) start visible so LCP is never delayed.
+  const [imgLoaded, setImgLoaded] = useState(priority);
+
+  // The frame is relatively positioned by default — but if the caller
+  // passes absolute positioning (e.g. "absolute inset-0" to fill a
+  // relative parent), the hardcoded `relative` must yield: in Tailwind's
+  // generated stylesheet `relative` sorts after `absolute`, so keeping
+  // both collapses the frame to zero height (HTML class order is
+  // irrelevant) and the image paints into a 0px-tall box.
+  const absolute = /(^|\s)absolute(\s|$)/.test(className);
 
   useEffect(() => {
     const frame = frameRef.current;
@@ -84,11 +95,16 @@ export default function ParallaxImage({
   }, [speed]);
 
   return (
-    <div ref={frameRef} className={`relative overflow-hidden ${className}`}>
+    <div
+      ref={frameRef}
+      className={`${absolute ? "" : "relative"} overflow-hidden ${className}`}
+    >
       {/* 24% taller than the frame so the drift never exposes an edge */}
       <div
         ref={innerRef}
-        className="absolute inset-x-0 -inset-y-[12%] will-change-transform motion-reduce:transform-none"
+        className={`absolute inset-x-0 -inset-y-[12%] will-change-transform motion-reduce:transform-none transition-opacity duration-500 ${
+          imgLoaded ? "opacity-100" : "opacity-0"
+        }`}
       >
         <Image
           src={src}
@@ -96,6 +112,8 @@ export default function ParallaxImage({
           fill
           sizes={sizes}
           priority={priority}
+          onLoad={() => setImgLoaded(true)}
+          onError={() => setImgLoaded(true)}
           className={`h-full w-full object-cover ${imgClassName}`}
         />
       </div>
