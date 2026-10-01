@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import FadeImage from "../motion/FadeImage";
 import { ArrowRight } from "lucide-react";
 import TiltCard from "../motion/TiltCard";
 
@@ -63,10 +63,10 @@ export default function ServicesSection() {
             </p>
             <Link
               href="/services"
-              className="mt-6 inline-flex min-h-10 items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#805533] transition-colors hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+              className="group mt-6 inline-flex min-h-10 items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#805533] transition-colors hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
             >
               View all services
-              <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+              <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
         </div>
@@ -78,12 +78,12 @@ export default function ServicesSection() {
               <>
                 {/* Image */}
                 <div className="relative aspect-[16/10] overflow-hidden bg-[#e8e3dd]">
-                  <Image
+                  <FadeImage
                     src={service.image}
                     alt={service.imageAlt}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="object-cover transition-[opacity,transform] duration-500 ease-primary group-hover:scale-105"
                     loading="lazy"
                   />
                   <span className="absolute left-4 top-4 bg-[#fbf9f6]/95 px-3 py-1.5 text-[10px] font-semibold tracking-[0.14em] text-[#805533]">
@@ -119,7 +119,7 @@ export default function ServicesSection() {
             );
 
             const className =
-              "group block overflow-hidden border border-[#747878]/15 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-18px_rgba(27,28,26,0.25)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-4 motion-reduce:transition-none motion-reduce:hover:translate-y-0";
+              "group block overflow-hidden border border-[#747878]/15 bg-white transition-[box-shadow,border-color] duration-300 hover:border-[#805533]/30 hover:shadow-[0_14px_32px_-20px_rgba(27,28,26,0.28)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-4 motion-reduce:transition-none";
 
             return (
               <TiltCard key={service.title} maxTilt={5}>
