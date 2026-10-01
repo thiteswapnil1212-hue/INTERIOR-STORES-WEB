@@ -92,6 +92,7 @@ function ProjectImage({
       <ParallaxImage
         src={src}
         alt={alt}
+        priority={featured}
         sizes={
           featured
             ? "(max-width: 768px) 100vw, 66vw"
