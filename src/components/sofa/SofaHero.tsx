@@ -32,10 +32,10 @@ export default function SofaHero() {
         <div className="flex flex-wrap items-center gap-5">
           <Link
             href="/contact"
-            className="inline-flex items-center gap-4 bg-[#1b1c1a] px-8 py-4 text-xs font-semibold uppercase tracking-[0.1em] text-white transition-all duration-300 hover:bg-[#805533] focus:outline-none focus:ring-2 focus:ring-[#805533] focus:ring-offset-2"
+            className="group inline-flex items-center gap-4 bg-[#1b1c1a] px-8 py-4 text-xs font-semibold uppercase tracking-[0.1em] text-white transition-[background-color] duration-300 hover:bg-[#805533] focus:outline-none focus:ring-2 focus:ring-[#805533] focus:ring-offset-2"
           >
             Get a Sofa Quote
-            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
 
           <Link
