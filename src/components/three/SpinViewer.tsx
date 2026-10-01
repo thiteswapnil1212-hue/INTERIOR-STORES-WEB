@@ -41,6 +41,7 @@ export default function SpinViewer({
   const [ready, setReady] = useState(false);
   const [running, setRunning] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [interacted, setInteracted] = useState(false);
   const dragState = useRef({ active: false, lastX: 0 });
 
   useEffect(() => {
@@ -102,6 +103,7 @@ export default function SpinViewer({
     const onPointerDown = (e: PointerEvent) => {
       dragState.current = { active: true, lastX: e.clientX };
       control.dragging = true;
+      setInteracted(true);
       el.setPointerCapture?.(e.pointerId);
     };
     const onPointerMove = (e: PointerEvent) => {
@@ -167,6 +169,20 @@ export default function SpinViewer({
           <CanvasReady onReady={() => setReady(true)} />
         </div>
       )}
+
+      {/* Subtle drag hint — fades away permanently on first interaction.
+          Never covers the model; hidden until the canvas is ready and
+          under reduced-motion (where dragging is disabled). */}
+      <div
+        aria-hidden="true"
+        className={`pointer-events-none absolute bottom-4 left-1/2 z-10 -translate-x-1/2 transition-opacity duration-500 ${
+          ready && !interacted && !reducedMotion ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <span className="inline-block rounded-full bg-black/45 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
+          Drag to rotate
+        </span>
+      </div>
     </div>
   );
 }
