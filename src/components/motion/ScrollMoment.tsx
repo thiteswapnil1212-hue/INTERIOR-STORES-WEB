@@ -116,6 +116,13 @@ export default function ScrollMoment({
         className="sticky top-0 flex h-[100svh] flex-col justify-end overflow-hidden"
       >
         <div className="absolute inset-0">
+          {/* Studio glow — always present, so the stage never reads as an
+              empty blank while the WebGL chunk loads, and the model always
+              sits in soft depth rather than on a flat field. */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-[radial-gradient(ellipse_55%_45%_at_50%_38%,rgba(128,85,51,0.13),transparent_70%)]"
+          />
           {shouldLoad && (
             <ScrollStage
               model={model}
