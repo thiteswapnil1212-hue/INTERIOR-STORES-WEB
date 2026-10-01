@@ -114,7 +114,7 @@ export default function FeaturedWork() {
                 alt={`Custom ${item.title} by Mauli Interior`}
                 sizes="(max-width: 768px) 100vw, 58vw"
                 className="w-full aspect-[4/3] md:aspect-[16/8] md:col-span-7"
-                imgClassName="transition-transform duration-700 ease-out motion-reduce:transition-none group-hover:scale-[1.025]"
+                imgClassName="transition-transform duration-500 ease-primary motion-reduce:transition-none group-hover:scale-[1.025]"
               />
             </Link>
           ))}
