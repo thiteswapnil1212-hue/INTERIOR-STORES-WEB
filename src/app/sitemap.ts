@@ -14,8 +14,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/projects", priority: 0.8, changeFrequency: "monthly" },
     { path: "/about", priority: 0.7, changeFrequency: "monthly" },
     { path: "/contact", priority: 0.8, changeFrequency: "monthly" },
-    { path: "/3d-studio", priority: 0.6, changeFrequency: "monthly" },
   ];
+
+  // NOTE: /3d-studio is intentionally excluded — it is noindexed (tool page),
+  // and a noindexed URL must not appear in the sitemap.
 
   return pages.map((page) => ({
     url: `${siteUrl}${page.path}`,
