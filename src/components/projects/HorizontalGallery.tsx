@@ -137,7 +137,7 @@ export default function HorizontalGallery({
               fill
               priority={i === 0}
               sizes="(max-width: 640px) 70vw, (max-width: 1024px) 56vw, 36vw"
-              className="object-cover transition-transform duration-700 ease-out motion-reduce:transition-none md:group-hover:scale-[1.03]"
+              className="object-cover transition-transform duration-500 ease-primary motion-reduce:transition-none md:group-hover:scale-[1.03]"
             />
           </div>
 
@@ -160,7 +160,7 @@ export default function HorizontalGallery({
             <Link
               href="/contact"
               aria-label={`Enquire about ${project.title}`}
-              className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#747878]/25 text-lg transition-all duration-300 hover:border-[#805533] hover:bg-[#805533] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
+              className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#747878]/25 text-lg transition-[background-color,border-color,color] duration-300 hover:border-[#805533] hover:bg-[#805533] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
             >
               <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
             </Link>
