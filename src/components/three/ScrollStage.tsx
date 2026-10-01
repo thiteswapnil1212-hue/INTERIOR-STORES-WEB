@@ -71,7 +71,7 @@ const FRAMING: Record<
     camera: [3.2, 1.9, 4.7],
     lookAt: [0, 0.85, 0],
     fov: 36,
-    fitWidth: 2.6,
+    fitWidth: 2.9,
     lookDrop: 0.55,
   },
   bed: {
@@ -146,6 +146,15 @@ export default function ScrollStage({
       />
       <directionalLight position={[-5, 3, -2]} intensity={0.45} color="#cdd7ff" />
       <directionalLight position={[0, 3, -5]} intensity={0.5} color="#ffd9b8" />
+      {/* Raking light for curtains only — side light reveals fold depth
+          that flat frontal lighting washes out (the "plasticky" look). */}
+      {model === "curtains" && (
+        <directionalLight
+          position={[-4.5, 2.4, 4.2]}
+          intensity={0.85}
+          color="#ffe3c0"
+        />
+      )}
 
       {model === "sofa" && (
         <TurntableRig
