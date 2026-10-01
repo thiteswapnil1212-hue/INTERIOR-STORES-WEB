@@ -134,9 +134,9 @@ export default function Showcase3D() {
           </p>
           <Link
             href="/3d-studio"
-            className="mt-6 inline-flex min-h-12 items-center gap-2 bg-[#fbf9f6] px-6 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1b1c1a] transition-colors hover:bg-[#c5a47e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c5a47e]"
+            className="group mt-6 inline-flex min-h-12 items-center gap-2 bg-[#fbf9f6] px-6 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1b1c1a] transition-colors hover:bg-[#c5a47e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c5a47e]"
           >
-            Open the 3D Studio <ArrowRight size={15} aria-hidden="true" />
+            Open the 3D Studio <ArrowRight size={15} aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </div>
       </section>
@@ -188,7 +188,7 @@ export default function Showcase3D() {
                 <div
                   key={b.title}
                   aria-hidden={beat !== i}
-                  className={`absolute inset-0 transition-all duration-500 ease-out ${
+                  className={`absolute inset-0 transition-[opacity,transform] duration-500 ease-primary ${
                     beat === i
                       ? "translate-y-0 opacity-100"
                       : "pointer-events-none translate-y-4 opacity-0"
@@ -199,10 +199,10 @@ export default function Showcase3D() {
                   {i === 2 && (
                     <Link
                       href="/3d-studio"
-                      className="pointer-events-auto mt-5 inline-flex min-h-12 items-center gap-2 bg-[#fbf9f6] px-6 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1b1c1a] transition-colors duration-300 hover:bg-[#c5a47e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c5a47e] focus-visible:ring-offset-2 focus-visible:ring-offset-[#141311]"
+                      className="group pointer-events-auto mt-5 inline-flex min-h-12 items-center gap-2 bg-[#fbf9f6] px-6 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1b1c1a] transition-colors duration-300 hover:bg-[#c5a47e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c5a47e] focus-visible:ring-offset-2 focus-visible:ring-offset-[#141311]"
                     >
                       Open the 3D Studio
-                      <ArrowRight size={15} aria-hidden="true" />
+                      <ArrowRight size={15} aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1" />
                     </Link>
                   )}
                 </div>
