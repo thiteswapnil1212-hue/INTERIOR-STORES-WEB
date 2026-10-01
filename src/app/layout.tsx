@@ -76,9 +76,13 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: "/images/home/brand/mauli-logo.jpg",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/images/home/brand/mauli-logo.jpg", type: "image/jpeg" },
+    ],
     apple: "/images/home/brand/mauli-logo.jpg",
   },
+  manifest: "/manifest.webmanifest",
 
   openGraph: {
     type: "website",
@@ -128,7 +132,7 @@ const structuredData = {
       name: siteName,
       url: siteUrl,
       description,
-      telephone: PRIMARY_TEL_HREF.replace("tel:", "+"),
+      telephone: PRIMARY_TEL_HREF.replace("tel:", ""),
       email: "thiteswapnil1212@gmail.com",
       address: {
         "@type": "PostalAddress",
