@@ -88,7 +88,7 @@ export default function Footer() {
               href={`https://wa.me/${WHATSAPP_NUMBER}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="group mt-8 inline-flex min-h-11 items-center gap-3 border border-[#fbf9f6]/20 px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#fbf9f6] transition-all duration-300 hover:border-[#c5a47e] hover:text-[#c5a47e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c5a47e]"
+              className="group mt-8 inline-flex min-h-11 items-center gap-3 border border-[#fbf9f6]/20 px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#fbf9f6] transition-[border-color,color] duration-300 hover:border-[#c5a47e] hover:text-[#c5a47e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c5a47e]"
             >
               <svg
                 width="14"
