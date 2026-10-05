@@ -10,6 +10,7 @@ import { WHATSAPP_NUMBER, PRIMARY_PHONE_DISPLAY, PRIMARY_TEL_HREF } from "../../
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
+  { label: "Products", href: "/products" },
   { label: "3D Studio", href: "/3d-studio" },
   { label: "Projects", href: "/projects" },
   { label: "About", href: "/about" },
