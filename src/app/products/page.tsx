@@ -2,19 +2,21 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
+import Reveal from "../../components/motion/Reveal";
+import { staggerDelay } from "../../lib/motion";
 
 export const metadata: Metadata = {
   title: "Products | Mauli Interior",
   description:
-    "Explore mattresses, pillows, sofas, bed panels, decorative door panels and curtains by Mauli Interior in Pune and PCMC.",
+    "Explore custom sofas, curtains, beds & mattresses, wall & bed panels and cushions by Mauli Interior in Pune and PCMC.",
   keywords: [
-    "mattresses Pune",
-    "pillows Pune",
-    "sofas Pune",
-    "bed panels Pune",
-    "headboards Pune",
-    "decorative door panels Pune",
+    "custom sofas Pune",
     "curtains Pune",
+    "beds Pune",
+    "mattresses Pune",
+    "wall panels Pune",
+    "bed panels Pune",
+    "cushions Pune",
     "home furnishing Pune",
     "Mauli Interior",
   ],
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Products | Mauli Interior",
     description:
-      "Explore mattresses, pillows, sofas, bed panels, decorative door panels and curtains by Mauli Interior.",
+      "Explore custom sofas, curtains, beds & mattresses, wall & bed panels and cushions by Mauli Interior.",
     type: "website",
     locale: "en_IN",
     images: [
@@ -41,28 +43,8 @@ export const metadata: Metadata = {
 const products = [
   {
     number: "01",
-    category: "Sleep & Comfort",
-    title: "Mattresses",
-    description:
-      "Comfort-focused mattresses selected for restful and comfortable everyday sleep.",
-    image: "/images/home/featured-beds.jpg",
-    alt: "Mattress and bedroom furnishing by Mauli Interior",
-    materials: ["Memory Foam", "PU Foam", "Coir", "Natural Latex", "Pocket Spring"],
-  },
-  {
-    number: "02",
-    category: "Sleep & Comfort",
-    title: "Pillows",
-    description:
-      "Comfortable pillows selected to complement your sleeping and resting space.",
-    image: "/images/home/featured-beds.jpg",
-    alt: "Pillows and bedroom furnishing by Mauli Interior",
-    materials: ["Microfiber", "Memory Foam", "Natural Latex", "Hollow Siliconized Fiber", "Cotton"],
-  },
-  {
-    number: "03",
     category: "Living",
-    title: "Sofas",
+    title: "Custom Sofas",
     description:
       "Custom sofas designed around your space, comfort and lifestyle.",
     image: "/images/sofas/sofa-hero.jpg",
@@ -70,27 +52,7 @@ const products = [
     materials: ["Cotton", "Linen", "Velvet", "Leatherette", "Polyester Blends"],
   },
   {
-    number: "04",
-    category: "Bedroom",
-    title: "Bed Panels & Headboards",
-    description:
-      "Bedroom panels and headboards that add warmth, texture and character.",
-    image: "/images/home/featured-beds.jpg",
-    alt: "Bed panels and headboards by Mauli Interior",
-    materials: ["Fabric Upholstered", "Velvet Tufted", "Leatherette", "Wooden Panels"],
-  },
-  {
-    number: "05",
-    category: "Interior Details",
-    title: "Decorative Door Panels",
-    description:
-      "Decorative panels that bring a refined and distinctive finish to interiors.",
-    image: "/images/home/hero.jpg",
-    alt: "Interior furnishing and decorative panels by Mauli Interior",
-    materials: ["Fluted Panels", "Designer Laminates", "PU Mouldings", "Veneer Finish"],
-  },
-  {
-    number: "06",
+    number: "02",
     category: "Windows & Furnishing",
     title: "Curtains",
     description:
@@ -98,6 +60,36 @@ const products = [
     image: "/images/home/featured-curtains.jpg",
     alt: "Curtains by Mauli Interior",
     materials: ["Sheer", "Linen", "Cotton", "Blackout", "Velvet"],
+  },
+  {
+    number: "03",
+    category: "Sleep & Comfort",
+    title: "Beds & Mattresses",
+    description:
+      "Beds and mattresses selected for restful sleep and everyday comfort.",
+    image: "/images/products/beds-mattresses.jpg",
+    alt: "Bed with mattress by Mauli Interior",
+    materials: ["Memory Foam", "PU Foam", "Coir", "Natural Latex", "Pocket Spring"],
+  },
+  {
+    number: "04",
+    category: "Bedroom",
+    title: "Wall & Bed Panels",
+    description:
+      "Upholstered wall and bed panels that add warmth, texture and character.",
+    image: "/images/products/wall-bed-panels.jpg",
+    alt: "Upholstered bed panels by Mauli Interior",
+    materials: ["Fabric Upholstered", "Velvet Tufted", "Leatherette", "Fluted Panels"],
+  },
+  {
+    number: "05",
+    category: "Living",
+    title: "Cushions",
+    description:
+      "Cushions in coordinated fabrics that finish your sofa, bed and chairs.",
+    image: "/images/products/cushions.jpg",
+    alt: "Decorative cushions by Mauli Interior",
+    materials: ["Cotton", "Linen", "Velvet", "Microfiber Fill"],
   },
 ];
 
@@ -201,7 +193,8 @@ export default function ProductsPage() {
         aria-labelledby="product-grid-heading"
         className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 sm:py-20 md:px-12 lg:px-16 lg:py-24"
       >
-        <div className="mb-12 grid gap-6 md:grid-cols-12 md:items-end">
+        <Reveal>
+          <div className="mb-12 grid gap-6 md:grid-cols-12 md:items-end">
           <div className="md:col-span-7">
             <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#805533]">
               Explore
@@ -220,12 +213,17 @@ export default function ProductsPage() {
             Tell us what you need and we&apos;ll help you find the right
             option.
           </p>
-        </div>
+          </div>
+        </Reveal>
 
         <div className="grid gap-x-6 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
-            <article
+          {products.map((product, index) => (
+            <Reveal
               key={product.title}
+              delay={staggerDelay(index, 90)}
+              className="min-w-0"
+            >
+            <article
               className="group min-w-0"
             >
               {/* IMAGE */}
@@ -241,7 +239,7 @@ export default function ProductsPage() {
                     alt={product.alt}
                     fill
                     sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-700 ease-out motion-reduce:transition-none md:group-hover:scale-[1.045]"
+                    className="object-cover transition-transform duration-500 ease-primary motion-reduce:transition-none md:group-hover:scale-[1.045]"
                   />
 
                   <div
@@ -315,6 +313,7 @@ export default function ProductsPage() {
                 </Link>
               </div>
             </article>
+            </Reveal>
           ))}
         </div>
       </section>
