@@ -47,6 +47,7 @@ const products = [
       "Comfort-focused mattresses selected for restful and comfortable everyday sleep.",
     image: "/images/home/featured-beds.jpg",
     alt: "Mattress and bedroom furnishing by Mauli Interior",
+    materials: ["Memory Foam", "PU Foam", "Coir", "Natural Latex", "Pocket Spring"],
   },
   {
     number: "02",
@@ -56,6 +57,7 @@ const products = [
       "Comfortable pillows selected to complement your sleeping and resting space.",
     image: "/images/home/featured-beds.jpg",
     alt: "Pillows and bedroom furnishing by Mauli Interior",
+    materials: ["Microfiber", "Memory Foam", "Natural Latex", "Hollow Siliconized Fiber", "Cotton"],
   },
   {
     number: "03",
@@ -65,6 +67,7 @@ const products = [
       "Custom sofas designed around your space, comfort and lifestyle.",
     image: "/images/sofas/sofa-hero.jpg",
     alt: "Custom sofa by Mauli Interior",
+    materials: ["Cotton", "Linen", "Velvet", "Leatherette", "Polyester Blends"],
   },
   {
     number: "04",
@@ -74,6 +77,7 @@ const products = [
       "Bedroom panels and headboards that add warmth, texture and character.",
     image: "/images/home/featured-beds.jpg",
     alt: "Bed panels and headboards by Mauli Interior",
+    materials: ["Fabric Upholstered", "Velvet Tufted", "Leatherette", "Wooden Panels"],
   },
   {
     number: "05",
@@ -83,6 +87,7 @@ const products = [
       "Decorative panels that bring a refined and distinctive finish to interiors.",
     image: "/images/home/hero.jpg",
     alt: "Interior furnishing and decorative panels by Mauli Interior",
+    materials: ["Fluted Panels", "Designer Laminates", "PU Mouldings", "Veneer Finish"],
   },
   {
     number: "06",
@@ -92,6 +97,7 @@ const products = [
       "Curtains selected and fitted to complete the look and feel of your space.",
     image: "/images/home/featured-curtains.jpg",
     alt: "Curtains by Mauli Interior",
+    materials: ["Sheer", "Linen", "Cotton", "Blackout", "Velvet"],
   },
 ];
 
@@ -287,6 +293,15 @@ export default function ProductsPage() {
                 <p className="mt-3 max-w-md text-sm leading-6 text-[#656765]">
                   {product.description}
                 </p>
+
+                <div className="mt-4">
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#805533]">
+                    Popular materials
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-[#555856]">
+                    {product.materials.join(" · ")}
+                  </p>
+                </div>
 
                 <Link
                   href={`/contact?product=${encodeURIComponent(product.title)}`}
