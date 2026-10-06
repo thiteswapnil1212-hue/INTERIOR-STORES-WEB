@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, RoundedBox, ContactShadows } from "@react-three/drei";
+import { mergeVertices } from "three-stdlib";
 import type { FurnitureType, ConfigType } from "./types";
 
 interface StudioViewerProps {
@@ -99,145 +100,446 @@ function Upholstery({ color, roughness = 0.95 }: { color: string; roughness?: nu
 
 /* ------------------------------- SOFA ---------------------------------- */
 
-export function SofaModel({ fabricHex, config }: { fabricHex: string; config: ConfigType }) {
-  const width = config === "2_seater" ? 1.7 : config === "custom" ? 2.6 : 2.3;
+/**
+ * A realistic three-seater, modelled true to size (metres) the way the
+ * real piece is built: tapered wooden legs, recessed plinth with a
+ * shadow gap, extruded track arms with softened edges, seat deck with a
+ * front rail, plump crowned cushions with welt piping, and a gently
+ * reclined back frame. Cushions sit with slight handmade variance.
+ */
+
+function smoothstep(a: number, b: number, x: number) {
+  const t = Math.min(1, Math.max(0, (x - a) / (b - a)));
+  return t * t * (3 - 2 * t);
+}
+
+/**
+ * Plump cushion geometry. A subdivided box is spherified onto the
+ * rounded-box surface (so every face has interior vertices), then the
+ * faces are crowned outward — the plump pillow look flat boxes can't
+ * give. `bulgeAxis` picks which faces crown ("y" = seat cushions,
+ * "z" = back cushions).
+ */
+function makeCushionGeometry(
+  w: number,
+  h: number,
+  d: number,
+  crown: number,
+  radius: number,
+  bulgeAxis: "y" | "z"
+): THREE.BufferGeometry {
+  let geo: THREE.BufferGeometry = new THREE.BoxGeometry(w, h, d, 14, 6, 14);
+  const hw = w / 2;
+  const hh = h / 2;
+  const hd = d / 2;
+  const iw = Math.max(0.001, hw - radius);
+  const ih = Math.max(0.001, hh - radius);
+  const id = Math.max(0.001, hd - radius);
+
+  const pos = geo.attributes.position as THREE.BufferAttribute;
+  const v = new THREE.Vector3();
+  for (let i = 0; i < pos.count; i++) {
+    v.fromBufferAttribute(pos, i);
+    // spherify: project onto the rounded-box surface
+    const qx = Math.min(iw, Math.max(-iw, v.x));
+    const qy = Math.min(ih, Math.max(-ih, v.y));
+    const qz = Math.min(id, Math.max(-id, v.z));
+    const dx = v.x - qx;
+    const dy = v.y - qy;
+    const dz = v.z - qz;
+    const len = Math.sqrt(dx * dx + dy * dy + dz * dz);
+    if (len > 1e-6) {
+      const s = radius / len;
+      pos.setXYZ(i, qx + dx * s, qy + dy * s, qz + dz * s);
+    }
+  }
+  // weld coincident vertices so the rounded edges shade smoothly
+  geo = mergeVertices(geo, 1e-4);
+  geo.computeVertexNormals();
+
+  // crown the faces
+  const p2 = geo.attributes.position as THREE.BufferAttribute;
+  const nor = geo.attributes.normal as THREE.BufferAttribute;
+  const n = new THREE.Vector3();
+  for (let i = 0; i < p2.count; i++) {
+    v.fromBufferAttribute(p2, i);
+    n.fromBufferAttribute(nor, i);
+    if (bulgeAxis === "y") {
+      const t = Math.min(1, Math.hypot(v.x / hw, v.z / hd));
+      const bulge = 0.5 + 0.5 * Math.cos(Math.PI * t);
+      const wgt = smoothstep(0.35, 0.85, Math.abs(n.y));
+      v.y += Math.sign(n.y) * crown * bulge * wgt;
+    } else {
+      const t = Math.min(1, Math.hypot(v.x / hw, v.y / hh));
+      const bulge = 0.5 + 0.5 * Math.cos(Math.PI * t);
+      const wgt = smoothstep(0.35, 0.85, Math.abs(n.z));
+      v.z += Math.sign(n.z) * crown * bulge * wgt;
+    }
+    p2.setXYZ(i, v.x, v.y, v.z);
+  }
+  p2.needsUpdate = true;
+  geo.computeVertexNormals();
+  return geo;
+}
+
+/** Memoised cushion geometry for React. */
+function useCushionGeometry(
+  w: number,
+  h: number,
+  d: number,
+  crown: number,
+  radius: number,
+  bulgeAxis: "y" | "z" = "y"
+) {
+  return useMemo(
+    () => makeCushionGeometry(w, h, d, crown, radius, bulgeAxis),
+    [w, h, d, crown, radius, bulgeAxis]
+  );
+}
+
+/** Welt piping: a thin tube following a cushion face's perimeter. */
+function usePipingGeometry(
+  w: number,
+  h: number,
+  d: number,
+  face: "top" | "front"
+) {
+  return useMemo(() => {
+    const pts: THREE.Vector3[] = [];
+    const seg = 7;
+    if (face === "top") {
+      const rw = w - 0.02;
+      const rd = d - 0.02;
+      const y = h / 2 - 0.012;
+      const r = Math.min(0.05, rw * 0.15, rd * 0.15);
+      const corners: Array<[number, number, number]> = [
+        [rw / 2 - r, rd / 2 - r, 0],
+        [-(rw / 2 - r), rd / 2 - r, Math.PI / 2],
+        [-(rw / 2 - r), -(rd / 2 - r), Math.PI],
+        [rw / 2 - r, -(rd / 2 - r), Math.PI * 1.5],
+      ];
+      for (const [cx, cz, start] of corners) {
+        for (let i = 0; i <= seg; i++) {
+          const a = start + (i / seg) * (Math.PI / 2);
+          pts.push(
+            new THREE.Vector3(cx + Math.cos(a) * r, y, cz + Math.sin(a) * r)
+          );
+        }
+      }
+    } else {
+      const rw = w - 0.02;
+      const rh = h - 0.02;
+      const z = d / 2 - 0.012;
+      const r = Math.min(0.05, rw * 0.15, rh * 0.15);
+      const corners: Array<[number, number, number]> = [
+        [rw / 2 - r, rh / 2 - r, 0],
+        [-(rw / 2 - r), rh / 2 - r, Math.PI / 2],
+        [-(rw / 2 - r), -(rh / 2 - r), Math.PI],
+        [rw / 2 - r, -(rh / 2 - r), Math.PI * 1.5],
+      ];
+      for (const [cx, cy, start] of corners) {
+        for (let i = 0; i <= seg; i++) {
+          const a = start + (i / seg) * (Math.PI / 2);
+          pts.push(
+            new THREE.Vector3(cx + Math.cos(a) * r, cy + Math.sin(a) * r, z)
+          );
+        }
+      }
+    }
+    const curve = new THREE.CatmullRomCurve3(pts, true);
+    return new THREE.TubeGeometry(curve, 80, 0.0085, 8, true);
+  }, [w, h, d, face]);
+}
+
+/** Track-arm geometry: extruded side profile with softened edges. */
+function useArmGeometry(depth: number, height: number, thick: number) {
+  return useMemo(() => {
+    const s = new THREE.Shape();
+    s.moveTo(0, 0);
+    s.lineTo(depth, 0);
+    s.lineTo(depth, height * 0.78);
+    s.quadraticCurveTo(depth, height, depth - 0.1, height);
+    s.lineTo(0.045, height);
+    s.quadraticCurveTo(0, height, 0, height - 0.045);
+    s.lineTo(0, 0);
+    const geo = new THREE.ExtrudeGeometry(s, {
+      depth: thick,
+      bevelEnabled: true,
+      bevelThickness: 0.02,
+      bevelSize: 0.018,
+      bevelSegments: 3,
+      steps: 1,
+    });
+    geo.translate(0, 0, -thick / 2);
+    return geo;
+  }, [depth, height, thick]);
+}
+
+type CushionProps = {
+  w: number;
+  h: number;
+  d: number;
+  crown?: number;
+  radius?: number;
+  face?: "top" | "front";
+  piping?: boolean;
+  color: string;
+  roughness?: number;
+  position?: [number, number, number];
+  rotation?: [number, number, number];
+};
+
+/** One plump, piped cushion. */
+function Cushion({
+  w,
+  h,
+  d,
+  crown = 0.035,
+  radius = 0.06,
+  face = "top",
+  piping = true,
+  color,
+  roughness = 0.95,
+  position,
+  rotation,
+}: CushionProps) {
+  const geo = useCushionGeometry(
+    w,
+    h,
+    d,
+    crown,
+    radius,
+    face === "top" ? "y" : "z"
+  );
+  const pipe = usePipingGeometry(w, h, d, face);
+  return (
+    <group position={position} rotation={rotation}>
+      <mesh geometry={geo} castShadow receiveShadow>
+        <Upholstery color={color} roughness={roughness} />
+      </mesh>
+      {piping && (
+        <mesh geometry={pipe} castShadow>
+          <Upholstery color={color} roughness={Math.min(1, roughness + 0.03)} />
+        </mesh>
+      )}
+    </group>
+  );
+}
+
+export function SofaModel({
+  fabricHex,
+  config,
+}: {
+  fabricHex: string;
+  config: ConfigType;
+}) {
+  const W = config === "2_seater" ? 1.78 : config === "custom" ? 2.62 : 2.18;
   const seats = config === "2_seater" ? 2 : 3;
-  const innerW = width - 0.52; // minus arms
-  const seatW = innerW / seats;
   const isL = config === "l_shape";
+
+  const D = 0.94; // overall depth
+  const armT = 0.24; // arm thickness
+  const armH = 0.58; // arm height above the legs
+  const legH = 0.1;
+  const innerW = W - armT * 2;
+  const seatW = innerW / seats;
+  const deckTop = 0.36;
+
+  const armGeo = useArmGeometry(D, armH, armT - 0.04);
 
   // Handmade imperfection: no two cushions sit exactly alike.
   const jitter = useMemo(
     () =>
       Array.from({ length: 3 }, (_, i) => ({
-        rz: (((i * 37) % 3) - 1) * 0.02,
+        ry: (((i * 37) % 3) - 1) * 0.016,
         dy: ((i * 53) % 5) * 0.0022,
+        dx: (((i * 29) % 3) - 1) * 0.005,
       })),
     []
   );
 
   return (
     <group>
-      {/* Splayed tapered wooden legs */}
+      {/* Tapered wooden legs, slightly splayed */}
       {(
         [
-          [-width / 2 + 0.16, -0.36, 0.1, -0.09],
-          [width / 2 - 0.16, -0.36, -0.1, -0.09],
-          [-width / 2 + 0.16, 0.36, 0.1, 0.09],
-          [width / 2 - 0.16, 0.36, -0.1, 0.09],
-        ] as [number, number, number, number][]
-      ).map(([x, z, rx, rz], i) => (
-        <mesh key={i} position={[x, 0.075, z]} rotation={[rx, 0, rz]} castShadow>
-          <cylinderGeometry args={[0.032, 0.02, 0.15, 12]} />
+          [-1, -1],
+          [1, -1],
+          [-1, 1],
+          [1, 1],
+        ] as Array<[number, number]>
+      ).map(([sx, sz], i) => (
+        <mesh
+          key={i}
+          position={[sx * (W / 2 - 0.15), legH / 2, sz * (D / 2 - 0.13)]}
+          rotation={[sz * 0.07, 0, -sx * 0.07]}
+          castShadow
+        >
+          <cylinderGeometry args={[0.034, 0.02, legH + 0.02, 12]} />
           <meshStandardMaterial color="#2e2823" roughness={0.45} />
         </mesh>
       ))}
 
-      {/* Base */}
-      <RoundedBox args={[width, 0.32, 0.98]} radius={0.07} smoothness={4} position={[0, 0.29, 0]} castShadow>
+      {/* Recessed plinth — the shadow gap under the body */}
+      <RoundedBox
+        args={[W - 0.14, 0.12, D - 0.16]}
+        radius={0.02}
+        smoothness={2}
+        position={[0, legH + 0.06, -0.02]}
+        castShadow
+      >
+        <Upholstery color={fabricHex} roughness={1} />
+      </RoundedBox>
+
+      {/* Seat deck */}
+      <RoundedBox
+        args={[W - 0.02, 0.14, D - 0.04]}
+        radius={0.03}
+        smoothness={3}
+        position={[0, 0.29, 0]}
+        castShadow
+        receiveShadow
+      >
         <Upholstery color={fabricHex} />
       </RoundedBox>
 
-      {/* Arms with caps */}
+      {/* Front rail beneath the seat cushions */}
+      <RoundedBox
+        args={[innerW + 0.02, 0.13, 0.07]}
+        radius={0.025}
+        smoothness={3}
+        position={[0, 0.285, D / 2 - 0.05]}
+        castShadow
+      >
+        <Upholstery color={fabricHex} />
+      </RoundedBox>
+
+      {/* Track arms with softened front edge */}
       {[-1, 1].map((s) => (
-        <group key={s}>
-          <RoundedBox
-            args={[0.26, 0.6, 0.98]}
-            radius={0.09}
-            smoothness={4}
-            position={[s * (width / 2 - 0.13), 0.59, 0]}
-            castShadow
-          >
-            <Upholstery color={fabricHex} />
-          </RoundedBox>
-          <RoundedBox
-            args={[0.3, 0.09, 1.02]}
-            radius={0.045}
-            smoothness={4}
-            position={[s * (width / 2 - 0.13), 0.93, 0]}
-            castShadow
-          >
-            <Upholstery color={fabricHex} />
-          </RoundedBox>
-        </group>
+        <mesh
+          key={s}
+          geometry={armGeo}
+          position={[s * (W / 2 - armT / 2), legH, -D / 2]}
+          rotation={[0, -Math.PI / 2, 0]}
+          castShadow
+          receiveShadow
+        >
+          <Upholstery color={fabricHex} />
+        </mesh>
       ))}
 
-      {/* Backrest frame */}
-      <RoundedBox args={[width, 0.68, 0.22]} radius={0.08} smoothness={4} position={[0, 0.68, -0.42]} castShadow>
-        <Upholstery color={fabricHex} />
-      </RoundedBox>
+      {/* Backrest frame, gently reclined */}
+      <group position={[0, 0, -D / 2 + 0.1]} rotation={[0.07, 0, 0]}>
+        <RoundedBox
+          args={[W - 0.06, 0.62, 0.17]}
+          radius={0.06}
+          smoothness={4}
+          position={[0, 0.55, 0]}
+          castShadow
+          receiveShadow
+        >
+          <Upholstery color={fabricHex} />
+        </RoundedBox>
+        <RoundedBox
+          args={[W - 0.06, 0.1, 0.21]}
+          radius={0.045}
+          smoothness={4}
+          position={[0, 0.885, 0]}
+          castShadow
+        >
+          <Upholstery color={fabricHex} />
+        </RoundedBox>
+      </group>
 
-      {/* Seat cushions — plump */}
+      {/* Seat cushions — plump, piped, each sitting a little differently */}
       {Array.from({ length: seats }).map((_, i) => {
         const x = -innerW / 2 + seatW * (i + 0.5);
         return (
-          <RoundedBox
+          <Cushion
             key={i}
-            args={[seatW - 0.045, 0.2, 0.8]}
-            radius={0.08}
-            smoothness={4}
-            position={[x, 0.53, 0.04]}
-            rotation={[0, 0, jitter[i].rz * 0.5]}
-            castShadow
-          >
-            <Upholstery color={fabricHex} />
-          </RoundedBox>
+            w={seatW - 0.03}
+            h={0.17}
+            d={0.6}
+            crown={0.038}
+            color={fabricHex}
+            position={[x + jitter[i].dx, deckTop + 0.085 + jitter[i].dy, 0.09]}
+            rotation={[0, jitter[i].ry, 0]}
+          />
         );
       })}
 
-      {/* Back cushions — reclined, each sitting a little differently */}
+      {/* Back cushions — reclined against the frame */}
       {Array.from({ length: seats }).map((_, i) => {
         const x = -innerW / 2 + seatW * (i + 0.5);
         return (
-          <RoundedBox
+          <Cushion
             key={i}
-            args={[seatW - 0.045, 0.52, 0.2]}
-            radius={0.085}
-            smoothness={4}
-            position={[x, 0.84 + jitter[i].dy, -0.27]}
-            rotation={[-0.13, 0, jitter[i].rz]}
-            castShadow
-          >
-            <Upholstery color={fabricHex} />
-          </RoundedBox>
+            w={seatW - 0.03}
+            h={0.5}
+            d={0.17}
+            crown={0.045}
+            radius={0.07}
+            face="front"
+            color={fabricHex}
+            position={[x + jitter[i].dx, 0.7 + jitter[i].dy, -0.2]}
+            rotation={[-0.1, jitter[i].ry, 0]}
+          />
         );
       })}
 
-      {/* Styled throw pillows */}
+      {/* Throw pillows — knife-edge, styled askew */}
       {!isL && seats === 3 && (
         <group>
-          <RoundedBox
-            args={[0.36, 0.36, 0.14]}
-            radius={0.06}
-            smoothness={4}
-            position={[-innerW / 2 + 0.34, 0.82, -0.08]}
-            rotation={[-0.12, 0.3, 0.1]}
-            castShadow
-          >
-            <Upholstery color={LINEN_WHITE} />
-          </RoundedBox>
-          <RoundedBox
-            args={[0.34, 0.34, 0.14]}
-            radius={0.06}
-            smoothness={4}
-            position={[innerW / 2 - 0.32, 0.8, -0.06]}
-            rotation={[-0.1, -0.35, -0.12]}
-            castShadow
-          >
-            <Upholstery color={PILLOW_SAGE} />
-          </RoundedBox>
+          <Cushion
+            w={0.4}
+            h={0.4}
+            d={0.14}
+            crown={0.05}
+            radius={0.05}
+            face="front"
+            piping={false}
+            color={LINEN_WHITE}
+            roughness={1}
+            position={[-innerW / 2 + 0.33, 0.74, -0.1]}
+            rotation={[-0.14, 0.32, 0.1]}
+          />
+          <Cushion
+            w={0.38}
+            h={0.38}
+            d={0.14}
+            crown={0.05}
+            radius={0.05}
+            face="front"
+            piping={false}
+            color={PILLOW_SAGE}
+            roughness={1}
+            position={[innerW / 2 - 0.31, 0.72, -0.08]}
+            rotation={[-0.12, -0.36, -0.11]}
+          />
         </group>
       )}
 
       {/* L-shape chaise extension */}
       {isL && (
         <group>
-          <RoundedBox args={[0.85, 0.28, 1.55]} radius={0.06} smoothness={4} position={[width / 2 - 0.42, 0.26, 0.72]} castShadow>
+          <RoundedBox
+            args={[0.84, 0.14, 1.5]}
+            radius={0.03}
+            smoothness={3}
+            position={[W / 2 - 0.43, 0.29, 0.5]}
+            castShadow
+          >
             <Upholstery color={fabricHex} />
           </RoundedBox>
-          <RoundedBox args={[0.79, 0.15, 1.45]} radius={0.06} smoothness={4} position={[width / 2 - 0.42, 0.47, 0.72]} castShadow>
-            <Upholstery color={fabricHex} />
-          </RoundedBox>
+          <Cushion
+            w={0.8}
+            h={0.16}
+            d={1.42}
+            crown={0.032}
+            radius={0.06}
+            color={fabricHex}
+            position={[W / 2 - 0.43, 0.44, 0.5]}
+          />
         </group>
       )}
     </group>
