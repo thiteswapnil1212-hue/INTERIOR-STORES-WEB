@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, RoundedBox, ContactShadows } from "@react-three/drei";
@@ -19,16 +19,77 @@ const PILLOW_SAGE = "#9aa38b";
 /**
  * Cloth-like upholstery. The sheen layer is what separates fabric
  * from plastic under studio light — keep roughness high, sheen on.
+ * A subtle procedural weave normal map adds the micro-surface detail
+ * that reads as real textile instead of flat plastic.
  */
+function makeWeaveNormalTexture(): THREE.CanvasTexture {
+  const size = 256;
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext("2d")!;
+  const img = ctx.createImageData(size, size);
+
+  // Plain-weave height field: alternating over/under threads + noise.
+  const h = new Float32Array(size * size);
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      const weave =
+        (Math.floor(x / 4) + Math.floor(y / 4)) % 2 === 0 ? 0.5 : -0.5;
+      h[y * size + x] = weave * 0.5 + (Math.random() - 0.5) * 0.35;
+    }
+  }
+  // Height field -> normal map (Sobel, tileable via wrapping).
+  const strength = 2.0;
+  const data = img.data;
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      const xm = (x - 1 + size) % size;
+      const xp = (x + 1) % size;
+      const ym = (y - 1 + size) % size;
+      const yp = (y + 1) % size;
+      const dx = (h[y * size + xp] - h[y * size + xm]) * strength;
+      const dy = (h[yp * size + x] - h[ym * size + x]) * strength;
+      const inv = 1 / Math.sqrt(dx * dx + dy * dy + 1);
+      const i = (y * size + x) * 4;
+      data[i] = (-dx * inv * 0.5 + 0.5) * 255;
+      data[i + 1] = (-dy * inv * 0.5 + 0.5) * 255;
+      data[i + 2] = (inv * 0.5 + 0.5) * 255;
+      data[i + 3] = 255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(4, 4);
+  return tex;
+}
+
+/** Client-only: generates the weave texture after mount (SSR-safe). */
+function useWeaveNormal(): THREE.Texture | null {
+  const [tex, setTex] = useState<THREE.Texture | null>(null);
+  useEffect(() => {
+    const t = makeWeaveNormalTexture();
+    setTex(t);
+    return () => {
+      t.dispose();
+    };
+  }, []);
+  return tex;
+}
+
 function Upholstery({ color, roughness = 0.95 }: { color: string; roughness?: number }) {
   const sheenColor = useMemo(
     () => new THREE.Color(color).lerp(new THREE.Color("#ffffff"), 0.5),
     [color]
   );
+  const normalMap = useWeaveNormal();
+  const normalScale = useMemo(() => new THREE.Vector2(0.35, 0.35), []);
   return (
     <meshPhysicalMaterial
       color={color}
       roughness={roughness}
+      normalMap={normalMap ?? undefined}
+      normalScale={normalScale}
       sheen={1}
       sheenRoughness={0.55}
       sheenColor={sheenColor}

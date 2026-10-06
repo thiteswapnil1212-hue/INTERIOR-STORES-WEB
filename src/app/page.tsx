@@ -6,6 +6,7 @@ import Link from "next/link";
 import ServicesSection from "../components/home/ServicesSection";
 import FeaturedWork from "../components/home/FeaturedWork";
 import WhyMauli from "../components/home/WhyMauli";
+import ProcessSection from "../components/home/ProcessSection";
 import FAQSection from "../components/home/FAQSection";
 import FinalCTA from "../components/home/FinalCTA";
 import Marquee from "../components/home/Marquee";
@@ -365,6 +366,11 @@ export default function Home() {
       {/* WHY MAULI */}
       <Reveal>
         <WhyMauli />
+      </Reveal>
+
+      {/* HOW IT WORKS */}
+      <Reveal>
+        <ProcessSection />
       </Reveal>
 
       {/* FAQ */}

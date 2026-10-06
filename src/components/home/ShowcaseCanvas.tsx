@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { Suspense, useRef } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { ContactShadows } from "@react-three/drei";
+import { ContactShadows, Environment, Lightformer } from "@react-three/drei";
 import { SofaModel } from "../studio/StudioViewer";
 import FitCamera, { useMobile } from "../three/FitCamera";
 import type { MutableRefObject } from "react";
@@ -63,16 +63,51 @@ export default function ShowcaseCanvas({ progressRef, running }: ShowcaseCanvasP
         lookDrop={0.3}
       />
 
-      {/* Premium studio lighting */}
-      <ambientLight intensity={0.55} />
+      {/* Studio environment — image-based lighting is what makes the
+          fabric read as fabric instead of flat plastic. Generated locally
+          with Lightformers: no network fetch, no HDR asset needed. */}
+      <Suspense fallback={null}>
+        <Environment resolution={256}>
+          <Lightformer
+            intensity={2.4}
+            position={[0, 5, 0]}
+            rotation-x={Math.PI / 2}
+            scale={[9, 9, 1]}
+            color="#fff3e0"
+          />
+          <Lightformer
+            intensity={0.8}
+            position={[-5, 2, 2]}
+            rotation-y={Math.PI / 2}
+            scale={[7, 3, 1]}
+            color="#dfe8ff"
+          />
+          <Lightformer
+            intensity={0.8}
+            position={[5, 2, 2]}
+            rotation-y={-Math.PI / 2}
+            scale={[7, 3, 1]}
+            color="#ffe7cd"
+          />
+          <Lightformer
+            intensity={1.2}
+            position={[0, 3, -5]}
+            scale={[8, 3, 1]}
+            color="#ffffff"
+          />
+        </Environment>
+      </Suspense>
+
+      {/* Key light for shadows; environment handles the fill */}
+      <ambientLight intensity={0.22} />
       <directionalLight
         position={[4, 6, 3]}
-        intensity={2.0}
+        intensity={1.5}
         castShadow
         shadow-mapSize={mobile ? [512, 512] : [1024, 1024]}
       />
-      <directionalLight position={[-5, 3, -2]} intensity={0.4} color="#cdd7ff" />
-      <directionalLight position={[0, 2, 5]} intensity={0.5} color="#ffd9b8" />
+      <directionalLight position={[-5, 3, -2]} intensity={0.25} color="#cdd7ff" />
+      <directionalLight position={[0, 2, 5]} intensity={0.3} color="#ffd9b8" />
 
       <SofaRig progressRef={progressRef} />
 
