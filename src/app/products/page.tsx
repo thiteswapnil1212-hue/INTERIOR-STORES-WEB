@@ -6,7 +6,7 @@ import Reveal from "../../components/motion/Reveal";
 import { staggerDelay } from "../../lib/motion";
 
 export const metadata: Metadata = {
-  title: "Products | Mauli Interior",
+  title: "Custom Furniture & Furnishing in Pune | Mauli Interior",
   description:
     "Explore custom sofas, curtains, beds & mattresses, wall & bed panels and cushions by Mauli Interior in Pune and PCMC.",
   keywords: [
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "/products",
   },
   openGraph: {
-    title: "Products | Mauli Interior",
+    title: "Custom Furniture & Furnishing in Pune | Mauli Interior",
     description:
       "Explore custom sofas, curtains, beds & mattresses, wall & bed panels and cushions by Mauli Interior.",
     type: "website",
@@ -48,7 +48,7 @@ const products = [
     description:
       "Custom sofas designed around your space, comfort and lifestyle.",
     image: "/images/sofas/sofa-hero.jpg",
-    alt: "Custom sofa by Mauli Interior",
+    alt: "Custom-made sofa by Mauli Interior, Pune",
     materials: ["Cotton", "Linen", "Velvet", "Leatherette", "Polyester Blends"],
   },
   {
@@ -58,7 +58,7 @@ const products = [
     description:
       "Curtains selected and fitted to complete the look and feel of your space.",
     image: "/images/home/featured-curtains.jpg",
-    alt: "Curtains by Mauli Interior",
+    alt: "Custom curtains by Mauli Interior, Pune",
     materials: ["Sheer", "Linen", "Cotton", "Blackout", "Velvet"],
   },
   {
@@ -68,7 +68,7 @@ const products = [
     description:
       "Beds and mattresses selected for restful sleep and everyday comfort.",
     image: "/images/products/beds-mattresses.jpg",
-    alt: "Bed with mattress by Mauli Interior",
+    alt: "Custom bed with mattress by Mauli Interior, Pune",
     materials: ["Memory Foam", "PU Foam", "Coir", "Natural Latex", "Pocket Spring"],
   },
   {
@@ -78,7 +78,7 @@ const products = [
     description:
       "Upholstered wall and bed panels that add warmth, texture and character.",
     image: "/images/products/wall-bed-panels.jpg",
-    alt: "Upholstered bed panels by Mauli Interior",
+    alt: "Upholstered wall and bed panels by Mauli Interior, Pune",
     materials: ["Fabric Upholstered", "Velvet Tufted", "Leatherette", "Fluted Panels"],
   },
   {
@@ -88,7 +88,7 @@ const products = [
     description:
       "Cushions in coordinated fabrics that finish your sofa, bed and chairs.",
     image: "/images/products/cushions.jpg",
-    alt: "Decorative cushions by Mauli Interior",
+    alt: "Decorative cushions by Mauli Interior, Pune",
     materials: ["Cotton", "Linen", "Velvet", "Microfiber Fill"],
   },
 ];
