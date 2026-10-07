@@ -108,6 +108,15 @@ export default function ServicesPage() {
             practical pieces made specifically for your home across Pune and
             Pimpri-Chinchwad.
           </p>
+
+          <Reveal className="mt-10 sm:mt-14">
+            <ParallaxImage
+              src="/images/media-pack/living-beige.jpg"
+              alt="Beige custom sofa styled with cushions in a bright living room"
+              sizes="100vw"
+              className="aspect-[16/8] w-full"
+            />
+          </Reveal>
         </div>
       </section>
 
