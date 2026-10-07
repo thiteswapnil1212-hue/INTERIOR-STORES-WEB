@@ -32,31 +32,31 @@ const services = [
     number: "02",
     title: "Curtains",
     description:
-      "Custom curtains selected to complement your interiors, windows and furnishing — from sheer day curtains to full blackout drapes.",
+      "Made-to-measure curtains selected to complement your interiors, windows and furnishing — from sheer day curtains to full blackout drapes, for homes across Pune and PCMC.",
     image: "/images/services/curtains.jpg",
     alt: "Elegant grey curtains in a sunlit living room",
-    href: "/contact",
-    cta: "Get a quote",
+    href: "/contact?product=Curtains",
+    cta: "Get a curtains quote",
   },
   {
     number: "03",
     title: "Beds & Mattresses",
     description:
-      "Comfortable bedroom solutions made to suit your space and everyday needs — upholstered beds with mattresses in every size.",
+      "Custom bedroom solutions made to suit your space and everyday needs — upholstered beds with mattresses in every size, for homes across Pune and PCMC.",
     image: "/images/services/beds.jpg",
     alt: "Luxury upholstered bed with tufted headboard",
-    href: "/contact",
-    cta: "Get a quote",
+    href: "/contact?product=Beds%20%26%20Mattresses",
+    cta: "Get a bed & mattress quote",
   },
   {
     number: "04",
     title: "Wall & Bed Panels",
     description:
-      "Decorative panels designed to add warmth, character and a refined finish — padded headboard walls, moulding and feature panelling.",
+      "Custom decorative panels designed to add warmth, character and a refined finish — padded headboard walls, moulding and feature panelling for Pune homes.",
     image: "/images/services/panels.jpg",
     alt: "Padded wall panel headboard in a premium bedroom",
-    href: "/contact",
-    cta: "Get a quote",
+    href: "/contact?product=Wall%20%26%20Bed%20Panels",
+    cta: "Get a panels quote",
   },
   {
     number: "05",
@@ -65,8 +65,8 @@ const services = [
       "Custom cushions made to match your existing furnishing and colour palette — the finishing touch for sofas and beds.",
     image: "/images/services/cushions.jpg",
     alt: "Decorative blue cushions on a beige sofa",
-    href: "/contact",
-    cta: "Get a quote",
+    href: "/contact?product=Cushions",
+    cta: "Get a cushions quote",
   },
 ];
 
@@ -123,7 +123,7 @@ export default function ServicesPage() {
           </>
         }
         sub="Sheers, blackouts and linens — stitched for your windows, hung with care."
-        cta={{ href: "/contact", label: "Get a curtains quote" }}
+        cta={{ href: "/contact?product=Curtains", label: "Get a curtains quote" }}
         bgClass="bg-[#fbf9f6]"
         label="Three-dimensional linen curtains swaying gently, moving more as you scroll"
       />
@@ -186,6 +186,21 @@ export default function ServicesPage() {
               </article>
             </Reveal>
           ))}
+        </div>
+
+        <div className="mx-auto mt-16 max-w-[1440px] text-center sm:mt-20">
+          <Link
+            href="/products"
+            className="group inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-colors duration-300 hover:text-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+          >
+            Browse the complete product range
+            <span
+              className="transition-transform duration-300 group-hover:translate-x-1"
+              aria-hidden="true"
+            >
+              <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+            </span>
+          </Link>
         </div>
       </section>
 
