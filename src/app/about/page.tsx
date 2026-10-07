@@ -6,7 +6,7 @@ import ScrollMoment from "../../components/motion/ScrollMoment";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About Mauli Interior | Pune",
   description:
     "Learn about Mauli Interior — custom furnishing solutions for homes across Pune and Pimpri-Chinchwad since 2009. Quality sofas, curtains, beds, panels and more.",
   alternates: {
