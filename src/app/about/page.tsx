@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
 import SplitText from "../../components/motion/SplitText";
-import ScrollMoment from "../../components/motion/ScrollMoment";
+import ParallaxImage from "../../components/motion/ParallaxImage";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -111,6 +111,12 @@ export default function AboutPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#805533]">
               Our Story
             </p>
+            <ParallaxImage
+              src="/images/media-pack/workshop-wood.jpg"
+              alt="Craftsman planing wood in a furniture workshop"
+              sizes="(max-width: 768px) 100vw, 33vw"
+              className="mt-8 aspect-[3/4] w-full"
+            />
           </div>
 
           <div className="md:col-span-7 md:col-start-6">
@@ -354,24 +360,53 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* WORKSHOP BED — scroll-driven 3D moment */}
-      <ScrollMoment
-        model="bed"
-        kicker="From our workshop"
-        title={
-          <>
-            Built in
-            <br />
-            <span className="text-[#805533]">Bhosari.</span>
-          </>
-        }
-        sub="Beds, sofas and panels — made by hand, made to measure, made to last."
-        cta={{ href: "/services", label: "See what we make" }}
-        bgClass="bg-[#f2eee8]"
-        label="Three-dimensional model of an upholstered bed that turns as you scroll"
-        sweep={Math.PI * 0.9}
-        trackClass="h-[200vh]"
-      />
+      {/* WORKSHOP — photo banner */}
+      <section
+        aria-labelledby="workshop-heading"
+        className="border-t border-[#747878]/15 bg-[#f2eee8]"
+      >
+        <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-6 py-20 md:grid-cols-2 md:gap-16 md:px-16 md:py-28">
+          <div>
+            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.16em] text-[#805533]">
+              From our workshop
+            </p>
+
+            <h2
+              id="workshop-heading"
+              className="font-serif text-4xl leading-tight md:text-6xl"
+            >
+              Built in
+              <br />
+              <span className="text-[#805533]">Bhosari.</span>
+            </h2>
+
+            <p className="mt-6 max-w-md text-[15px] leading-7 text-[#5c5e5c]">
+              Beds, sofas and panels — made by hand, made to measure, made to
+              last.
+            </p>
+
+            <Link
+              href="/services"
+              className="group mt-8 inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-colors duration-300 hover:text-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+            >
+              See what we make
+              <span
+                className="transition-transform duration-300 group-hover:translate-x-1"
+                aria-hidden="true"
+              >
+                <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+              </span>
+            </Link>
+          </div>
+
+          <ParallaxImage
+            src="/images/media-pack/workshop-sewing.jpg"
+            alt="Hands guiding fabric through an industrial sewing machine"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="aspect-[4/5] w-full"
+          />
+        </div>
+      </section>
 
       {/* WORKSHOP */}
       <section className="border-t border-[#747878]/15 bg-[#f2eee8] px-6 py-20 md:px-16 md:py-24">
