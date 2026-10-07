@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
 import ParallaxImage from "../../components/motion/ParallaxImage";
+import Reveal from "../../components/motion/Reveal";
 import SplitText from "../../components/motion/SplitText";
 import HorizontalGallery from "../../components/projects/HorizontalGallery";
 import { ArrowRight } from "lucide-react";
@@ -159,6 +160,15 @@ export default function ProjectsPage() {
               </p>
             </div>
           </div>
+
+          <Reveal className="mt-10 sm:mt-14">
+            <ParallaxImage
+              src="/images/media-pack/bedroom-tufted.jpg"
+              alt="Elegant bedroom with a brown tufted upholstered headboard"
+              sizes="100vw"
+              className="aspect-[16/8] w-full"
+            />
+          </Reveal>
         </div>
       </section>
 
