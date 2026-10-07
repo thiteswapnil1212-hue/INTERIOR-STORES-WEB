@@ -8,14 +8,14 @@ import HorizontalGallery from "../../components/projects/HorizontalGallery";
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Our Projects",
+  title: "Our Work & Projects in Pune",
   description:
     "Explore custom sofas, curtains, wall panels and furnishing work by Mauli Interior across Pune and PCMC.",
   alternates: {
     canonical: "/projects",
   },
   openGraph: {
-    title: "Our Projects | Mauli Interior",
+    title: "Our Work & Projects in Pune | Mauli Interior",
     description:
       "Explore custom sofas, curtains, wall panels and furnishing work by Mauli Interior across Pune and PCMC.",
     url: "/projects",
