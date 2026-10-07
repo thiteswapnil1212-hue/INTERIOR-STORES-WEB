@@ -16,6 +16,7 @@ import FadeImage from "../components/motion/FadeImage";
 import ScrollMoment from "../components/motion/ScrollMoment";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Showcase3D from "../components/home/Showcase3D";
+import LocalBusinessJsonLd from "../components/seo/LocalBusinessJsonLd";
 
 const siteUrl = "https://mauliinterior-stores-web.vercel.app";
 
@@ -131,7 +132,7 @@ export default function Home() {
               />
 
               <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#805533] sm:text-[11px] sm:tracking-[0.2em]">
-                Home Interiors & Furnishing
+                Home Interiors & Furnishing in Pune
               </p>
             </div>
 
@@ -382,6 +383,7 @@ export default function Home() {
       <Reveal>
         <FinalCTA />
       </Reveal>
+      <LocalBusinessJsonLd />
     </main>
   );
 }
