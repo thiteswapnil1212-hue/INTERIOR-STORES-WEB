@@ -149,6 +149,17 @@ export default function ProductsPage() {
               </Link>
             </div>
           </div>
+
+          <Reveal className="mt-12 md:mt-16">
+            <Image
+              src="/images/media-pack/bedroom-beige.jpg"
+              alt="Bedroom with beige upholstered bed and sheer curtains"
+              width={1600}
+              height={800}
+              sizes="100vw"
+              className="aspect-[16/8] w-full object-cover"
+            />
+          </Reveal>
         </div>
       </section>
 
@@ -180,6 +191,43 @@ export default function ProductsPage() {
                 home and everyday needs.
               </p>
             </div>
+          </div>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-3">
+            <Reveal delay={staggerDelay(0, 90)}>
+              <Image
+                src="/images/media-pack/fabric-linen.jpg"
+                alt="Close-up of beige linen fabric texture"
+                width={900}
+                height={1200}
+                sizes="(max-width: 640px) 100vw, 33vw"
+                className="aspect-[3/4] w-full object-cover"
+              />
+            </Reveal>
+            <Reveal delay={staggerDelay(1, 90)}>
+              <video
+                muted
+                autoPlay
+                loop
+                playsInline
+                preload="metadata"
+                poster="/images/media-pack/fabric-linen.jpg"
+                aria-label="Soft fabric blowing gently in the wind"
+                className="aspect-[3/4] w-full object-cover"
+              >
+                <source src="/images/media-pack/fabric-wind.mp4" type="video/mp4" />
+              </video>
+            </Reveal>
+            <Reveal delay={staggerDelay(2, 90)}>
+              <Image
+                src="/images/media-pack/fabric-folds.jpg"
+                alt="Close-up of soft beige fabric folds"
+                width={900}
+                height={1200}
+                sizes="(max-width: 640px) 100vw, 33vw"
+                className="aspect-[3/4] w-full object-cover"
+              />
+            </Reveal>
           </div>
         </div>
       </section>
