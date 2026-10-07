@@ -9,7 +9,7 @@ import SplitText from "../../components/motion/SplitText";
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Furnishing Services in Pune",
   description:
     "Explore Mauli Interior's furnishing services — custom sofas, curtains, beds, mattresses, cushions and wall panels for homes across Pune and PCMC.",
   alternates: {
