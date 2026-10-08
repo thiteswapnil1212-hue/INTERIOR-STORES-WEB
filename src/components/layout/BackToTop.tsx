@@ -7,11 +7,14 @@ import { ArrowUp } from "lucide-react";
  * Back-to-top button. Appears after scrolling down,
  * sits opposite the WhatsApp float button.
  * Hides while the footer is on screen so it never
- * covers footer content or links.
+ * covers footer content or links, and hides while a
+ * scroll-driven 3D moment is on screen so it never
+ * covers its CTA text.
  */
 export default function BackToTop() {
   const [show, setShow] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
+  const [momentVisible, setMomentVisible] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setShow(window.scrollY > 600);
@@ -19,13 +22,25 @@ export default function BackToTop() {
     window.addEventListener("scroll", onScroll, { passive: true });
 
     const footer = document.querySelector("footer");
+    const moments = Array.from(
+      document.querySelectorAll("[data-scroll-moment]")
+    );
     let observer: IntersectionObserver | null = null;
-    if (footer) {
+    if (footer || moments.length > 0) {
       observer = new IntersectionObserver(
-        ([entry]) => setFooterVisible(entry.isIntersecting),
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.target.tagName === "FOOTER") {
+              setFooterVisible(entry.isIntersecting);
+            } else {
+              setMomentVisible(entry.isIntersecting);
+            }
+          }
+        },
         { threshold: 0 }
       );
-      observer.observe(footer);
+      if (footer) observer.observe(footer);
+      moments.forEach((moment) => observer?.observe(moment));
     }
 
     return () => {
@@ -34,7 +49,7 @@ export default function BackToTop() {
     };
   }, []);
 
-  const visible = show && !footerVisible;
+  const visible = show && !footerVisible && !momentVisible;
 
   return (
     <button
