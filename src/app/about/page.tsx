@@ -95,6 +95,13 @@ export default function AboutPage() {
             </div>
           </div>
 
+          <ParallaxImage
+            src="/images/media-pack/about-living.jpg"
+            alt="Warm living room with beige sofa, cushions and soft lighting"
+            sizes="100vw"
+            className="mt-12 aspect-[16/8] w-full md:mt-16"
+          />
+
           <div className="mt-20 border-t border-[#747878]/20 pt-5">
             <div className="flex justify-between text-[10px] uppercase tracking-[0.16em] text-[#6b6d69]">
               <span>Pune · Pimpri-Chinchwad</span>
