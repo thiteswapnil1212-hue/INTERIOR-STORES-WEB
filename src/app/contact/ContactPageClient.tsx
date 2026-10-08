@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Image from "next/image";
 import { WHATSAPP_NUMBER, PRIMARY_PHONE_DISPLAY, PRIMARY_TEL_HREF, SECONDARY_PHONE_DISPLAY, SECONDARY_TEL_HREF } from "../../lib/contact";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
@@ -182,6 +183,15 @@ export default function ContactPageClient() {
               <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
             </span>
           </a>
+
+          <Image
+            src="/images/media-pack/living-couch.jpg"
+            alt="Beige sofa styled with blue cushions in a bright living room"
+            width={1200}
+            height={900}
+            sizes="(max-width: 768px) 100vw, 42vw"
+            className="mt-10 aspect-[4/3] w-full object-cover"
+          />
         </div>
 
         {/* RIGHT SIDE — FORM */}
