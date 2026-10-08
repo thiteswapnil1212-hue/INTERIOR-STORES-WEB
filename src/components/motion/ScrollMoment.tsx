@@ -108,6 +108,7 @@ export default function ScrollMoment({
   return (
     <section
       ref={trackRef}
+      data-scroll-moment
       aria-label={label}
       className={`relative ${trackClass} ${bgClass}`}
     >
