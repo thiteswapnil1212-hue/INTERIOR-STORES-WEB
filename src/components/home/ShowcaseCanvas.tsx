@@ -1,37 +1,48 @@
 "use client";
 
-import { Suspense, useRef } from "react";
+import { Suspense, useRef, useState } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { ContactShadows, Environment, Lightformer } from "@react-three/drei";
-import { SofaModel } from "../studio/StudioViewer";
+import { BedModel, SofaModel } from "../studio/StudioViewer";
 import FitCamera, { useMobile } from "../three/FitCamera";
 import type { MutableRefObject } from "react";
 
 /**
- * Scroll-driven 3D sofa. The parent section writes scroll progress (0→1)
- * into `progressRef`; this rig eases the sofa's rotation toward
+ * Scroll-driven 3D duo showcase. The parent section writes scroll progress
+ * (0→1) into `progressRef`; this rig eases the turntable's rotation toward
  * progress * SWEEP every frame for buttery Apple-style motion.
+ * The first half of the scroll turns the signature sofa, the second half
+ * turns the upholstered bed — the swap happens at the back view, the least
+ * noticeable angle, and each product ends front-facing.
  */
-const SWEEP = Math.PI * 1.5; // 270° turntable sweep
+const SWEEP = Math.PI * 2; // 360° turntable sweep across both products
 
-function SofaRig({ progressRef }: { progressRef: MutableRefObject<number> }) {
+function ShowcaseRig({ progressRef }: { progressRef: MutableRefObject<number> }) {
   const group = useRef<THREE.Group>(null);
+  const [showBed, setShowBed] = useState(false);
 
   useFrame((_, delta) => {
     if (!group.current) return;
-    const target = progressRef.current * SWEEP;
+    const p = progressRef.current;
+    const target = p * SWEEP;
     group.current.rotation.y = THREE.MathUtils.damp(
       group.current.rotation.y,
       target,
       4.5,
       delta
     );
+    const bed = p >= 0.5;
+    setShowBed((prev) => (prev === bed ? prev : bed));
   });
 
   return (
     <group ref={group} position={[0, 0, 0]}>
-      <SofaModel fabricHex="#A75D42" config="3_seater" />
+      {showBed ? (
+        <BedModel fabricHex="#E8E2D5" config="queen" />
+      ) : (
+        <SofaModel fabricHex="#A75D42" config="3_seater" />
+      )}
     </group>
   );
 }
@@ -50,7 +61,7 @@ export default function ShowcaseCanvas({ progressRef, running }: ShowcaseCanvasP
       camera={{ position: [3.4, 2.0, 4.8], fov: 38 }}
       frameloop={running ? "always" : "never"}
       style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}
-      aria-label="Interactive 3D model of a terracotta three-seater sofa"
+      aria-label="Interactive 3D models of a terracotta three-seater sofa and a beige upholstered bed"
     >
       <color attach="background" args={["#141311"]} />
       {/* Responsive framing — the old fixed camera cropped the sofa's
@@ -109,7 +120,7 @@ export default function ShowcaseCanvas({ progressRef, running }: ShowcaseCanvasP
       <directionalLight position={[-5, 3, -2]} intensity={0.25} color="#cdd7ff" />
       <directionalLight position={[0, 2, 5]} intensity={0.3} color="#ffd9b8" />
 
-      <SofaRig progressRef={progressRef} />
+      <ShowcaseRig progressRef={progressRef} />
 
       <ContactShadows
         position={[0, 0.001, 0]}

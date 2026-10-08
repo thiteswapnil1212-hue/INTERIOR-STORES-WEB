@@ -26,6 +26,10 @@ const BEATS = [
     text: "Sized for your room, built in our Bhosari workshop.",
   },
   {
+    title: "Rest, reimagined.",
+    text: "Upholstered beds with tall headboards — sized for your room, built in Bhosari.",
+  },
+  {
     title: "Now make it yours.",
     text: "Pick a fabric and configuration in the 3D Studio.",
   },
@@ -33,9 +37,10 @@ const BEATS = [
 
 /**
  * Apple-style scroll-driven 3D showcase. A tall scroll track pins a
- * full-viewport stage; scrolling sweeps the sofa through a 270° turntable
- * while three copy beats cross-fade. The WebGL canvas is code-split,
- * renders only while on screen, and honours reduced-motion.
+ * full-viewport stage; scrolling sweeps a 360° turntable — the signature
+ * sofa for the first half, the upholstered bed for the second — while four
+ * copy beats cross-fade. The WebGL canvas is code-split, renders only
+ * while on screen, and honours reduced-motion.
  */
 export default function Showcase3D() {
   const trackRef = useRef<HTMLElement>(null);
@@ -68,7 +73,7 @@ export default function Showcase3D() {
       const total = rect.height - window.innerHeight;
       const p = Math.min(1, Math.max(0, -rect.top / Math.max(total, 1)));
       progressRef.current = p;
-      const b = p < 0.34 ? 0 : p < 0.67 ? 1 : 2;
+      const b = p < 0.25 ? 0 : p < 0.5 ? 1 : p < 0.75 ? 2 : 3;
       if (b !== beatRef.current) {
         beatRef.current = b;
         setBeat(b);
@@ -146,8 +151,8 @@ export default function Showcase3D() {
   return (
     <section
       ref={trackRef}
-      aria-label="3D showcase — scroll to rotate the sofa"
-      className="relative h-[320vh] bg-[#141311] text-[#fbf9f6]"
+      aria-label="3D showcase — scroll to rotate the sofa and bed"
+      className="relative h-[400vh] bg-[#141311] text-[#fbf9f6]"
     >
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         {/* 3D stage */}
@@ -196,7 +201,7 @@ export default function Showcase3D() {
                 >
                   <p className="font-serif text-2xl sm:text-3xl">{b.title}</p>
                   <p className="mt-2 text-sm leading-7 text-[#b9bab6]">{b.text}</p>
-                  {i === 2 && (
+                  {i === 3 && (
                     <Link
                       href="/3d-studio"
                       className="group pointer-events-auto mt-5 inline-flex min-h-12 items-center gap-2 bg-[#fbf9f6] px-6 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1b1c1a] transition-colors duration-300 hover:bg-[#c5a47e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c5a47e] focus-visible:ring-offset-2 focus-visible:ring-offset-[#141311]"
