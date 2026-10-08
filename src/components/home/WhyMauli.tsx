@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import TiltCard from "../motion/TiltCard";
 
 export default function WhyMauli() {
@@ -34,19 +35,32 @@ export default function WhyMauli() {
       <div className="mx-auto max-w-[1200px]">
 
         {/* Section Intro */}
-        <div className="mb-14 max-w-2xl">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-[#805533]">
-            Why Mauli
-          </p>
+        <div className="mb-14 grid items-center gap-10 md:grid-cols-12">
+          <div className="md:col-span-7">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-[#805533]">
+              Why Mauli
+            </p>
 
-          <h2 className="font-serif text-4xl leading-tight tracking-tight md:text-5xl">
-            Made around you.
-          </h2>
+            <h2 className="font-serif text-4xl leading-tight tracking-tight md:text-5xl">
+              Made around you.
+            </h2>
 
-          <p className="mt-5 max-w-xl text-sm leading-7 text-[#555755] md:text-base">
-            No catalogue pieces. Everything is made for your home — your
-            measurements, your fabric, your style.
-          </p>
+            <p className="mt-5 max-w-xl text-sm leading-7 text-[#555755] md:text-base">
+              No catalogue pieces. Everything is made for your home — your
+              measurements, your fabric, your style.
+            </p>
+          </div>
+
+          <div className="md:col-span-5">
+            <Image
+              src="/images/media-pack/cushions-detail.jpg"
+              alt="Close-up of a tufted velvet sofa with plush cushions"
+              width={1080}
+              height={1350}
+              sizes="(max-width: 768px) 100vw, 40vw"
+              className="aspect-[4/5] w-full object-cover"
+            />
+          </div>
         </div>
 
         {/* Reasons */}
