@@ -61,13 +61,22 @@ export default function ServicesSection() {
               Custom seating, curtains, beds and finishing details — made to
               fit your home.
             </p>
+            <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3">
             <Link
               href="/services"
-              className="group mt-6 inline-flex min-h-10 items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#805533] transition-colors hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+              className="group inline-flex min-h-10 items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#805533] transition-colors hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
             >
               View all services
               <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
+            <Link
+              href="/products"
+              className="group inline-flex min-h-10 items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#805533] transition-colors hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+            >
+              View all products
+              <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+            </div>
           </div>
         </div>
 
