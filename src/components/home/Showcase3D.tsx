@@ -152,6 +152,7 @@ export default function Showcase3D() {
     <section
       ref={trackRef}
       aria-label="3D showcase — scroll to rotate the sofa and bed"
+      data-scroll-moment
       className="relative h-[400vh] bg-[#141311] text-[#fbf9f6]"
     >
       <div className="sticky top-0 h-[100svh] overflow-hidden">
