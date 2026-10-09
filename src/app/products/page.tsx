@@ -4,6 +4,10 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import Reveal from "../../components/motion/Reveal";
 import { staggerDelay } from "../../lib/motion";
+import { WHATSAPP_NUMBER } from "../../lib/contact";
+
+const waLink = (message: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
 export const metadata: Metadata = {
   title: "Custom Furniture & Furnishing in Pune | Mauli Interior",
@@ -94,10 +98,10 @@ const products = [
 ];
 
 const benefits = [
-  "Products selected around your space",
-  "Home furnishing guidance",
-  "Pune & PCMC service",
-  "Made-to-measure solutions where required",
+  "Made to measure in our Bhosari workshop",
+  "Fabrics and materials chosen for your space",
+  "Home visit and measurement across Pune & PCMC",
+  "Guidance on colour, fabric and fit",
 ];
 
 export default function ProductsPage() {
@@ -133,8 +137,9 @@ export default function ProductsPage() {
 
             <div className="md:col-span-4">
               <p className="max-w-md text-sm leading-7 text-[#656765] sm:text-base">
-                From everyday comfort to finishing details, explore products
-                selected to bring comfort, character and warmth to your space.
+                Custom sofas, curtains, beds and finishing details — made
+                to measure in our Bhosari workshop for homes across Pune
+                and PCMC.
               </p>
 
               <Link
@@ -187,8 +192,9 @@ export default function ProductsPage() {
 
               <p className="mt-5 max-w-2xl text-sm leading-7 text-[#656765]">
                 Whether you are refreshing one room or furnishing a complete
-                space, we help you find products that work together with your
-                home and everyday needs.
+                space, we make and fit products around your room, your
+                comfort and the way you live — measured at your home,
+                built in our Bhosari workshop.
               </p>
             </div>
           </div>
@@ -350,7 +356,11 @@ export default function ProductsPage() {
                 </div>
 
                 <Link
-                  href={`/contact?product=${encodeURIComponent(product.title)}`}
+                  href={waLink(
+                    `Hello Mauli Interior! I'm interested in ${product.title}. Please share details.`
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="mt-5 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-colors duration-300 hover:text-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
                 >
                   Enquire About {product.title}
@@ -363,6 +373,41 @@ export default function ProductsPage() {
             </article>
             </Reveal>
           ))}
+
+          {/* CTA card — balances the grid and catches "something else" intent */}
+          <Reveal delay={staggerDelay(5, 90)} className="min-w-0">
+            <article className="flex h-full min-h-[320px] flex-col justify-between border border-[#805533]/25 bg-[#f4f0eb] p-8">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#805533]">
+                  Not sure?
+                </p>
+
+                <h3 className="mt-4 font-serif text-2xl leading-tight tracking-tight">
+                  Looking for something specific?
+                </h3>
+
+                <p className="mt-3 max-w-md text-sm leading-6 text-[#656765]">
+                  Every home is different. Tell us what you need on
+                  WhatsApp — we&apos;ll make it or help you find it.
+                </p>
+              </div>
+
+              <Link
+                href={waLink(
+                  "Hello Mauli Interior! I have a specific product requirement for my home."
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group mt-6 inline-flex min-h-11 w-fit items-center gap-2 bg-[#1b1c1a] px-6 text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+              >
+                Chat on WhatsApp
+                <ArrowUpRight
+                  aria-hidden="true"
+                  className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </Link>
+            </article>
+          </Reveal>
         </div>
       </section>
 
@@ -437,10 +482,20 @@ export default function ProductsPage() {
               </p>
             </div>
 
-            <p className="max-w-lg text-sm leading-6 text-[#656765]">
-              Have a requirement for your home or project? Talk to us about
-              your product needs.
-            </p>
+            <Link
+              href={waLink(
+                "Hello Mauli Interior! I have a product requirement for my home."
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex min-h-11 w-fit items-center gap-2 bg-[#1b1c1a] px-6 text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+            >
+              Talk to us on WhatsApp
+              <ArrowUpRight
+                aria-hidden="true"
+                className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
+            </Link>
           </div>
         </div>
       </section>
