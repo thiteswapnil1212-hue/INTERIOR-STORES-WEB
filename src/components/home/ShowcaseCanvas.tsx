@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useRef, useState } from "react";
+import { Suspense, useRef } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { ContactShadows, Environment, Lightformer } from "@react-three/drei";
@@ -20,7 +20,8 @@ const SWEEP = Math.PI * 2; // 360° turntable sweep across both products
 
 function ShowcaseRig({ progressRef }: { progressRef: MutableRefObject<number> }) {
   const group = useRef<THREE.Group>(null);
-  const [showBed, setShowBed] = useState(false);
+  const sofaRef = useRef<THREE.Group>(null);
+  const bedRef = useRef<THREE.Group>(null);
 
   useFrame((_, delta) => {
     if (!group.current) return;
@@ -32,17 +33,22 @@ function ShowcaseRig({ progressRef }: { progressRef: MutableRefObject<number> })
       4.5,
       delta
     );
-    const bed = p >= 0.5;
-    setShowBed((prev) => (prev === bed ? prev : bed));
+    // Swap products imperatively — never via React state inside the frame
+    // loop, so there is no mid-scroll unmount/remount. Both models mount
+    // once; only their visibility flips, at the back view (p = 0.5).
+    const showBed = p >= 0.5;
+    if (sofaRef.current) sofaRef.current.visible = !showBed;
+    if (bedRef.current) bedRef.current.visible = showBed;
   });
 
   return (
     <group ref={group} position={[0, 0, 0]}>
-      {showBed ? (
-        <BedModel fabricHex="#E8E2D5" config="queen" />
-      ) : (
+      <group ref={sofaRef}>
         <SofaModel fabricHex="#A75D42" config="3_seater" />
-      )}
+      </group>
+      <group ref={bedRef} visible={false}>
+        <BedModel fabricHex="#E8E2D5" config="queen" />
+      </group>
     </group>
   );
 }
