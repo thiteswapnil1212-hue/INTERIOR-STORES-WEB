@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/projects", priority: 0.8, changeFrequency: "monthly" },
     { path: "/about", priority: 0.7, changeFrequency: "monthly" },
     { path: "/contact", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/picks", priority: 0.6, changeFrequency: "monthly" },
   ];
 
   // NOTE: /3d-studio is intentionally excluded — it is noindexed (tool page),
