@@ -7,6 +7,10 @@ import Reveal from "../../components/motion/Reveal";
 import SplitText from "../../components/motion/SplitText";
 import HorizontalGallery from "../../components/projects/HorizontalGallery";
 import { ArrowRight } from "lucide-react";
+import { WHATSAPP_NUMBER } from "../../lib/contact";
+
+const waLink = (message: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
 export const metadata: Metadata = {
   title: "Our Work & Projects in Pune",
@@ -41,7 +45,7 @@ const projects = [
     description:
       "Made-to-order seating designed around your space, comfort, and fabric preferences.",
     image: "/images/sofas/sofa-hero.jpg",
-    imageAlt: "Custom-made sofa by Mauli Interior in a Pune home",
+    imageAlt: "Beige custom-style sofa in a bright living room",
   },
   {
     number: "02",
@@ -51,7 +55,7 @@ const projects = [
     description:
       "Curtain styles and fabrics selected to complement the character of your home.",
     image: "/images/home/featured-curtains.jpg",
-    imageAlt: "Custom curtains fitted by Mauli Interior",
+    imageAlt: "Sheer curtains styled in a bright living room",
   },
   {
     number: "03",
@@ -61,7 +65,7 @@ const projects = [
     description:
       "Decorative panels made to bring a considered finish to bedrooms and living spaces.",
     image: "/images/home/featured-beds.jpg",
-    imageAlt: "Bedroom with decorative wall and bed panels by Mauli Interior",
+    imageAlt: "Bedroom with upholstered wall and bed panels",
   },
   {
     number: "04",
@@ -69,9 +73,9 @@ const projects = [
     category: "Home Furnishing",
     location: "Pune",
     description:
-      "A tailored approach to furnishing, with details chosen to suit your requirements.",
+      "Complete furnishing — sofas, curtains, panels and details chosen to work together in your home.",
     image: "/images/home/featured-furnishing.jpg",
-    imageAlt: "Custom home furnishing by Mauli Interior",
+    imageAlt: "Styled living room with coordinated home furnishing",
   },
 ];
 
@@ -190,9 +194,6 @@ export default function ProjectsPage() {
             <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#6b6d69]">
               Featured category
             </p>
-            <span className="text-[9px] uppercase tracking-[0.14em] text-[#6b6d69]">
-              01 / 04
-            </span>
           </div>
 
           <div className="grid gap-7 md:grid-cols-12 md:items-end md:gap-10">
@@ -223,7 +224,11 @@ export default function ProjectsPage() {
               </div>
 
               <Link
-                href="/contact"
+                href={waLink(
+                  "Hello Mauli Interior! I'm interested in a Custom Sofa for my home. Please share details."
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group mt-7 inline-flex min-h-11 items-center gap-4 border-b border-[#1b1c1a] pb-2 text-[10px] font-semibold uppercase tracking-[0.14em] transition-colors hover:border-[#805533] hover:text-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
               >
                 Enquire about a sofa
@@ -239,51 +244,6 @@ export default function ProjectsPage() {
       {/* PROJECT GALLERY — scroll-driven horizontal sweep */}
       <HorizontalGallery projects={projects.slice(1)} />
 
-      {/* CUSTOM WORK CTA */}
-      <section aria-label="Start an enquiry" className="px-5 pb-20 sm:px-6 sm:pb-28 md:px-16">
-        <div className="mx-auto max-w-[1440px]">
-          <div className="relative overflow-hidden bg-[#e9e4dc] px-6 py-10 sm:px-10 sm:py-14 md:px-16 md:py-16">
-            <div
-              className="pointer-events-none absolute -right-12 -top-20 h-64 w-64 rounded-full border border-[#805533]/15 sm:-right-8 sm:-top-24 sm:h-80 sm:w-80"
-              aria-hidden="true"
-            />
-            <div
-              className="pointer-events-none absolute -right-4 -top-12 h-48 w-48 rounded-full border border-[#805533]/10 sm:h-64 sm:w-64"
-              aria-hidden="true"
-            />
-
-            <div className="relative flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-              <div className="max-w-2xl">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#805533]">
-                  Have something in mind?
-                </p>
-
-                <h2 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl md:text-5xl">
-                  Let&apos;s create something for your home.
-                </h2>
-
-                <p className="mt-4 max-w-lg text-[13px] leading-6 text-[#5c5e5c]">
-                  Tell us what you need. We&apos;ll discuss your space,
-                  preferences, and next steps.
-                </p>
-              </div>
-
-              <Link
-                href="/contact"
-                className="group inline-flex min-h-12 w-fit shrink-0 items-center gap-5 bg-[#1b1c1a] px-7 py-4 text-[10px] font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
-              >
-                Start an Enquiry
-                <span
-                  className="transition-transform duration-300 group-hover:translate-x-1"
-                  aria-hidden="true"
-                >
-                  <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
-                </span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
