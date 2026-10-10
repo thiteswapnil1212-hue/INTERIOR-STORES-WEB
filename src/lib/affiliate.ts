@@ -65,6 +65,42 @@ export const AFFILIATE_PICKS: AffiliatePick[] = [
       "Armrest caddies for remotes, books and phones.",
     query: "sofa armrest organizer caddy",
   },
+  {
+    title: "Mattress Protector",
+    blurb:
+      "Waterproof protectors that keep mattresses fresh for years.",
+    query: "waterproof mattress protector king size",
+  },
+  {
+    title: "Furniture Sliders",
+    blurb:
+      "Glide pads that let heavy sofas move without scratching floors.",
+    query: "furniture sliders for carpet and hard floor",
+  },
+  {
+    title: "Adhesive Wall Hooks",
+    blurb:
+      "Strong no-drill hooks for hanging decor, keys and more.",
+    query: "adhesive wall hooks heavy duty",
+  },
+  {
+    title: "Fabric Storage Boxes",
+    blurb:
+      "Foldable fabric boxes that tidy shelves and wardrobes beautifully.",
+    query: "fabric storage boxes foldable wardrobe",
+  },
+  {
+    title: "Door Draft Stopper",
+    blurb:
+      "Under-door seals that block dust, noise and AC loss.",
+    query: "door draft stopper under door seal",
+  },
+  {
+    title: "Bedside Caddy",
+    blurb:
+      "Hanging organizers for phones, books and glasses by the bed.",
+    query: "bedside caddy hanging organizer",
+  },
 ];
 
 export const affiliateUrl = (pick: AffiliatePick) => amazonSearch(pick.query);
