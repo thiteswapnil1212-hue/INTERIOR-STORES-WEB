@@ -162,12 +162,20 @@ export default function ProjectsPage() {
           </div>
 
           <Reveal className="mt-10 sm:mt-14">
-            <ParallaxImage
-              src="/images/media-pack/bedroom-tufted.jpg"
-              alt="Elegant bedroom with a brown tufted upholstered headboard"
-              sizes="100vw"
-              className="aspect-[16/8] w-full"
-            />
+            <div className="relative aspect-[16/8] w-full overflow-hidden bg-[#e8e3dd]">
+              <video
+                muted
+                autoPlay
+                loop
+                playsInline
+                preload="metadata"
+                poster="/images/media-pack/bedroom-tufted.jpg"
+                aria-label="Elegant bedroom with upholstered headboard"
+                className="h-full w-full object-cover"
+              >
+                <source src="/images/media-pack/projects-bedroom.mp4" type="video/mp4" />
+              </video>
+            </div>
           </Reveal>
         </div>
       </section>
