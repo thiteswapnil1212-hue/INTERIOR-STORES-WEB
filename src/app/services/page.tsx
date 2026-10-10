@@ -110,12 +110,20 @@ export default function ServicesPage() {
           </p>
 
           <Reveal className="mt-10 sm:mt-14">
-            <ParallaxImage
-              src="/images/media-pack/living-beige.jpg"
-              alt="Beige custom sofa styled with cushions in a bright living room"
-              sizes="100vw"
-              className="aspect-[16/8] w-full"
-            />
+            <div className="relative aspect-[16/8] w-full overflow-hidden bg-[#e8e3dd]">
+              <video
+                muted
+                autoPlay
+                loop
+                playsInline
+                preload="metadata"
+                poster="/images/media-pack/living-beige.jpg"
+                aria-label="Elegant living room with beige custom sofa"
+                className="h-full w-full object-cover"
+              >
+                <source src="/images/media-pack/services-hero.mp4" type="video/mp4" />
+              </video>
+            </div>
           </Reveal>
         </div>
       </section>
