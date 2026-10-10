@@ -70,26 +70,32 @@ export default function SplitText({
         <span key={li} className="block">
           {line.text.split(" ").map((word, wi, arr) => {
             const i = wordIndex++;
+            const isLast = wi === arr.length - 1;
             return (
-              <span key={wi}>
-                <span className="inline-block overflow-hidden pb-[0.08em] -mb-[0.08em] align-bottom">
-                  <span
-                    className="inline-block will-change-transform motion-reduce:transform-none motion-reduce:opacity-100"
-                    style={{
-                      transitionProperty: "transform, opacity",
-                      transitionDuration: "900ms",
-                      transitionTimingFunction: EASE,
-                      transitionDelay: visible ? `${delay + i * stagger}ms` : "0ms",
-                      transform: visible ? "translateY(0)" : "translateY(115%)",
-                      opacity: visible ? 1 : 0,
-                    }}
-                  >
-                    <span className={line.accent ? accentClassName : undefined}>
-                      {word}
-                    </span>
+              // The trailing space lives INSIDE the word's span (not as a
+              // whitespace-only text node) so screen readers, search engines
+              // and text extraction keep the word boundary: "word word",
+              // never "wordword".
+              <span
+                key={wi}
+                className="inline-block overflow-hidden pb-[0.08em] -mb-[0.08em] align-bottom"
+              >
+                <span
+                  className="inline-block will-change-transform motion-reduce:transform-none motion-reduce:opacity-100"
+                  style={{
+                    transitionProperty: "transform, opacity",
+                    transitionDuration: "900ms",
+                    transitionTimingFunction: EASE,
+                    transitionDelay: visible ? `${delay + i * stagger}ms` : "0ms",
+                    transform: visible ? "translateY(0)" : "translateY(115%)",
+                    opacity: visible ? 1 : 0,
+                  }}
+                >
+                  <span className={line.accent ? accentClassName : undefined}>
+                    {word}
+                    {!isLast && " "}
                   </span>
                 </span>
-                {wi < arr.length - 1 ? " " : null}
               </span>
             );
           })}
