@@ -10,7 +10,7 @@ const waLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
 export const metadata: Metadata = {
-  title: "Custom Furniture & Furnishing in Pune | Mauli Interior",
+  title: "Custom Furniture & Furnishing in Pune",
   description:
     "Explore custom sofas, curtains, beds & mattresses, wall & bed panels and cushions by Mauli Interior in Pune and PCMC.",
   keywords: [
@@ -189,11 +189,8 @@ export default function ProductsPage() {
 
             <div className="md:col-span-8">
               <h2 className="max-w-3xl font-serif text-3xl leading-tight tracking-tight sm:text-4xl md:text-5xl">
-                The details that make
-                <span className="text-[#805533]">
-                  {" "}
-                  a home feel yours.
-                </span>
+                The details that make{`\u00A0`}
+                <span className="text-[#805533]">a home feel yours.</span>
               </h2>
 
               <p className="mt-5 max-w-2xl text-sm leading-7 text-[#656765]">
@@ -430,11 +427,8 @@ export default function ProductsPage() {
               </p>
 
               <h2 className="max-w-lg font-serif text-4xl leading-tight tracking-tight sm:text-5xl">
-                More than just
-                <span className="text-[#805533]">
-                  {" "}
-                  products.
-                </span>
+                More than just{`\u00A0`}
+                <span className="text-[#805533]">products.</span>
               </h2>
 
               <p className="mt-5 max-w-md text-sm leading-7 text-[#656765]">
