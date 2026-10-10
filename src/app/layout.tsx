@@ -6,6 +6,7 @@ import Footer from "../components/layout/Footer";
 import WhatsAppFloat from "../components/layout/WhatsAppFloat";
 import BackToTop from "../components/layout/BackToTop";
 import MobileContactBar from "../components/layout/MobileContactBar";
+import SmoothScroll from "../components/motion/SmoothScroll";
 import { PRIMARY_TEL_HREF } from "../lib/contact";
 
 const siteUrl = "https://mauliinterior-stores-web.vercel.app";
@@ -212,6 +213,7 @@ export default function RootLayout({
   return (
     <html lang="en-IN">
       <body className="bg-[#fbf9f6] text-[#1b1c1a] antialiased">
+        <SmoothScroll />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
