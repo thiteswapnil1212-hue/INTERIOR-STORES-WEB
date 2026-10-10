@@ -10,6 +10,7 @@ const footerLinks = [
       { label: "Home", href: "/" },
       { label: "Services", href: "/services" },
       { label: "Custom Sofas", href: "/services/sofas" },
+      { label: "Products", href: "/products" },
       { label: "Projects", href: "/projects" },
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
@@ -146,7 +147,7 @@ export default function Footer() {
         {/* Bottom Row */}
         <div className="mt-14 flex flex-col gap-3 border-t border-[#fbf9f6]/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[11px] text-[#b9bab6]">
-            © {currentYear} Mauli Interior. All rights reserved.
+            {`© ${currentYear} Mauli Interior. All rights reserved.`}
           </p>
 
           <p className="text-[11px] text-[#b9bab6]">
