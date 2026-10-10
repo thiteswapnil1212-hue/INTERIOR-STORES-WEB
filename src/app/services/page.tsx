@@ -132,6 +132,7 @@ export default function ServicesPage() {
       <ScrollMoment
         model="curtains"
         kicker="Curtains"
+        trackClass="h-[130vh] md:h-[150vh]"
         title={
           <>
             Fabric that
