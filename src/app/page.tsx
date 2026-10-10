@@ -1,6 +1,5 @@
 
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 import ServicesSection from "../components/home/ServicesSection";
@@ -206,15 +205,18 @@ export default function Home() {
           >
             <div className="animate-hero-zoom group relative aspect-[4/3] w-full overflow-hidden bg-[#e8e3dd] sm:aspect-[5/4] md:aspect-[4/5] lg:h-[76vh] lg:aspect-auto">
               <TiltCard className="h-full w-full" maxTilt={4}>
-                <Image
-                  src="/images/home/hero.jpg"
-                  alt="Living room with home furnishing by Mauli Interior"
-                  fill
-                  priority
-                  fetchPriority="high"
-                  sizes="(max-width: 767px) 100vw, (max-width: 1279px) 58vw, 900px"
-                  className="object-cover transition-transform duration-700 ease-out motion-reduce:transition-none md:group-hover:scale-[1.025]"
-                />
+                <video
+                  muted
+                  autoPlay
+                  loop
+                  playsInline
+                  preload="metadata"
+                  poster="/images/home/hero.jpg"
+                  aria-label="Elegant living room with custom furnishing by Mauli Interior"
+                  className="h-full w-full object-cover"
+                >
+                  <source src="/images/media-pack/hero-living.mp4" type="video/mp4" />
+                </video>
 
                 <div
                   aria-hidden="true"
