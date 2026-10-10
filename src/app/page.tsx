@@ -269,10 +269,8 @@ export default function Home() {
 
             <div className="md:col-span-8">
               <h2 className="max-w-3xl font-serif text-3xl leading-tight tracking-tight sm:text-4xl md:text-5xl">
-                Good interiors aren&apos;t about how a room
-                looks.
+                Good interiors aren&apos;t about how a room looks.{`\u00A0`}
                 <span className="text-[#805533]">
-                  {" "}
                   They&apos;re about how it feels to live in.
                 </span>
               </h2>
