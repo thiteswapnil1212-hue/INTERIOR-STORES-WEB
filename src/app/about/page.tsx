@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import BreadcrumbJsonLd from "../../components/seo/BreadcrumbJsonLd";
 import SplitText from "../../components/motion/SplitText";
-import ParallaxImage from "../../components/motion/ParallaxImage";
+import ImageReveal from "../../components/motion/ImageReveal";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -95,11 +95,11 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <ParallaxImage
+          <ImageReveal
             src="/images/media-pack/about-living.jpg"
             alt="Warm living room with beige sofa, cushions and soft lighting"
             sizes="100vw"
-            className="mt-12 aspect-[16/8] w-full md:mt-16"
+            aspectClassName="mt-12 aspect-[16/8] w-full md:mt-16"
           />
 
           <div className="mt-20 border-t border-[#747878]/20 pt-5">
@@ -118,11 +118,11 @@ export default function AboutPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#805533]">
               Our Story
             </p>
-            <ParallaxImage
+            <ImageReveal
               src="/images/media-pack/workshop-wood.jpg"
               alt="Craftsman planing wood in a furniture workshop"
               sizes="(max-width: 768px) 100vw, 33vw"
-              className="mt-8 aspect-[3/4] w-full"
+              aspectClassName="mt-8 aspect-[3/4] w-full"
             />
           </div>
 
