@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import TiltCard from "../motion/TiltCard";
+import Reveal from "../motion/Reveal";
 
 export default function WhyMauli() {
   const reasons = [
@@ -68,43 +68,25 @@ export default function WhyMauli() {
           </div>
         </div>
 
-        {/* Reasons */}
-        <div className="grid border-t border-[#747878]/15 md:grid-cols-2">
-          {reasons.map((reason, index) => (
-            <TiltCard
-              key={reason.number}
-              maxTilt={4}
-              glare={false}
-              className={`border-b border-[#747878]/15 ${
-                index % 2 === 0
-                  ? "md:border-r md:border-[#747878]/15"
-                  : ""
-              }`}
-            >
-              <div
-                className="group h-full p-7 transition-colors duration-300 hover:bg-[#f6f3ee] motion-reduce:transition-none md:p-9"
-              >
-              {/* Number */}
-              <div className="mb-8 flex items-start justify-between">
-                <span className="text-xs font-medium tracking-[0.12em] text-[#805533]">
+        {/* Reasons — editorial index list */}
+        <div className="border-t border-[#1b1c1a]/15">
+          {reasons.map((reason) => (
+            <Reveal key={reason.number}>
+              <div className="group grid grid-cols-12 items-baseline gap-x-4 gap-y-2 border-b border-[#1b1c1a]/15 py-7 transition-colors duration-300 hover:bg-[#f6f3ee] motion-reduce:transition-none md:py-8">
+                <span className="col-span-2 font-serif text-sm italic text-[#805533] md:col-span-1 md:text-base">
                   {reason.number}
                 </span>
-
-                <span className="text-xs text-[#999a98] transition-transform duration-300 group-hover:translate-x-1">
-                  <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+                <h3 className="col-span-10 font-serif text-2xl tracking-tight text-[#1b1c1a] transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none md:col-span-5 md:text-3xl">
+                  {reason.title}
+                </h3>
+                <p className="col-span-10 col-start-3 max-w-md text-sm leading-6 text-[#555755] md:col-span-5 md:col-start-7">
+                  {reason.description}
+                </p>
+                <span className="hidden justify-self-end text-[#999a98] transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#805533] motion-reduce:transition-none md:col-span-1 md:block" aria-hidden="true">
+                  <ArrowRight className="h-4 w-4" />
                 </span>
               </div>
-
-              {/* Content */}
-              <h3 className="font-serif text-2xl text-[#1b1c1a] md:text-3xl">
-                {reason.title}
-              </h3>
-
-              <p className="mt-3 max-w-md text-sm leading-6 text-[#555755]">
-                {reason.description}
-              </p>
-              </div>
-            </TiltCard>
+            </Reveal>
           ))}
         </div>
 
