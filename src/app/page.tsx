@@ -10,7 +10,6 @@ import FAQSection from "../components/home/FAQSection";
 import FinalCTA from "../components/home/FinalCTA";
 import Marquee from "../components/home/Marquee";
 import Reveal from "../components/motion/Reveal";
-import TiltCard from "../components/motion/TiltCard";
 import FadeImage from "../components/motion/FadeImage";
 import ParallaxImage from "../components/motion/ParallaxImage";
 import ScrollMoment from "../components/motion/ScrollMoment";
@@ -117,125 +116,123 @@ export default function Home() {
   return (
     <main id="home-main" className="overflow-hidden bg-[#fbf9f6] text-[#1b1c1a]">
 
-      {/* HERO */}
+      {/* HERO — full-bleed cinematic */}
       <section
         aria-labelledby="hero-heading"
-        className="relative border-b border-black/5"
+        className="relative flex min-h-[100svh] items-end overflow-hidden bg-[#141311] text-[#fbf9f6]"
       >
-        <div className="mx-auto grid max-w-[1600px] grid-cols-1 items-center gap-8 px-5 py-8 sm:px-8 sm:py-12 md:min-h-[calc(100svh-80px)] md:grid-cols-12 md:gap-8 md:px-12 lg:px-16 lg:py-16">
-          {/* Hero content */}
-          <div className="order-2 flex flex-col md:order-1 md:col-span-5">
-            <div className="animate-fade-up mb-5 flex items-center gap-3 sm:mb-6">
-              <span
-                aria-hidden="true"
-                className="h-px w-8 bg-[#805533] sm:w-10"
-              />
+        {/* Video background */}
+        <video
+          muted
+          autoPlay
+          loop
+          playsInline
+          preload="metadata"
+          poster="/images/media-pack/hero-cinematic-poster.jpg"
+          aria-label="Burgundy linen curtains with sunlight streaming through the fabric"
+          className="absolute inset-0 h-full w-full object-cover"
+        >
+          <source src="/images/media-pack/hero-cinematic.mp4" type="video/mp4" />
+        </video>
 
-              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#805533] sm:text-[11px] sm:tracking-[0.2em]">
-                Home Interiors & Furnishing in Pune
-              </p>
-            </div>
+        {/* Cinematic scrims for text legibility */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/45"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent"
+        />
 
-            <h1
-              id="hero-heading"
-              style={{ animationDelay: "120ms" }}
-              className="animate-fade-up max-w-xl font-serif text-[clamp(2.4rem,8vw,5rem)] leading-[0.98] tracking-[-0.04em]"
-            >
-              Interiors made
-              <br />
-              <span className="text-[#805533]">
-                for your home.
-              </span>
-            </h1>
+        {/* Content */}
+        <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 pb-20 pt-36 sm:px-8 md:px-12 md:pb-24 lg:px-16">
+          <div className="animate-fade-up mb-5 flex items-center gap-3 sm:mb-6">
+            <span
+              aria-hidden="true"
+              className="h-px w-8 bg-[#c5a47e] sm:w-10"
+            />
 
-            <p
-              style={{ animationDelay: "240ms" }}
-              className="animate-fade-up mt-5 max-w-lg text-sm leading-7 text-[#555856] sm:mt-7 sm:text-base"
-            >
-              Custom sofas, curtains, beds and furnishing — made to measure
-              for homes across Pune and PCMC.
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#c5a47e] sm:text-[11px] sm:tracking-[0.2em]">
+              Home Interiors & Furnishing in Pune
             </p>
-
-            {/* Main actions */}
-            <div
-              style={{ animationDelay: "360ms" }}
-              className="animate-fade-up mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap"
-            >
-              <Link
-                href="/projects"
-                className="group inline-flex min-h-12 items-center justify-center gap-3 bg-[#1b1c1a] px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 sm:px-7"
-              >
-                Explore Our Work
-                <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-
-              <Link
-                href="/contact"
-                className="group inline-flex min-h-12 items-center justify-center gap-3 border border-[#1b1c1a]/20 px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-colors duration-300 hover:border-[#805533] hover:bg-[#805533] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 sm:px-7"
-              >
-                Get a Quote
-                <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-            </div>
-
-            {/* Trust points */}
-            <div
-              style={{ animationDelay: "480ms" }}
-              className="animate-fade-up mt-8 grid grid-cols-1 gap-3 border-t border-black/10 pt-5 sm:mt-10 sm:grid-cols-3 sm:gap-2 sm:pt-6"
-            >
-              {trustPoints.map((point) => (
-                <div
-                  key={point}
-                  className="flex items-start gap-2 text-xs leading-5 text-[#555856]"
-                >
-                  <span
-                    aria-hidden="true"
-                    className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#805533]"
-                  />
-                  <span>{point}</span>
-                </div>
-              ))}
-            </div>
           </div>
 
-          {/* Hero image */}
-          <div
-            style={{ animationDelay: "200ms" }}
-            className="animate-fade-up order-1 min-w-0 md:order-2 md:col-span-7"
+          <h1
+            id="hero-heading"
+            style={{ animationDelay: "120ms" }}
+            className="animate-fade-up max-w-4xl font-serif text-[clamp(2.8rem,9vw,6.5rem)] leading-[0.98] tracking-[-0.04em] text-[#fbf9f6]"
           >
-            <div className="animate-hero-zoom group relative aspect-[4/3] w-full overflow-hidden bg-[#e8e3dd] sm:aspect-[5/4] md:aspect-[4/5] lg:h-[76vh] lg:aspect-auto">
-              <TiltCard className="h-full w-full" maxTilt={4}>
-                <video
-                  muted
-                  autoPlay
-                  loop
-                  playsInline
-                  preload="metadata"
-                  poster="/images/home/hero.jpg"
-                  aria-label="Elegant living room with custom furnishing by Mauli Interior"
-                  className="h-full w-full object-cover"
-                >
-                  <source src="/images/media-pack/hero-living.mp4" type="video/mp4" />
-                </video>
+            Interiors made
+            <br />
+            <span className="text-[#c5a47e]">
+              for your home.
+            </span>
+          </h1>
 
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent"
-                />
+          <p
+            style={{ animationDelay: "240ms" }}
+            className="animate-fade-up mt-5 max-w-xl text-sm leading-7 text-white/75 sm:mt-7 sm:text-base"
+          >
+            Custom sofas, curtains, beds and furnishing — made to measure
+            for homes across Pune and PCMC.
+          </p>
 
-                {/* Service area badge */}
-                <div className="absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] bg-white/95 px-4 py-3 backdrop-blur-sm sm:bottom-5 sm:left-5 sm:px-5 sm:py-4">
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#805533]">
-                    Serving
-                  </p>
+          {/* Main actions */}
+          <div
+            style={{ animationDelay: "360ms" }}
+            className="animate-fade-up mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap"
+          >
+            <Link
+              href="/projects"
+              className="group inline-flex min-h-12 items-center justify-center gap-3 bg-[#fbf9f6] px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-colors duration-300 hover:bg-[#c5a47e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c5a47e] focus-visible:ring-offset-2 sm:px-7"
+            >
+              Explore Our Work
+              <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
 
-                  <p className="mt-1 text-xs font-medium leading-5 text-[#1b1c1a] sm:text-sm">
-                    Pune · PCMC · Bhosari · Moshi
-                  </p>
-                </div>
-              </TiltCard>
-            </div>
+            <Link
+              href="/contact"
+              className="group inline-flex min-h-12 items-center justify-center gap-3 border border-white/30 px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:border-[#c5a47e] hover:bg-[#c5a47e] hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c5a47e] focus-visible:ring-offset-2 sm:px-7"
+            >
+              Get a Quote
+              <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
           </div>
+
+          {/* Trust points + serving */}
+          <div
+            style={{ animationDelay: "480ms" }}
+            className="animate-fade-up mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-white/15 pt-6 sm:mt-12"
+          >
+            {trustPoints.map((point) => (
+              <div
+                key={point}
+                className="flex items-center gap-2 text-xs leading-5 text-white/70"
+              >
+                <span
+                  aria-hidden="true"
+                  className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#c5a47e]"
+                />
+                <span>{point}</span>
+              </div>
+            ))}
+
+            <span className="ml-auto text-[10px] font-semibold uppercase tracking-[0.18em] text-white/55">
+              Pune · PCMC · Bhosari · Moshi
+            </span>
+          </div>
+        </div>
+
+        {/* Scroll cue */}
+        <div
+          aria-hidden="true"
+          className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex"
+        >
+          <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-white/50">
+            Scroll
+          </span>
+          <span className="h-8 w-px bg-white/30" />
         </div>
       </section>
 
