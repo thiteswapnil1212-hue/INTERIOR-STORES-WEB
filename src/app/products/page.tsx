@@ -5,6 +5,7 @@ import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import Reveal from "../../components/motion/Reveal";
 import { staggerDelay } from "../../lib/motion";
 import { WHATSAPP_NUMBER } from "../../lib/contact";
+import AffiliatePicks from "../../components/products/AffiliatePicks";
 
 const waLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -413,6 +414,12 @@ export default function ProductsPage() {
           </Reveal>
         </div>
       </section>
+
+      {/* =====================================================
+          SHOP OUR PICKS — affiliate recommendations
+      ====================================================== */}
+
+      <AffiliatePicks />
 
       {/* =====================================================
           WHY MAULI PRODUCTS
