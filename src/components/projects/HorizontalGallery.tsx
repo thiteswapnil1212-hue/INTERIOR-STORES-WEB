@@ -5,6 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import TiltCard from "../motion/TiltCard";
+import { WHATSAPP_NUMBER } from "../../lib/contact";
+
+const waLink = (message: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
 export type GalleryProject = {
   number: string;
@@ -71,6 +75,17 @@ export default function HorizontalGallery({
       const maxShift = Math.max(0, row.scrollWidth - stage.clientWidth);
       row.style.transform = `translate3d(${(-current * maxShift).toFixed(1)}px, 0, 0)`;
 
+      // Inner image parallax — each card's photo drifts against its frame
+      // for a layered, premium depth feel as the row sweeps.
+      const vw = window.innerWidth;
+      const hImgs = row.querySelectorAll("[data-himg]");
+      for (let k = 0; k < hImgs.length; k++) {
+        const el = hImgs[k] as HTMLElement;
+        const r = el.getBoundingClientRect();
+        const offset = (r.left + r.width / 2 - vw / 2) / vw; // -0.5..0.5
+        el.style.transform = `translate3d(${(-offset * 48).toFixed(1)}px, 0, 0)`;
+      }
+
       if (barRef.current) {
         barRef.current.style.transform = `scaleX(${current.toFixed(3)})`;
       }
@@ -131,14 +146,16 @@ export default function HorizontalGallery({
         >
           <TiltCard maxTilt={5} className="h-full">
           <div className="relative aspect-[4/3] overflow-hidden bg-[#e9e4dc]">
-            <Image
-              src={project.image}
-              alt={project.imageAlt}
-              fill
-              priority={i === 0}
-              sizes="(max-width: 640px) 70vw, (max-width: 1024px) 56vw, 36vw"
-              className="object-cover transition-transform duration-500 ease-primary motion-reduce:transition-none md:group-hover:scale-[1.03]"
-            />
+            <div data-himg className="absolute -inset-[7%] will-change-transform">
+              <Image
+                src={project.image}
+                alt={project.imageAlt}
+                fill
+                priority={i === 0}
+                sizes="(max-width: 640px) 70vw, (max-width: 1024px) 56vw, 36vw"
+                className="object-cover"
+              />
+            </div>
           </div>
 
           <div className="mt-5 flex items-start justify-between gap-4">
@@ -158,8 +175,12 @@ export default function HorizontalGallery({
             </div>
 
             <Link
-              href="/contact"
-              aria-label={`Enquire about ${project.title}`}
+              href={waLink(
+                `Hello Mauli Interior! I'm interested in ${project.title} for my home. Please share details.`
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Enquire about ${project.title} on WhatsApp`}
               className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#747878]/25 text-lg transition-[background-color,border-color,color] duration-300 hover:border-[#805533] hover:bg-[#805533] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533]"
             >
               <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
@@ -184,7 +205,11 @@ export default function HorizontalGallery({
           </p>
         </div>
         <Link
-          href="/contact"
+          href={waLink(
+            "Hello Mauli Interior! I have a project in mind for my home. Please share details."
+          )}
+          target="_blank"
+          rel="noopener noreferrer"
           className="group mt-10 inline-flex min-h-12 w-fit items-center gap-5 bg-white px-7 py-4 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#1b1c1a] transition-colors duration-300 hover:bg-[#805533] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
         >
           Start an Enquiry
@@ -228,7 +253,7 @@ export default function HorizontalGallery({
           <div className="mb-8 flex items-end justify-between gap-6 sm:mb-10">
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#805533]">
-                Explore our services
+                Explore our work
               </p>
               <h2 className="mt-3 font-serif text-3xl leading-tight sm:text-4xl md:text-5xl">
                 Crafted around you.
@@ -274,7 +299,7 @@ function GalleryHeader() {
   return (
     <div className="mb-10 sm:mb-14">
       <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#805533]">
-        Explore our services
+        Explore our work
       </p>
       <h2 className="mt-3 font-serif text-3xl leading-tight sm:text-4xl md:text-5xl">
         Crafted around you.
