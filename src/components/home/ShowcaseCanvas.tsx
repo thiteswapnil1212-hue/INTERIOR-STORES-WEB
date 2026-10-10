@@ -97,7 +97,7 @@ export default function ShowcaseCanvas({ progressRef, running }: ShowcaseCanvasP
             position={[-5, 2, 2]}
             rotation-y={Math.PI / 2}
             scale={[7, 3, 1]}
-            color="#dfe8ff"
+            color="#f0e8dc"
           />
           <Lightformer
             intensity={0.8}
@@ -116,21 +116,22 @@ export default function ShowcaseCanvas({ progressRef, running }: ShowcaseCanvasP
       </Suspense>
 
       {/* Key light for shadows; environment handles the fill */}
-      <ambientLight intensity={0.22} />
+      <ambientLight intensity={0.18} />
       <directionalLight
         position={[4, 6, 3]}
-        intensity={1.5}
+        intensity={1.6}
+        color="#fff1dd"
         castShadow
         shadow-mapSize={mobile ? [512, 512] : [1024, 1024]}
       />
-      <directionalLight position={[-5, 3, -2]} intensity={0.25} color="#cdd7ff" />
+      <directionalLight position={[-5, 3, -2]} intensity={0.18} color="#e8e0d4" />
       <directionalLight position={[0, 2, 5]} intensity={0.3} color="#ffd9b8" />
 
       <ShowcaseRig progressRef={progressRef} />
 
       <ContactShadows
         position={[0, 0.001, 0]}
-        opacity={0.55}
+        opacity={0.62}
         scale={10}
         blur={2.8}
         far={3.4}
