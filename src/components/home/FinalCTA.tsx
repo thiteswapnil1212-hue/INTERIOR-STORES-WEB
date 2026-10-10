@@ -1,10 +1,23 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 export default function FinalCTA() {
   return (
-    <section aria-label="Contact Mauli Interior" className="border-t border-[#747878]/15 bg-[#1b1c1a] px-6 py-24 text-[#fbf9f6] md:px-16 md:py-32">
-      <div className="mx-auto max-w-[1000px] text-center">
+    <section aria-label="Contact Mauli Interior" className="relative overflow-hidden border-t border-[#747878]/15 bg-[#1b1c1a] px-6 py-24 text-[#fbf9f6] md:px-16 md:py-32">
+      {/* Cinematic backdrop */}
+      <div aria-hidden="true" className="absolute inset-0">
+        <Image
+          src="/images/media-pack/living-beige.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover opacity-30"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1b1c1a]/70 via-[#1b1c1a]/55 to-[#1b1c1a]/90" />
+      </div>
+
+      <div className="relative mx-auto max-w-[1000px] text-center">
 
         {/* Eyebrow */}
         <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#c29a78]">
