@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     canonical: "/projects",
   },
   openGraph: {
-    title: "Our Work & Projects in Pune | Mauli Interior",
+    title: "Our Work & Projects in Pune",
     description:
       "Explore custom sofas, curtains, wall panels and furnishing work by Mauli Interior across Pune and PCMC.",
     url: "/projects",
