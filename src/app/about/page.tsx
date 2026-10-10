@@ -6,7 +6,7 @@ import ParallaxImage from "../../components/motion/ParallaxImage";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Mauli Interior | Pune",
+  title: "About Mauli Interior in Pune",
   description:
     "Learn about Mauli Interior — custom furnishing solutions for homes across Pune and Pimpri-Chinchwad since 2009. Quality sofas, curtains, beds, panels and more.",
   alternates: {
@@ -465,7 +465,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#805533] px-6 py-24 text-[#fbf9f6] md:px-16 md:py-32">
+      <section className="bg-[#805533] px-6 py-16 text-[#fbf9f6] md:px-16 md:py-20">
         <div className="mx-auto flex max-w-[1440px] flex-col gap-12 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="mb-5 text-xs font-semibold uppercase tracking-[0.16em] text-[#e1cdbb]">
