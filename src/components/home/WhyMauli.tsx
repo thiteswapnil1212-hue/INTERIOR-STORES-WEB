@@ -1,5 +1,4 @@
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
 import TiltCard from "../motion/TiltCard";
 
 export default function WhyMauli() {
@@ -52,14 +51,20 @@ export default function WhyMauli() {
           </div>
 
           <div className="md:col-span-5">
-            <Image
-              src="/images/media-pack/cushions-detail.jpg"
-              alt="Close-up of a tufted velvet sofa with plush cushions"
-              width={1080}
-              height={1350}
-              sizes="(max-width: 768px) 100vw, 40vw"
-              className="aspect-[4/5] w-full object-cover"
-            />
+            <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#e8e3dd]">
+              <video
+                muted
+                autoPlay
+                loop
+                playsInline
+                preload="metadata"
+                poster="/images/media-pack/cushions-detail.jpg"
+                aria-label="Close-up of premium fabric craftsmanship"
+                className="h-full w-full object-cover"
+              >
+                <source src="/images/media-pack/whymauli-fabric.mp4" type="video/mp4" />
+              </video>
+            </div>
           </div>
         </div>
 
