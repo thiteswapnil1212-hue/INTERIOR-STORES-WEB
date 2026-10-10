@@ -11,6 +11,7 @@ const footerLinks = [
       { label: "Services", href: "/services" },
       { label: "Custom Sofas", href: "/services/sofas" },
       { label: "Products", href: "/products" },
+      { label: "Shop Our Picks", href: "/picks" },
       { label: "Projects", href: "/projects" },
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
