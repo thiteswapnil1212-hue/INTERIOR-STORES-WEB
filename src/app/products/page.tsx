@@ -195,10 +195,9 @@ export default function ProductsPage() {
               </h2>
 
               <p className="mt-5 max-w-2xl text-sm leading-7 text-[#656765]">
-                Whether you are refreshing one room or furnishing a complete
-                space, we make and fit products around your room, your
-                comfort and the way you live — measured at your home,
-                built in our Bhosari workshop.
+                Below are our handpicked essentials — quality home products
+                we recommend, available on Amazon.in. Further down, explore
+                what we craft ourselves in our Bhosari workshop.
               </p>
             </div>
           </div>
@@ -241,6 +240,12 @@ export default function ProductsPage() {
           </div>
         </div>
       </section>
+
+      {/* =====================================================
+          SHOP OUR PICKS — affiliate recommendations (main focus)
+      ====================================================== */}
+
+      <AffiliatePicks />
 
       {/* =====================================================
           PRODUCT RANGE
@@ -418,8 +423,6 @@ export default function ProductsPage() {
       {/* =====================================================
           SHOP OUR PICKS — affiliate recommendations
       ====================================================== */}
-
-      <AffiliatePicks />
 
       {/* =====================================================
           WHY MAULI PRODUCTS
