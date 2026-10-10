@@ -156,14 +156,20 @@ export default function ProductsPage() {
           </div>
 
           <Reveal className="mt-12 md:mt-16">
-            <Image
-              src="/images/media-pack/bedroom-beige.jpg"
-              alt="Bedroom with beige upholstered bed and sheer curtains"
-              width={1600}
-              height={800}
-              sizes="100vw"
-              className="aspect-[16/8] w-full object-cover"
-            />
+            <div className="relative aspect-[16/8] w-full overflow-hidden bg-[#e8e3dd]">
+              <video
+                muted
+                autoPlay
+                loop
+                playsInline
+                preload="metadata"
+                poster="/images/media-pack/bedroom-beige.jpg"
+                aria-label="Elegant bedroom with custom furnishing"
+                className="h-full w-full object-cover"
+              >
+                <source src="/images/media-pack/products-bedroom.mp4" type="video/mp4" />
+              </video>
+            </div>
           </Reveal>
         </div>
       </section>
