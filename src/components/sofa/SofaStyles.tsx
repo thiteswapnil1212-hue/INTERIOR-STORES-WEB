@@ -7,8 +7,8 @@ const sofaStyles = [
     title: "L-Shape Sofas",
     description:
       "Comfortable L-shaped sofas designed for modern living rooms, family spaces and larger seating areas.",
-    image: "/images/sofas/l-shape-sofa.jpg",
-    alt: "Custom L-shaped sofa for a modern living room by Mauli Interior",
+    image: "/images/media-pack/living-couch.jpg",
+    alt: "Spacious beige L-shaped style sofa with cushions in a bright living room",
   },
   {
     title: "Straight Sofas",
@@ -21,8 +21,8 @@ const sofaStyles = [
     title: "Custom Sofas",
     description:
       "Made-to-measure sofas created around your room dimensions, comfort preferences and interior style.",
-    image: "/images/sofas/custom-sofa.jpg",
-    alt: "Custom-made sofa designed for a home in Pune by Mauli Interior",
+    image: "/images/media-pack/living-beige.jpg",
+    alt: "Beige custom-style sofa close-up with side table and flowers",
   },
 ];
 
