@@ -406,12 +406,20 @@ export default function AboutPage() {
             </Link>
           </div>
 
-          <ParallaxImage
-            src="/images/media-pack/workshop-sewing.jpg"
-            alt="Hands guiding fabric through an industrial sewing machine"
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="aspect-[4/5] w-full"
-          />
+          <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#e8e3dd]">
+            <video
+              muted
+              autoPlay
+              loop
+              playsInline
+              preload="metadata"
+              poster="/images/media-pack/workshop-sewing.jpg"
+              aria-label="Craftsmanship in the Mauli Interior workshop"
+              className="h-full w-full object-cover"
+            >
+              <source src="/images/media-pack/workshop-craft.mp4" type="video/mp4" />
+            </video>
+          </div>
         </div>
       </section>
 
