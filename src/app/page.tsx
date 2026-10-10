@@ -11,7 +11,7 @@ import FinalCTA from "../components/home/FinalCTA";
 import Marquee from "../components/home/Marquee";
 import Reveal from "../components/motion/Reveal";
 import FadeImage from "../components/motion/FadeImage";
-import ParallaxImage from "../components/motion/ParallaxImage";
+import ImageReveal from "../components/motion/ImageReveal";
 import ScrollMoment from "../components/motion/ScrollMoment";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Showcase3D from "../components/home/Showcase3D";
@@ -283,11 +283,11 @@ export default function Home() {
       {/* CRAFT BAND */}
       <Reveal>
         <div className="mx-auto max-w-[1600px] px-5 py-10 sm:px-8 md:px-12 lg:px-16">
-          <ParallaxImage
+          <ImageReveal
             src="/images/media-pack/curtains-sheer.jpg"
             alt="Sunlight filtering through sheer linen curtains"
             sizes="100vw"
-            className="aspect-[16/10] w-full md:aspect-[21/9]"
+            aspectClassName="aspect-[16/10] w-full md:aspect-[21/9]"
           />
         </div>
       </Reveal>
