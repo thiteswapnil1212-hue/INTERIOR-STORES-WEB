@@ -795,10 +795,10 @@ function WallPanelModel({ fabricHex, config }: { fabricHex: string; config: Conf
 
 /** Flattering default angle per furniture type (flat pieces face the camera). */
 const CAMERA_POSITIONS: Record<FurnitureType, [number, number, number]> = {
-  sofa: [3.1, 2.0, 4.4],
-  bed: [3.4, 2.2, 4.8],
-  curtains: [0, 1.7, 5.2],
-  wall_panel: [0, 1.6, 4.6],
+  sofa: [2.5, 1.6, 3.5],
+  bed: [2.7, 1.8, 3.8],
+  curtains: [0, 1.5, 4.2],
+  wall_panel: [0, 1.4, 3.7],
 };
 
 export default function StudioViewer({ furniture, fabricHex, config }: StudioViewerProps) {
