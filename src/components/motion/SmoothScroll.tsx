@@ -20,6 +20,9 @@ export default function SmoothScroll() {
       touchMultiplier: 1.6,
     });
 
+    // Expose for programmatic scrolls (e.g. BackToTop)
+    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
+
     let raf = 0;
     const loop = (time: number) => {
       lenis.raf(time);
@@ -29,6 +32,7 @@ export default function SmoothScroll() {
 
     return () => {
       cancelAnimationFrame(raf);
+      (window as unknown as { __lenis?: Lenis }).__lenis = undefined;
       lenis.destroy();
     };
   }, []);
