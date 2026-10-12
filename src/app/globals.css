@@ -74,7 +74,6 @@ html {
   min-width: 320px;
   background: var(--background);
 
-  scroll-behavior: smooth;
   scroll-padding-top: var(--header-height);
 
   scrollbar-width: thin;
