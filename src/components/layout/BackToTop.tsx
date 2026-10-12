@@ -54,7 +54,11 @@ export default function BackToTop() {
   return (
     <button
       type="button"
-      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      onClick={() => {
+        const lenis = (window as unknown as { __lenis?: { scrollTo: (t: number) => void } }).__lenis;
+        if (lenis) lenis.scrollTo(0);
+        else window.scrollTo({ top: 0, behavior: "smooth" });
+      }}
       aria-label="Back to top"
       tabIndex={visible ? 0 : -1}
       className={`fixed bottom-24 left-5 z-40 flex h-12 w-12 md:bottom-8 items-center justify-center rounded-full bg-[#1b1c1a] text-white shadow-[0_8px_24px_rgba(27,28,26,0.35)] transition-[transform,opacity,background-color] duration-300 hover:bg-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2 md:bottom-8 md:left-8 ${
