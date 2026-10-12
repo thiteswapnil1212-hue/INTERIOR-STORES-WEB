@@ -127,7 +127,8 @@ export default function Home() {
           autoPlay
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
+          fetchPriority="high"
           poster="/images/media-pack/hero-cinematic-poster.jpg"
           aria-label="Burgundy linen curtains with sunlight streaming through the fabric"
           className="absolute inset-0 h-full w-full object-cover"
