@@ -141,6 +141,14 @@ export default function Home() {
           aria-hidden="true"
           className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/45"
         />
+        {/* Film grain — subtle cinematic texture */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-[0.07] mix-blend-overlay"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          }}
+        />
         <div
           aria-hidden="true"
           className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent"
@@ -151,22 +159,22 @@ export default function Home() {
           <div className="animate-fade-up mb-5 flex items-center gap-3 sm:mb-6">
             <span
               aria-hidden="true"
-              className="h-px w-8 bg-[#c5a47e] sm:w-10"
+              className="h-px w-12 bg-[#c5a47e]/80 sm:w-16"
             />
 
-            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#c5a47e] sm:text-[11px] sm:tracking-[0.2em]">
-              Home Interiors & Furnishing in Pune
+            <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-[#c5a47e] sm:text-[11px]">
+              Home Interiors &amp; Furnishing — Pune
             </p>
           </div>
 
           <h1
             id="hero-heading"
             style={{ animationDelay: "120ms" }}
-            className="animate-fade-up max-w-4xl font-serif text-[clamp(2.8rem,9vw,6.5rem)] leading-[0.98] tracking-[-0.04em] text-[#fbf9f6]"
+            className="animate-fade-up max-w-5xl font-serif text-[clamp(3rem,10vw,7.5rem)] font-light leading-[0.95] tracking-[-0.03em] text-[#fbf9f6]"
           >
             Interiors made
             <br />
-            <span className="text-[#c5a47e]">
+            <span className="font-normal italic text-[#c5a47e]">
               for your home.
             </span>
           </h1>
@@ -186,25 +194,27 @@ export default function Home() {
           >
             <Link
               href="/projects"
-              className="group inline-flex min-h-12 items-center justify-center gap-3 bg-[#fbf9f6] px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-colors duration-300 hover:bg-[#c5a47e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c5a47e] focus-visible:ring-offset-2 sm:px-7"
+              className="group relative inline-flex min-h-12 items-center justify-center gap-3 overflow-hidden bg-[#fbf9f6] px-8 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.22em] text-[#1b1c1a] transition-colors duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c5a47e] focus-visible:ring-offset-2 sm:px-10"
             >
-              Explore Our Work
-              <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <span aria-hidden="true" className="absolute inset-0 origin-left scale-x-0 bg-[#c5a47e] transition-transform duration-500 ease-out group-hover:scale-x-100" />
+              <span className="relative">Explore Our Work</span>
+              <ArrowUpRight aria-hidden="true" className="relative h-3.5 w-3.5 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
 
             <Link
               href="/contact"
-              className="group inline-flex min-h-12 items-center justify-center gap-3 border border-white/30 px-6 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:border-[#c5a47e] hover:bg-[#c5a47e] hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c5a47e] focus-visible:ring-offset-2 sm:px-7"
+              className="group relative inline-flex min-h-12 items-center justify-center gap-3 overflow-hidden border border-white/25 px-8 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition-colors duration-500 hover:border-[#c5a47e] hover:text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c5a47e] focus-visible:ring-offset-2 sm:px-10"
             >
-              Get a Quote
-              <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <span aria-hidden="true" className="absolute inset-0 origin-left scale-x-0 bg-[#c5a47e] transition-transform duration-500 ease-out group-hover:scale-x-100" />
+              <span className="relative">Get a Quote</span>
+              <ArrowUpRight aria-hidden="true" className="relative h-3.5 w-3.5 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>
 
           {/* Trust points + serving */}
           <div
             style={{ animationDelay: "480ms" }}
-            className="animate-fade-up mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-white/15 pt-6 sm:mt-12"
+            className="animate-fade-up mt-12 flex flex-wrap items-center gap-x-10 gap-y-3 border-t border-white/10 pt-7 sm:mt-16"
           >
             {trustPoints.map((point) => (
               <div
@@ -269,9 +279,9 @@ export default function Home() {
             </div>
 
             <div className="md:col-span-8">
-              <h2 className="max-w-3xl font-serif text-3xl leading-tight tracking-tight sm:text-4xl md:text-5xl">
+              <h2 className="max-w-3xl font-serif text-3xl font-light leading-[1.15] tracking-tight sm:text-4xl md:text-[3.4rem]">
                 Good interiors aren&apos;t about how a room looks.{`\u00A0`}
-                <span className="text-[#805533]">
+                <span className="italic text-[#805533]">
                   They&apos;re about how it feels to live in.
                 </span>
               </h2>
@@ -338,13 +348,16 @@ export default function Home() {
                     alt={service.imageAlt}
                     fill
                     sizes="(max-width: 639px) 100vw, (max-width: 767px) 50vw, 33vw"
-                    className="object-cover transition-[opacity,transform] duration-500 ease-primary motion-reduce:transition-none md:group-hover:scale-[1.04]"
+                    className="object-cover transition-[opacity,transform] duration-700 ease-out motion-reduce:transition-none md:group-hover:scale-[1.05]"
                   />
+                  <div aria-hidden="true" className="absolute inset-0 bg-[#1b1c1a]/0 transition-colors duration-700 md:group-hover:bg-[#1b1c1a]/10" />
                 </div>
 
-                <div className="border-b border-black/10 py-5">
+                <div className="relative py-5">
+                  <span aria-hidden="true" className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-100 bg-black/10 transition-transform duration-500 ease-out md:group-hover:scale-x-0" />
+                  <span aria-hidden="true" className="absolute bottom-0 left-0 h-px w-full origin-right scale-x-0 bg-[#805533] transition-transform duration-500 ease-out md:group-hover:origin-left md:group-hover:scale-x-100" />
                   <div className="flex items-center justify-between gap-4">
-                    <h3 className="font-serif text-2xl">
+                    <h3 className="font-serif text-2xl font-light tracking-tight">
                       {service.title}
                     </h3>
 
