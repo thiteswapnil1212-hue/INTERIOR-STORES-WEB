@@ -86,9 +86,9 @@ export default function ServicesPage() {
         className="border-b border-black/5 px-5 py-14 sm:px-8 sm:py-20 md:px-12 lg:px-16 lg:py-28"
       >
         <div className="mx-auto max-w-[1440px]">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="h-px w-8 bg-[#805533]" aria-hidden="true" />
-            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#805533]">
+          <div className="flex items-center gap-4 mb-8">
+            <span className="h-px w-12 bg-[#805533]/80" aria-hidden="true" />
+            <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-[#805533]">
               What We Make
             </p>
           </div>
@@ -96,7 +96,7 @@ export default function ServicesPage() {
           <SplitText
             as="h1"
             id="services-page-heading"
-            className="font-serif text-4xl leading-[1.0] tracking-tight sm:text-6xl md:text-7xl"
+            className="font-serif font-light text-4xl leading-[1.0] tracking-tight sm:text-6xl md:text-7xl"
             lines={[
               { text: "Furnishing for" },
               { text: "every room.", accent: true },
@@ -111,6 +111,13 @@ export default function ServicesPage() {
 
           <Reveal className="mt-10 sm:mt-14">
             <div className="relative aspect-[16/8] w-full overflow-hidden bg-[#e8e3dd]">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 z-10 opacity-[0.07] mix-blend-overlay"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+                }}
+              />
               <video
                 muted
                 autoPlay
@@ -172,17 +179,17 @@ export default function ServicesPage() {
                     className="aspect-[4/3] w-full"
                     imgClassName="transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                  <span className="absolute left-5 top-5 bg-[#1b1c1a]/85 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
+                  <span className="absolute left-5 top-4 font-serif text-5xl font-light italic text-white/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]" aria-hidden="true">
                     {service.number}
                   </span>
                 </Link>
                 </TiltCard>
 
                 <div className="max-w-lg">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#805533]">
-                    Service {service.number}
+                  <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-[#805533]">
+                    {service.number} — Service
                   </p>
-                  <h2 className="mt-3 font-serif text-3xl leading-tight sm:text-4xl lg:text-5xl">
+                  <h2 className="mt-3 font-serif font-light text-3xl leading-[1.1] tracking-tight sm:text-4xl lg:text-5xl">
                     {service.title}
                   </h2>
                   <p className="mt-4 text-[14px] leading-7 text-[#5c5e5c] sm:text-[15px]">
@@ -190,11 +197,12 @@ export default function ServicesPage() {
                   </p>
                   <Link
                     href={service.href}
-                    className="group mt-6 inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-colors duration-300 hover:text-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+                    className="group relative mt-6 inline-flex items-center gap-3 pb-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
                   >
+                    <span aria-hidden="true" className="absolute bottom-0 left-0 h-px w-full origin-right scale-x-0 bg-[#805533] transition-transform duration-500 ease-out group-hover:origin-left group-hover:scale-x-100" />
                     {service.cta}
                     <span
-                      className="transition-transform duration-300 group-hover:translate-x-1"
+                      className="transition-transform duration-500 group-hover:translate-x-1"
                       aria-hidden="true"
                     >
                       <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
@@ -209,8 +217,9 @@ export default function ServicesPage() {
         <div className="mx-auto mt-16 max-w-[1440px] text-center sm:mt-20">
           <Link
             href="/products"
-            className="group inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1b1c1a] transition-colors duration-300 hover:text-[#805533] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
+            className="group relative inline-flex items-center gap-3 pb-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#1b1c1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#805533] focus-visible:ring-offset-2"
           >
+            <span aria-hidden="true" className="absolute bottom-0 left-0 h-px w-full origin-right scale-x-0 bg-[#805533] transition-transform duration-500 ease-out group-hover:origin-left group-hover:scale-x-100" />
             Browse the complete product range
             <span
               className="transition-transform duration-300 group-hover:translate-x-1"
